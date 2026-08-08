@@ -2,288 +2,282 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Khai báo viewport cho phép điện thoại dùng 2 ngón tay zoom ảnh thoải mái -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <!-- KHÓA CHẶT TRÌNH DUYỆT Ở CHẾ ĐỘ SÁNG -->
+    <meta name="color-scheme" content="only light">
     <meta name="description" content="Cẩm Nang Du Hành Meownia World - Fantasy, Magic, Classic.">
     <title>Cẩm Nang Du Hành | Meownia World</title>
 
-    <!-- Google Fonts: Fantasy & Classic Styles -->
+    <!-- Google Fonts Hỗ Trợ Tiếng Việt Tuyệt Đối -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* === BỘ BIẾN MÀU FANTASY TỐI THƯỢNG === */
+        /* === BỘ BIẾN MÀU FANTASY SÁNG (LIGHT MODE STRICT) === */
         :root {
-            --bg-dark: #0a0705;          /* Đen huyền bí pha chút nâu */
-            --bg-card: #140e0a;          /* Nâu đen cho thẻ */
-            --gold-primary: #d4af37;     /* Vàng hoàng gia */
-            --gold-light: #f3e5ab;       /* Vàng sáng lấp lánh */
-            --gold-dark: #8b6914;        /* Vàng đồng tối */
-            --crimson-magic: #5a0a0a;    /* Đỏ máu thẫm */
-            --text-main: #eaddc5;        /* Trắng ngà cổ giấy */
+            color-scheme: only light; /* Khóa chế độ sáng */
             
-            --font-heading: 'Cinzel', serif;
-            --font-body: 'Cormorant Garamond', serif;
+            --bg-parchment: #FDFBF7;     /* Trắng kem nền nã, màu giấy da cao cấp */
+            --bg-card: #FFFFFF;          /* Nền thẻ trắng tinh khiết */
+            --gold-primary: #C59B27;     /* Vàng đồng hoàng gia */
+            --gold-light: #E8C86B;       /* Vàng sáng */
+            --gold-dark: #967315;        /* Vàng sẫm cho viền */
+            --crimson-magic: #8B1E1E;    /* Đỏ đô thẫm - Quyền lực */
+            --text-main: #36261E;        /* Nâu đen thẫm - Rất dễ đọc */
+            --text-muted: #6E5A4B;       /* Nâu nhạt cho chữ phụ */
             
-            --border-magic: 1px solid var(--gold-dark);
-            --glow-gold: 0 0 15px rgba(212, 175, 55, 0.2);
-            --glow-text: 0 0 8px rgba(243, 229, 171, 0.4);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lora', serif;
+            
+            --border-magic: 1px solid rgba(197, 155, 39, 0.4);
+            --shadow-soft: 0 8px 25px rgba(54, 38, 30, 0.06);
+            --shadow-hover: 0 15px 35px rgba(197, 155, 39, 0.15);
         }
 
         /* === RESET & GLOBAL === */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
+        
+        /* Gắn !important để ép các trình duyệt chặn Dark Mode tự động */
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            font-family: var(--font-body) !important;
+            background-color: var(--bg-parchment) !important;
+            color: var(--text-main) !important;
             line-height: 1.8;
             font-size: 1.1rem;
             overflow-x: hidden;
-            /* Texture phép thuật nền mờ */
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(90, 10, 10, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 50% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-                url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.04"/></svg>');
+            /* Texture nền vân giấy rất nhẹ */
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>') !important;
         }
 
         /* HỆ THỐNG CSS CHO VĂN BẢN (TEXT STYLING) */
         .gold-text {
-            background: linear-gradient(to bottom, var(--gold-light), var(--gold-primary), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: var(--glow-text);
+            color: var(--gold-dark);
+            font-weight: 700;
         }
         
         .ornament-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 30px 0;
-            color: var(--gold-primary);
-            font-size: 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            margin: 25px 0; color: var(--gold-primary); font-size: 1.2rem;
         }
         .ornament-divider::before, .ornament-divider::after {
-            content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.3); margin: 0 15px;
+            content: ""; flex: 1; border-bottom: 1px solid rgba(197, 155, 39, 0.3); margin: 0 15px;
         }
 
         /* === HERO SECTION === */
-        .hero { text-align: center; padding: 100px 20px 60px; position: relative; }
+        .hero { text-align: center; padding: 80px 20px 50px; position: relative; }
         .hero-label {
-            display: inline-block;
-            border: 1px solid var(--gold-primary);
-            padding: 8px 30px;
-            font-family: var(--font-heading);
-            font-size: 1rem;
-            letter-spacing: 4px;
-            color: var(--gold-light);
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            background: rgba(212, 175, 55, 0.05);
-            box-shadow: var(--glow-gold), inset 0 0 10px rgba(212, 175, 55, 0.1);
+            display: inline-block; border: 1px solid var(--gold-primary); padding: 6px 25px;
+            font-family: var(--font-heading); font-size: 0.95rem; letter-spacing: 3px;
+            color: var(--gold-dark); text-transform: uppercase; margin-bottom: 20px;
+            background: rgba(197, 155, 39, 0.05); border-radius: 4px;
         }
-        .hero-welcome { font-size: 1.5rem; margin-bottom: 10px; font-style: italic; color: var(--gold-primary); }
+        .hero-welcome { font-size: 1.3rem; margin-bottom: 5px; font-style: italic; color: var(--text-muted); }
         .hero-title {
-            font-family: var(--font-heading);
-            font-size: 4.5rem;
-            letter-spacing: 6px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            user-select: none;
-            cursor: pointer;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+            font-family: var(--font-heading); font-size: 4rem; letter-spacing: 2px;
+            margin-bottom: 15px; font-weight: 800; color: var(--crimson-magic);
+            user-select: none; cursor: pointer; text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
         }
-        .hero-desc { font-size: 1.3rem; max-width: 650px; margin: 0 auto; color: #d0c5b5; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .hero-desc { font-size: 1.2rem; max-width: 650px; margin: 0 auto; color: var(--text-main); }
 
         /* === NAVIGATION === */
         .sticky-nav {
-            position: sticky; top: 0; background-color: rgba(10, 7, 5, 0.95);
-            z-index: 100; display: flex; justify-content: center; gap: 10px;
-            padding: 15px 20px; border-bottom: var(--border-magic); backdrop-filter: blur(5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5); flex-wrap: wrap;
+            position: sticky; top: 0; background-color: rgba(253, 251, 247, 0.95);
+            z-index: 100; display: flex; justify-content: center; gap: 8px;
+            padding: 12px 15px; border-bottom: var(--border-magic); backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); flex-wrap: wrap;
         }
         .nav-item {
-            color: var(--text-main); text-decoration: none; padding: 8px 18px;
-            font-family: var(--font-heading); font-size: 1rem; letter-spacing: 1px;
-            transition: 0.4s; display: flex; align-items: center; gap: 8px; border: 1px solid transparent;
+            color: var(--text-main); text-decoration: none; padding: 6px 15px;
+            font-family: var(--font-heading); font-size: 1rem; font-weight: 600;
+            transition: 0.3s; display: flex; align-items: center; gap: 6px; border-radius: 20px;
         }
-        .nav-item:hover { color: var(--gold-light); text-shadow: var(--glow-text); }
-        .nav-item.active { border-bottom: 1px solid var(--gold-primary); color: var(--gold-primary); text-shadow: var(--glow-text); }
+        .nav-item:hover { color: var(--crimson-magic); background: rgba(197, 155, 39, 0.1); }
+        .nav-item.active { background: var(--crimson-magic); color: #FFF; }
 
         /* === CONTAINER & SECTIONS === */
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-tag { color: var(--gold-primary); font-family: var(--font-heading); font-weight: 600; letter-spacing: 3px; font-size: 1rem; margin-bottom: 15px; display: block; }
-        .section-title { font-family: var(--font-heading); font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 20px; }
+        .container { max-width: 1050px; margin: 0 auto; padding: 50px 20px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-tag { color: var(--crimson-magic); font-family: var(--font-heading); font-weight: 700; letter-spacing: 2px; font-size: 1rem; margin-bottom: 10px; display: block; text-transform: uppercase; }
+        .section-title { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-main); margin-bottom: 15px; }
         
         .intro-box {
-            background: linear-gradient(135deg, rgba(20, 14, 10, 0.8), rgba(10, 7, 5, 0.9));
-            border: var(--border-magic); padding: 40px; text-align: center;
-            box-shadow: var(--glow-gold); position: relative; margin-bottom: 60px;
+            background: var(--bg-card); border: var(--border-magic); padding: 40px; 
+            text-align: center; box-shadow: var(--shadow-soft); position: relative; 
+            margin-bottom: 50px; border-radius: 8px;
         }
         .intro-box::before, .intro-box::after {
-            content: '❖'; position: absolute; color: var(--gold-dark); font-size: 1.5rem;
+            content: '❖'; position: absolute; color: var(--gold-primary); font-size: 1.2rem; opacity: 0.5;
         }
-        .intro-box::before { top: 10px; left: 15px; }
-        .intro-box::after { bottom: 10px; right: 15px; }
+        .intro-box::before { top: 15px; left: 20px; }
+        .intro-box::after { bottom: 15px; right: 20px; }
 
-        /* === ERA CARDS GRID (FANTASY) === */
-        .era-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        /* === ERA CARDS GRID (SÁNG MỊN) === */
+        .era-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
         .era-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 30px; cursor: pointer; transition: all 0.4s ease;
-            position: relative; overflow: hidden;
+            background: var(--bg-card); border: var(--border-magic); padding: 30px; 
+            cursor: pointer; transition: all 0.3s ease; position: relative; 
+            border-radius: 8px; box-shadow: var(--shadow-soft); display: flex; flex-direction: column;
         }
-        .era-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            opacity: 0; transition: 0.4s;
-        }
-        .era-card:hover { transform: translateY(-8px); border-color: var(--gold-primary); box-shadow: var(--glow-gold); background: #1a120c; }
-        .era-card:hover::before { opacity: 1; }
+        .era-card:hover { transform: translateY(-5px); border-color: var(--gold-primary); box-shadow: var(--shadow-hover); }
         
-        .era-name { font-family: var(--font-heading); font-size: 1.6rem; color: var(--gold-light); margin-bottom: 5px; }
-        .era-date { font-size: 1rem; color: var(--gold-dark); font-style: italic; margin-bottom: 15px; }
-        .era-desc { font-size: 1.15rem; margin-bottom: 25px; flex-grow: 1; color: #c4b5a3; }
-        .era-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
-        .era-tag { font-family: var(--font-heading); font-size: 0.75rem; padding: 5px 12px; border: 1px solid rgba(212, 175, 55, 0.4); color: var(--gold-primary); letter-spacing: 1px; }
-        .era-action { text-align: right; color: var(--gold-dark); font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
-        .era-card:hover .era-action { color: var(--gold-primary); text-shadow: var(--glow-text); }
+        .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--crimson-magic); margin-bottom: 5px; font-weight: 700; }
+        .era-date { font-size: 0.95rem; color: var(--gold-dark); font-style: italic; margin-bottom: 15px; font-weight: 600; }
+        .era-desc { font-size: 1.05rem; margin-bottom: 20px; flex-grow: 1; color: var(--text-muted); }
+        .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .era-tag { font-family: var(--font-heading); font-size: 0.8rem; padding: 4px 12px; background: rgba(197, 155, 39, 0.08); border: 1px solid rgba(197, 155, 39, 0.3); color: var(--gold-dark); border-radius: 20px; font-weight: 600; }
+        .era-action { text-align: right; color: var(--gold-dark); font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; transition: 0.3s; }
+        .era-card:hover .era-action { color: var(--crimson-magic); }
 
-        /* === MODAL CẨM NANG MAGIC === */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(5, 3, 2, 0.9); backdrop-filter: blur(8px); }
+        /* === MODAL CẨM NANG MAGIC (LIGHT) === */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(30, 20, 15, 0.7); backdrop-filter: blur(5px); }
         .modal-content {
-            background-color: var(--bg-card); margin: 5vh auto; border: 2px solid var(--gold-dark);
-            width: 90%; max-width: 1100px; position: relative; box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
-            display: flex; flex-direction: column; background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.02"/></svg>');
+            background-color: var(--bg-parchment); margin: 3vh auto; border: 2px solid var(--gold-primary);
+            width: 92%; max-width: 1000px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column; border-radius: 8px;
         }
-        .modal-close { position: absolute; right: 25px; top: 20px; font-size: 35px; color: var(--gold-dark); cursor: pointer; z-index: 10; transition: 0.3s; }
-        .modal-close:hover { color: var(--gold-light); text-shadow: var(--glow-text); transform: rotate(90deg); }
+        .modal-close { position: absolute; right: 20px; top: 15px; font-size: 35px; color: var(--text-muted); cursor: pointer; z-index: 10; transition: 0.3s; line-height: 1; }
+        .modal-close:hover { color: var(--crimson-magic); transform: rotate(90deg); }
         
-        .modal-header { padding: 50px 50px 20px; text-align: center; position: relative; }
-        .modal-title { font-family: var(--font-heading); font-size: 2.8rem; color: var(--gold-light); text-shadow: var(--glow-text); }
-        .modal-date { font-size: 1.2rem; color: var(--gold-dark); font-style: italic; margin-top: 10px; }
+        .modal-header { padding: 40px 40px 20px; text-align: center; border-bottom: 1px dashed rgba(197, 155, 39, 0.4); }
+        .modal-title { font-family: var(--font-heading); font-size: 2.5rem; color: var(--crimson-magic); font-weight: 800; }
+        .modal-date { font-size: 1.1rem; color: var(--gold-dark); font-style: italic; margin-top: 5px; font-weight: 600; }
         
-        .modal-body { padding: 20px 50px; }
-        .modal-image-wrapper { width: 100%; aspect-ratio: 4/3; background: #000; margin-bottom: 40px; border: 1px solid var(--gold-primary); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
-        .modal-image-wrapper img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.5s; }
-        .modal-image-wrapper:hover img { opacity: 1; transform: scale(1.02); }
-        .no-image-text { color: var(--gold-dark); font-style: italic; font-family: var(--font-heading); font-size: 1.2rem; letter-spacing: 2px; }
+        .modal-body { padding: 30px 40px; }
+        .modal-image-wrapper { 
+            width: 100%; aspect-ratio: 4/3; background: #EEE; border: var(--border-magic); 
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; 
+            border-radius: 6px; box-shadow: inset 0 0 15px rgba(0,0,0,0.05); cursor: zoom-in;
+            margin-bottom: 10px;
+        }
+        .modal-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .modal-image-wrapper:hover img { transform: scale(1.03); }
+        .no-image-text { color: var(--text-muted); font-style: italic; font-family: var(--font-heading); font-size: 1.2rem; }
         
-        .modal-text-section { margin-bottom: 35px; }
-        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.5rem; margin-bottom: 15px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 8px; letter-spacing: 2px; }
-        .modal-text-section p { margin-bottom: 15px; text-align: justify; font-size: 1.15rem; color: #d0c5b5; }
-        .modal-text-section ul { padding-left: 25px; margin-top: 15px; color: #d0c5b5; font-size: 1.15rem; list-style-type: square; }
-        .modal-text-section li { margin-bottom: 10px; }
-        .modal-text-section li::marker { color: var(--gold-primary); }
+        .image-caption { text-align: center; font-size: 0.95rem; font-style: italic; color: var(--text-muted); margin-bottom: 30px; font-family: var(--font-body); }
 
-        .modal-footer { padding: 30px 50px 50px; text-align: center; }
+        .modal-text-section { margin-bottom: 30px; }
+        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-dark); font-size: 1.4rem; margin-bottom: 12px; border-bottom: 1px solid rgba(197, 155, 39, 0.2); padding-bottom: 8px; text-transform: uppercase; }
+        .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.1rem; }
+        .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.1rem; list-style-type: square; }
+        .modal-text-section li { margin-bottom: 8px; }
+        .modal-text-section li::marker { color: var(--crimson-magic); }
+
+        .modal-footer { padding: 20px 40px 40px; text-align: center; }
         .btn-select-era {
-            background: transparent; color: var(--gold-light); border: 1px solid var(--gold-primary);
-            padding: 15px 40px; font-family: var(--font-heading); font-size: 1.2rem;
-            cursor: pointer; transition: 0.4s; letter-spacing: 2px;
-            box-shadow: inset 0 0 0 rgba(212, 175, 55, 0);
+            background: var(--crimson-magic); color: #FFF; border: none;
+            padding: 12px 35px; font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(139, 30, 30, 0.2);
         }
-        .btn-select-era:hover { background: rgba(212, 175, 55, 0.1); box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.3), var(--glow-gold); text-shadow: var(--glow-text); }
+        .btn-select-era:hover { background: #6B1616; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139, 30, 30, 0.3); }
 
-        /* === ACCORDION QUY TẮC FANTASY === */
-        .accordion-container { margin-top: 80px; }
-        .accordion-item { border: 1px solid rgba(212, 175, 55, 0.2); background: rgba(20, 14, 10, 0.5); margin-bottom: 15px; transition: 0.3s; }
-        .accordion-header {
-            width: 100%; text-align: left; padding: 22px 30px; background: transparent; border: none;
-            color: var(--gold-primary); font-family: var(--font-heading); font-size: 1.2rem; letter-spacing: 1px;
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.4s;
+        /* === ZOOM IMAGE OVERLAY === */
+        .zoom-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(253, 251, 247, 0.95); z-index: 2000;
+            justify-content: center; align-items: center; cursor: zoom-out;
         }
-        .accordion-header:hover { background: rgba(212, 175, 55, 0.05); color: var(--gold-light); text-shadow: var(--glow-text); }
-        .accordion-header i { transition: transform 0.4s; color: var(--gold-dark); }
-        .accordion-header.active i { transform: rotate(45deg); color: var(--gold-light); }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; padding: 0 30px; }
-        .accordion-content.active { padding: 0 30px 30px; max-height: 600px; }
-        .accordion-content p { color: #d0c5b5; font-size: 1.15rem; }
+        .zoom-overlay img {
+            max-width: 95vw; max-height: 95vh; object-fit: contain;
+            border: 2px solid var(--gold-primary); border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        /* === ACCORDION QUY TẮC SÁNG === */
+        .accordion-container { margin-top: 60px; }
+        .accordion-item { border: var(--border-magic); background: var(--bg-card); margin-bottom: 12px; border-radius: 6px; box-shadow: var(--shadow-soft); transition: 0.3s; }
+        .accordion-header {
+            width: 100%; text-align: left; padding: 20px 25px; background: transparent; border: none;
+            color: var(--crimson-magic); font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
+        }
+        .accordion-header:hover { background: rgba(197, 155, 39, 0.05); }
+        .accordion-header i { transition: transform 0.3s; color: var(--gold-dark); }
+        .accordion-header.active i { transform: rotate(45deg); color: var(--crimson-magic); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding: 0 25px; }
+        .accordion-content.active { padding: 0 25px 25px; max-height: 600px; }
+        .accordion-content p { color: var(--text-main); font-size: 1.1rem; }
 
         /* === MUSIC PLAYER WIDGET === */
-        .music-widget { position: fixed; bottom: 40px; right: 40px; z-index: 999; }
+        .music-widget { position: fixed; bottom: 30px; right: 30px; z-index: 999; }
         .record-disc {
-            width: 70px; height: 70px; border-radius: 50%; background: #0a0a0a;
+            width: 60px; height: 60px; border-radius: 50%; background: #111;
             border: 3px solid var(--gold-primary); position: relative; cursor: pointer;
-            box-shadow: var(--glow-gold), 0 10px 20px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;
             transition: transform 0.3s;
         }
-        .record-disc::before { content: ''; position: absolute; width: 60px; height: 60px; border-radius: 50%; border: 1px dashed rgba(212, 175, 55, 0.3); }
-        .record-disc::after { content: ''; width: 20px; height: 20px; background: var(--bg-card); border-radius: 50%; border: 2px solid var(--gold-primary); }
-        .record-disc:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
+        .record-disc::before { content: ''; position: absolute; width: 50px; height: 50px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.2); }
+        .record-disc::after { content: ''; width: 16px; height: 16px; background: var(--crimson-magic); border-radius: 50%; border: 2px solid var(--gold-light); }
+        .record-disc:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(197, 155, 39, 0.4); }
         .record-disc.playing { animation: spin 4s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
-        .floating-notes { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 100%; height: 100px; pointer-events: none; }
-        .note { position: absolute; bottom: 0; font-size: 1.5rem; color: var(--gold-light); text-shadow: var(--glow-text); opacity: 0; animation: floatUp 2.5s ease-out forwards; }
-        @keyframes floatUp { 0% { transform: translateY(0) scale(0.6); opacity: 1; } 100% { transform: translateY(-100px) translateX(30px) scale(1.3) rotate(20deg); opacity: 0; } }
+        .floating-notes { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 100%; height: 80px; pointer-events: none; }
+        .note { position: absolute; bottom: 0; font-size: 1.3rem; color: var(--crimson-magic); opacity: 0; animation: floatUp 2s ease-out forwards; }
+        @keyframes floatUp { 0% { transform: translateY(0) scale(0.6); opacity: 1; } 100% { transform: translateY(-70px) translateX(20px) scale(1.1) rotate(15deg); opacity: 0; } }
 
         /* MUSIC MODAL PANEL */
         .music-panel {
-            display: none; position: fixed; bottom: 120px; right: 40px; width: 350px;
-            background: rgba(15, 10, 7, 0.95); border: 1px solid var(--gold-primary);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8), var(--glow-gold); z-index: 998; backdrop-filter: blur(10px);
+            display: none; position: fixed; bottom: 100px; right: 30px; width: 320px;
+            background: var(--bg-card); border: 2px solid var(--gold-primary);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); z-index: 998; border-radius: 8px; overflow: hidden;
         }
-        .music-panel-header { background: rgba(0,0,0,0.5); color: var(--gold-light); padding: 15px; text-align: center; font-family: var(--font-heading); font-size: 1.1rem; letter-spacing: 2px; position: relative; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .close-music { position: absolute; right: 15px; top: 15px; cursor: pointer; color: var(--gold-dark); transition: 0.3s; }
-        .close-music:hover { color: var(--gold-light); }
+        .music-panel-header { background: var(--bg-parchment); color: var(--crimson-magic); padding: 15px; text-align: center; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; position: relative; border-bottom: var(--border-magic); }
+        .close-music { position: absolute; right: 15px; top: 15px; cursor: pointer; color: var(--text-muted); transition: 0.3s; }
+        .close-music:hover { color: var(--crimson-magic); }
         
-        .playlist { max-height: 250px; overflow-y: auto; padding: 10px 0; }
+        .playlist { max-height: 220px; overflow-y: auto; padding: 10px 0; }
         .playlist::-webkit-scrollbar { width: 5px; }
-        .playlist::-webkit-scrollbar-thumb { background: var(--gold-dark); }
-        .playlist-item { padding: 12px 20px; border-bottom: 1px dashed rgba(212, 175, 55, 0.15); cursor: pointer; transition: 0.3s; }
-        .playlist-item:hover { background: rgba(212, 175, 55, 0.1); }
-        .playlist-item.active { background: rgba(212, 175, 55, 0.15); border-left: 3px solid var(--gold-primary); }
-        .song-title { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--gold-light); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .song-artist { font-size: 0.85rem; color: var(--gold-dark); font-style: italic; }
+        .playlist::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 5px; }
+        .playlist-item { padding: 10px 15px; border-bottom: 1px dashed rgba(197, 155, 39, 0.2); cursor: pointer; transition: 0.2s; }
+        .playlist-item:hover { background: rgba(197, 155, 39, 0.05); }
+        .playlist-item.active { background: rgba(197, 155, 39, 0.1); border-left: 3px solid var(--crimson-magic); }
+        .song-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .song-artist { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
         
-        .music-controls { padding: 20px; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center; }
-        .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.1); cursor: pointer; margin-bottom: 20px; position: relative; }
-        .progress-bar { height: 100%; background: var(--gold-primary); width: 0%; pointer-events: none; box-shadow: var(--glow-gold); }
-        .play-btn { background: transparent; color: var(--gold-primary); border: 1px solid var(--gold-primary); width: 50px; height: 50px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; margin: 0 auto; }
-        .play-btn:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold-light); box-shadow: var(--glow-gold); }
+        .music-controls { padding: 15px; background: var(--bg-parchment); border-top: var(--border-magic); text-align: center; }
+        .progress-container { width: 100%; height: 5px; background: #E0D8C8; cursor: pointer; margin-bottom: 15px; border-radius: 5px; }
+        .progress-bar { height: 100%; background: var(--crimson-magic); width: 0%; pointer-events: none; border-radius: 5px; }
+        .play-btn { background: var(--crimson-magic); color: #FFF; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(139, 30, 30, 0.3); }
+        .play-btn:hover { background: #6B1616; transform: scale(1.05); }
 
         /* === ADMIN PANEL & INLINE EDITING === */
-        .admin-panel { display: none; background: rgba(20, 10, 10, 0.9); color: white; padding: 25px; border: 1px solid #ff4444; margin-bottom: 40px; box-shadow: 0 0 20px rgba(255,0,0,0.2); }
+        .admin-panel { display: none; background: #F4EAD5; color: var(--text-main); padding: 25px; border: 2px solid var(--crimson-magic); margin-bottom: 40px; border-radius: 8px; box-shadow: inset 0 0 15px rgba(0,0,0,0.05); }
         body.is-admin .admin-panel { display: block; }
-        .admin-btn { background: #5a0a0a; color: #fff; border: 1px solid #ff4444; padding: 10px 20px; font-family: var(--font-heading); cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: 0.3s; }
-        .admin-btn:hover { background: #ff4444; box-shadow: 0 0 10px red; }
-        .admin-input { width: 100%; padding: 10px; margin: 5px 0 15px; background: rgba(0,0,0,0.5); border: 1px solid #555; color: #fff; font-family: var(--font-body); font-size: 1.1rem; }
+        .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 18px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: 0.3s; }
+        .admin-btn:hover { background: var(--crimson-magic); }
+        .admin-input { width: 100%; padding: 10px; margin: 5px 0 10px; border: 1px solid #CCC; border-radius: 4px; font-family: var(--font-body); font-size: 1rem; }
         
         /* Hiệu ứng Nút bút thần ma thuật kế bên chữ khi bật Admin */
         .editable { position: relative; transition: 0.3s; outline: none; }
-        body.is-admin .editable { padding-right: 25px; border-bottom: 1px dashed rgba(212, 175, 55, 0.5); }
-        body.is-admin .editable:hover { background: rgba(212, 175, 55, 0.1); border-bottom: 1px dashed var(--gold-primary); }
+        body.is-admin .editable { padding-right: 25px; border-bottom: 1px dashed var(--gold-primary); }
+        body.is-admin .editable:hover { background: rgba(197, 155, 39, 0.1); }
         body.is-admin .editable::after {
-            content: '\f304'; /* FontAwesome Pencil Icon */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.9rem;
-            color: var(--gold-primary);
-            opacity: 0.5;
-            cursor: pointer;
-            pointer-events: none; /* Let clicks pass through to contenteditable */
+            content: '\f304'; font-family: "Font Awesome 6 Free"; font-weight: 900;
+            position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+            font-size: 0.9rem; color: var(--crimson-magic); opacity: 0.6; pointer-events: none;
         }
-        body.is-admin .editable:hover::after { opacity: 1; text-shadow: var(--glow-text); }
-        body.is-admin .editable:focus { border: 1px solid var(--gold-primary); background: rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(212,175,55,0.2); padding: 5px 25px 5px 5px; }
+        body.is-admin .editable:hover::after { opacity: 1; }
+        body.is-admin .editable:focus { border: 1px solid var(--gold-primary); background: #FFF; padding: 5px 25px 5px 5px; border-radius: 4px; box-shadow: 0 0 10px rgba(197,155,39,0.2); }
 
-        /* === RESPONSIVE === */
+        /* === RESPONSIVE ĐIỆN THOẠI === */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.8rem; }
-            .era-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-desc { font-size: 1.05rem; }
+            .era-grid { grid-template-columns: 1fr; gap: 20px; }
+            .era-card { padding: 20px; }
             .modal-content { width: 95%; margin: 2vh auto; }
-            .modal-header, .modal-body, .modal-footer { padding: 25px; }
+            .modal-header, .modal-body, .modal-footer { padding: 20px; }
             .modal-title { font-size: 2rem; }
-            .music-panel { bottom: 120px; right: 20px; width: 300px; }
+            .music-panel { bottom: 100px; right: 15px; width: 290px; }
+            .music-widget { right: 20px; bottom: 20px; }
         }
     </style>
 </head>
@@ -293,7 +287,7 @@
     <header class="hero" id="top">
         <div class="hero-label editable" data-key="hero.label">CẨM NANG DU HÀNH</div>
         <p class="hero-welcome editable" data-key="hero.welcome">Chào mừng lữ khách ghé thăm</p>
-        <h1 class="hero-title gold-text editable" data-key="hero.title" id="secret-admin-trigger" title="Nhấp đúp để Mở Cửa Sổ Phép Thuật Quản Trị">MEOWNIA WORLD</h1>
+        <h1 class="hero-title editable" data-key="hero.title" id="secret-admin-trigger" title="Nhấp đúp để Mở Cửa Sổ Quản Trị">MEOWNIA WORLD</h1>
         <p class="hero-desc editable" data-key="hero.desc">Đây là một thế giới fantasy rộng lớn,<br>nơi bạn có thể tự do viết nên cuộc đời của mình.</p>
     </header>
 
@@ -310,52 +304,50 @@
     <!-- MAIN CONTENT -->
     <main class="container">
         
-        <!-- BẢNG ĐIỀU KHIỂN ADMIN (Ẩn mặc định) -->
+        <!-- BẢNG ĐIỀU KHIỂN ADMIN -->
         <div class="admin-panel" id="admin-panel">
-            <h3 style="margin-bottom: 15px; color: #ffdd55; font-family: var(--font-heading); font-size: 1.5rem;"><i class="fas fa-hat-wizard"></i> QUYỀN NĂNG TỐI THƯỢNG (ADMIN)</h3>
-            <p style="margin-bottom: 20px; font-style: italic;">*Bạn đã có thể nhấp vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> trên trang web để chỉnh sửa trực tiếp (Live Edit). Hệ thống sẽ tự động lưu lại vào Cuốn Sách Thời Gian (Trình duyệt).</p>
+            <h3 style="margin-bottom: 15px; color: var(--crimson-magic); font-family: var(--font-heading); font-size: 1.4rem;"><i class="fas fa-feather-alt"></i> QUYỀN NĂNG TỐI THƯỢNG (ADMIN)</h3>
+            <p style="margin-bottom: 20px; font-style: italic; font-size: 0.95rem;">*Bạn đã có thể nhấp vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> trên trang web để chỉnh sửa trực tiếp. Dữ liệu sẽ lưu ngay trên thiết bị.</p>
             
-            <div style="background: rgba(0,0,0,0.6); padding: 20px; border: 1px solid #ffaa00; margin-bottom: 15px;">
-                <h4 style="color: #ffaa00; font-family: var(--font-heading); margin-bottom: 10px;"><i class="fas fa-music"></i> Hộp Nhạc Phép Thuật</h4>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="admin-song-name" class="admin-input" placeholder="Tên Bản Nhạc (VD: Khúc Hát Tinh Linh)">
-                    <input type="text" id="admin-song-artist" class="admin-input" placeholder="Nghệ sĩ">
+            <div style="background: rgba(255,255,255,0.7); padding: 15px; border: 1px dashed var(--gold-primary); margin-bottom: 15px; border-radius: 6px;">
+                <h4 style="color: var(--gold-dark); font-family: var(--font-heading); margin-bottom: 10px;"><i class="fas fa-music"></i> Hộp Nhạc Phép Thuật</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <input type="text" id="admin-song-name" class="admin-input" placeholder="Tên Bản Nhạc (VD: Khúc Hát Tinh Linh)" style="flex:1; min-width: 150px;">
+                    <input type="text" id="admin-song-artist" class="admin-input" placeholder="Nghệ sĩ" style="flex:1; min-width: 100px;">
                 </div>
                 <input type="text" id="admin-song-url" class="admin-input" placeholder="Link Âm Thanh (URL MP3)">
                 <button class="admin-btn" onclick="adminAddMusic()"><i class="fas fa-plus"></i> Truyền Âm Nhạc</button>
             </div>
-            <button class="admin-btn" onclick="resetFactoryData()" style="background: transparent; border-color: gray; color: gray;"><i class="fas fa-undo"></i> Khôi Phục Dữ Liệu Gốc</button>
+            <button class="admin-btn" onclick="resetFactoryData()" style="background: #EAEAEA; color: #555;"><i class="fas fa-undo"></i> Khôi Phục Dữ Liệu Gốc</button>
         </div>
 
         <section id="intro">
             <div class="intro-box">
                 <span class="section-tag editable" data-key="intro.tag">THẾ GIỚI</span>
-                <h2 class="section-title gold-text editable" data-key="intro.title">MEOWNIA · TỔNG QUAN · 8 KỶ NGUYÊN</h2>
+                <h2 class="section-title editable" data-key="intro.title">MEOWNIA · TỔNG QUAN · 8 KỶ NGUYÊN</h2>
                 <div class="ornament-divider">✦</div>
                 <p class="editable" data-key="intro.p1">Meownia là một thế giới fantasy rộng lớn, nơi nhiều nền văn minh, chủng tộc và vùng đất cùng tồn tại qua những thời đại khác nhau. Thế giới không xoay quanh một nhân vật chính duy nhất, và không có một con đường được định sẵn cho tất cả mọi người.</p>
-                <p style="margin-top: 15px;" class="editable" data-key="intro.p2">Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Lữ khách có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu hành trình định mệnh của mình.</p>
+                <p style="margin-top: 15px;" class="editable" data-key="intro.p2">Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.</p>
             </div>
         </section>
 
         <section id="eras">
             <div class="section-header">
-                <h2 class="section-title gold-text editable" data-key="eraSection.title">8 KỶ NGUYÊN</h2>
-                <p class="editable" data-key="eraSection.desc">Tám thời đại của Meownia — mỗi thời đại là một ngã rẽ khác nhau để bước vào thế giới.</p>
-                <div class="ornament-divider" style="max-width: 300px; margin: 20px auto;">✦</div>
+                <h2 class="section-title editable" data-key="eraSection.title">8 KỶ NGUYÊN</h2>
+                <p class="editable" data-key="eraSection.desc">Tám thời đại của Meownia — mỗi thời đại là một cách khác để bước vào thế giới.</p>
+                <div class="ornament-divider" style="max-width: 250px; margin: 15px auto;">✦</div>
             </div>
             
-            <!-- Grid Rendered by JS -->
             <div class="era-grid" id="era-grid-container"></div>
         </section>
 
         <section id="rules" class="accordion-container">
             <div class="section-header" style="margin-bottom: 30px;">
-                <h2 class="section-title gold-text editable" data-key="ruleSection.title">QUY TẮC THẾ GIỚI</h2>
-                <p class="editable" data-key="ruleSection.desc">Bốn nguyên lý tối thượng mà lữ khách cần ghi nhớ trước khi mở mắt tại Meownia.</p>
-                <div class="ornament-divider" style="max-width: 300px; margin: 20px auto;">✦</div>
+                <h2 class="section-title editable" data-key="ruleSection.title">QUY TẮC THẾ GIỚI</h2>
+                <p class="editable" data-key="ruleSection.desc">Bốn điều người chơi nên biết trước khi bắt đầu.</p>
+                <div class="ornament-divider" style="max-width: 250px; margin: 15px auto;">✦</div>
             </div>
             
-            <!-- Rules Rendered by JS -->
             <div id="rules-container"></div>
         </section>
 
@@ -372,11 +364,16 @@
             </div>
             
             <div class="modal-body">
-                <div class="modal-image-wrapper">
+                <div class="modal-image-wrapper" title="Nhấn để phóng to ảnh" onclick="openZoom()">
                     <img id="modal-image" src="" alt="Ảnh Kỷ Nguyên" style="display: none;">
-                    <div id="modal-no-image" class="no-image-text">Bức tranh thời đại đang bị sương mù che khuất</div>
+                    <div id="modal-no-image" class="no-image-text">Chưa có dữ liệu hình ảnh</div>
                     <input type="file" id="admin-img-upload" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
-                    <button class="admin-btn" id="btn-upload-img" style="display: none; position:absolute; bottom: 15px; right: 15px; z-index: 10;" onclick="document.getElementById('admin-img-upload').click()"><i class="fas fa-magic"></i> Truyền Ảnh Vào Khung</button>
+                </div>
+                <!-- DÒNG GHI CHÚ NHỎ DƯỚI ẢNH -->
+                <p class="image-caption editable" id="modal-caption" data-key-dynamic="true">Bản đồ của kỷ nguyên...</p>
+                
+                <div style="text-align:center;">
+                    <button class="admin-btn" id="btn-upload-img" style="display: none; margin-bottom: 20px;" onclick="document.getElementById('admin-img-upload').click()"><i class="fas fa-image"></i> Cập Nhật Ảnh Bản Đồ</button>
                 </div>
                 
                 <div class="modal-text-section">
@@ -391,16 +388,19 @@
                 
                 <div class="modal-text-section">
                     <h3>ĐẶC ĐIỂM NỔI BẬT</h3>
-                    <ul id="modal-features">
-                        <!-- Rendered features -->
-                    </ul>
+                    <ul id="modal-features"></ul>
                 </div>
             </div>
             
             <div class="modal-footer">
-                <button class="btn-select-era" onclick="alert('Định mệnh đã được kết nối! Cổng không gian đang mở ra... (Tính năng demo)')">BƯỚC VÀO THỜI ĐẠI NÀY</button>
+                <button class="btn-select-era" onclick="alert('Đã chọn Kỷ Nguyên! Hệ thống sẽ chuyển đến trang tạo Nhân vật.')">CHỌN KỶ NGUYÊN NÀY</button>
             </div>
         </div>
+    </div>
+
+    <!-- MÀN HÌNH ZOOM ẢNH TOÀN MÀN HÌNH -->
+    <div id="zoom-overlay" class="zoom-overlay" onclick="closeZoom()">
+        <img id="zoomed-img" src="" alt="Bản đồ Kỷ Nguyên Phóng To">
     </div>
 
     <!-- MUSIC PLAYER WIDGET -->
@@ -412,7 +412,7 @@
     <!-- HỘP NHẠC MODAL -->
     <div class="music-panel" id="music-panel">
         <div class="music-panel-header">
-            <i class="fas fa-compact-disc" style="color: var(--gold-primary);"></i> HỘP NHẠC CỔ REMIX
+            <i class="fas fa-compact-disc" style="color: var(--gold-dark);"></i> HỘP NHẠC CỔ REMIX
             <i class="fas fa-times close-music" onclick="toggleMusicModal()"></i>
         </div>
         <div class="playlist" id="playlist-container"></div>
@@ -431,72 +431,75 @@
     <!-- === JAVASCRIPT === -->
     <script>
         /* ========================================================
-           1. CƠ SỞ DỮ LIỆU (JSON) - Dễ dàng quản lý toàn bộ nội dung
+           1. CƠ SỞ DỮ LIỆU (JSON) MẶC ĐỊNH
            ======================================================== */
         const defaultAppContent = {
             texts: {
-                "hero.label": "CẨM NANG DU HÀNH",
-                "hero.welcome": "Chào mừng lữ khách ghé thăm",
-                "hero.title": "MEOWNIA WORLD",
+                "hero.label": "CẨM NANG DU HÀNH", "hero.welcome": "Chào mừng lữ khách ghé thăm", "hero.title": "MEOWNIA WORLD",
                 "hero.desc": "Đây là một thế giới fantasy rộng lớn,<br>nơi bạn có thể tự do viết nên cuộc đời của mình.",
                 "nav.1": "Thế Giới", "nav.2": "Vùng Đất", "nav.3": "Chủng Tộc", "nav.4": "Xã Hội", "nav.5": "Ma Thuật", "nav.6": "Nhân Vật",
-                "intro.tag": "THẾ GIỚI",
-                "intro.title": "MEOWNIA · TỔNG QUAN · 8 KỶ NGUYÊN",
+                "intro.tag": "THẾ GIỚI", "intro.title": "MEOWNIA · TỔNG QUAN · 8 KỶ NGUYÊN",
                 "intro.p1": "Meownia là một thế giới fantasy rộng lớn, nơi nhiều nền văn minh, chủng tộc và vùng đất cùng tồn tại qua những thời đại khác nhau. Thế giới không xoay quanh một nhân vật chính duy nhất, và không có một con đường được định sẵn cho tất cả mọi người.",
-                "intro.p2": "Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Lữ khách có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu hành trình định mệnh của mình.",
-                "eraSection.title": "8 KỶ NGUYÊN",
-                "eraSection.desc": "Tám thời đại của Meownia — mỗi thời đại là một ngã rẽ khác nhau để bước vào thế giới.",
-                "ruleSection.title": "QUY TẮC THẾ GIỚI",
-                "ruleSection.desc": "Bốn nguyên lý tối thượng mà lữ khách cần ghi nhớ trước khi mở mắt tại Meownia."
+                "intro.p2": "Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.",
+                "eraSection.title": "8 KỶ NGUYÊN", "eraSection.desc": "Tám thời đại của Meownia — mỗi thời đại là một cách khác để bước vào thế giới.",
+                "ruleSection.title": "QUY TẮC THẾ GIỚI", "ruleSection.desc": "Bốn điều người chơi nên biết trước khi bắt đầu."
             },
             eras: [
                 {
                     name: "KỶ NGUYÊN KHỞI ĐẦU", date: "Khoảng 3.800.000 TCL – 2.600.000 TCL", shortDesc: "Thế giới hoang sơ đang trong quá trình định hình, là kỷ nguyên lâu đời và mơ hồ nhất trong lịch sử Meownia.", tags: "Nguyên Thủy, Quái Thú, Mana Hỗn Loạn",
                     overview: "Kỷ Nguyên Khởi Đầu đánh dấu sự hình thành của Meownia với tư cách là một thế giới hoàn chỉnh. Đây là giai đoạn mà lục địa, đại dương, bầu khí quyển, mana và các quy luật tự nhiên dần ổn định để tạo nên nền tảng cho mọi thời đại về sau. Thế giới khi ấy hoàn toàn hoang sơ, chưa có quốc gia, chủng tộc hay nền văn minh. Sự sống mới chỉ tồn tại dưới những hình thái nguyên thủy và vẫn đang trong quá trình tiến hóa.",
                     world: "Năm Đại Địa Khối rộng lớn tạo thành một siêu lục địa gần như liên tục. Rồng Nguyên Thủy, Leviathan và Behemoth thống trị sinh giới, trong khi mật độ mana bùng nổ dữ dội. Không có chữ viết hay xã hội.",
-                    features: ["Năm Đại Địa Khối liên kết thành siêu lục địa.", "Sự tồn tại của các sinh vật nguyên thủy khổng lồ.", "Mana bùng nổ thành các cơn bão năng lượng tự nhiên.", "Không tồn tại nền văn minh có trí tuệ."]
+                    features: ["Năm Đại Địa Khối liên kết thành siêu lục địa.", "Sự tồn tại của các sinh vật nguyên thủy khổng lồ.", "Mana bùng nổ thành các cơn bão năng lượng tự nhiên.", "Không tồn tại nền văn minh có trí tuệ."],
+                    caption: "Bản đồ của kỷ nguyên khởi đầu"
                 },
                 {
                     name: "KỶ NGUYÊN BÌNH MINH", date: "Khoảng 2.600.000 TCL – 1.450.000 TCL", shortDesc: "Thời đại khai mở văn minh, nơi những cộng đồng có trí tuệ đầu tiên xuất hiện và nắm bắt ma thuật sơ khai.", tags: "Cổ Tộc, Ma Thuật Sơ Khai, Cự Thạch",
                     overview: "Mana và môi trường dần ổn định, tạo điều kiện để các loài sinh vật có trí tuệ phát triển mạnh mẽ. Những cộng đồng đầu tiên xuất hiện, biết chế tạo công cụ, sử dụng ngôn ngữ và truyền lại tri thức cho thế hệ sau. Đây cũng là thời kỳ đặt nền móng cho gần như toàn bộ hệ thống ma thuật, luyện kim và kiến trúc của các nền văn minh về sau.",
                     world: "Năm Đại Địa Khối bắt đầu tách rời do mực nước biển dâng. Cổ Nhân, Cổ Tiên, Người Lùn Cổ và Long Nhân Cổ bắt đầu xây dựng các khu định cư đầu tiên dọc theo các Leyline và dòng sông lớn.",
-                    features: ["Sự xuất hiện của các Cổ Tộc có trí tuệ.", "Phát minh ra hệ thống chữ viết và ngôn ngữ đầu tiên.", "Nắm bắt các nguyên lý ma thuật và kiến trúc cự thạch."]
+                    features: ["Sự xuất hiện của các Cổ Tộc có trí tuệ.", "Phát minh ra hệ thống chữ viết và ngôn ngữ đầu tiên.", "Nắm bắt các nguyên lý ma thuật và kiến trúc cự thạch."],
+                    caption: "Bản đồ của kỷ nguyên bình minh"
                 },
                 {
                     name: "KỶ NGUYÊN TÂN SINH", date: "Khoảng 1.450.000 TCL – 850.000 TCL", shortDesc: "Sự phân hóa của các chủng tộc hiện đại và sự ra đời của những thành bang sầm uất ven các lưu vực sông lớn.", tags: "Thành Bang, Tiến Hóa, Giao Thương",
                     overview: "Kỷ Nguyên Tân Sinh đánh dấu sự kết thúc của thời đại các Cổ Tộc và mở ra kỷ nguyên của những chủng tộc hiện đại. Các cộng đồng nhỏ dần mở rộng thành thành bang, liên minh và lãnh địa có tổ chức. Ma thuật không còn chỉ là bản năng mà được nghiên cứu, truyền dạy và phát triển thành nhiều trường phái khác nhau.",
                     world: "Các lục địa đã tách biệt rõ ràng. Con người, Tiên tộc, Người Lùn, và Nhân Thú bắt đầu hình thành hình thái hiện đại. Những tuyến thương mại đầu tiên nối liền nhiều vùng đất, trong khi các quái thú cổ đại dần biến mất.",
-                    features: ["Các Cổ Tộc tiến hóa thành hệ thống chủng tộc hiện đại.", "Ma thuật được phân chia thành nhiều trường phái học thuật.", "Sự xuất hiện của tầng lớp quý tộc, pháp sư và thương nhân."]
+                    features: ["Các Cổ Tộc tiến hóa thành hệ thống chủng tộc hiện đại.", "Ma thuật được phân chia thành nhiều trường phái học thuật.", "Sự xuất hiện của tầng lớp quý tộc, pháp sư và thương nhân."],
+                    caption: "Bản đồ của kỷ nguyên tân sinh"
                 },
                 {
                     name: "KỶ NGUYÊN ĐẾ QUỐC", date: "Khoảng 850.000 TCL – 320.000 TCL", shortDesc: "Thời đại của các đế chế vĩ đại, những cuộc chiến tranh liên lục địa và tham vọng kiểm soát Leyline.", tags: "Chiến Tranh, Đế Chế, Hàng Hải",
                     overview: "Kỷ Nguyên Đế Quốc đánh dấu thời kỳ mà văn minh Meownia bước sang một giai đoạn hoàn toàn mới. Các chủng tộc không còn tồn tại dưới dạng những cộng đồng rời rạc mà bắt đầu xây dựng các quốc gia có lãnh thổ, luật pháp, quân đội và hệ thống quản trị hoàn chỉnh.",
                     world: "Bảy lục địa lớn đã định hình. Kỹ thuật hàng hải phát triển cho phép vượt đại dương. Các cường quốc liên tục giao tranh để giành giật tài nguyên, khoáng sản và những vùng đất giàu Mana chiến lược.",
-                    features: ["Sự ra đời của các đế quốc hùng mạnh và quân đội thường trực.", "Thương mại hàng hải liên lục địa phát triển rực rỡ.", "Chiến tranh quy mô lớn nhằm tranh giành các Leyline ma thuật."]
+                    features: ["Sự ra đời của các đế quốc hùng mạnh và quân đội thường trực.", "Thương mại hàng hải liên lục địa phát triển rực rỡ.", "Chiến tranh quy mô lớn nhằm tranh giành các Leyline ma thuật."],
+                    caption: "Bản đồ của kỷ nguyên đế quốc"
                 },
                 {
                     name: "KỶ NGUYÊN HOÀNG KIM", date: "Khoảng 320.000 TCL – 18.000 TCL", shortDesc: "Đỉnh cao của văn minh cổ đại, nơi khoa học, ma thuật và nghệ thuật đạt đến mức độ hoàn mỹ nhất.", tags: "Kỳ Quan, Đỉnh Cao Phép Thuật",
                     overview: "Kỷ Nguyên Hoàng Kim được nhiều học giả gọi là 'Đỉnh cao của Văn minh Cổ đại'. Các đế quốc hùng mạnh kiểm soát phần lớn thế giới, thiết lập những tuyến thương mại trải dài khắp các lục địa và đại dương. Tri thức được lưu trữ có hệ thống trong các thư viện, học viện và tháp ma pháp.",
                     world: "Dân số thế giới đạt mức cực đại. Nhiều kỳ quan kiến trúc và mạng lưới ma pháp khổng lồ được xây dựng. Hòa bình tương đối được duy trì thông qua các hiệp ước liên minh toàn cầu.",
-                    features: ["Phép thuật và công nghệ giả kim đạt đỉnh cao không thể tái tạo.", "Xây dựng hàng loạt kỳ quan kiến trúc và đại học viện.", "Cuối kỷ nguyên xuất hiện các dao động Leyline bí ẩn."]
+                    features: ["Phép thuật và công nghệ giả kim đạt đỉnh cao không thể tái tạo.", "Xây dựng hàng loạt kỳ quan kiến trúc và đại học viện.", "Cuối kỷ nguyên xuất hiện các dao động Leyline bí ẩn."],
+                    caption: "Bản đồ của kỷ nguyên hoàng kim"
                 },
                 {
                     name: "KỶ NGUYÊN ĐẠI BIẾN", date: "Khoảng 18.000 TCL – 2.300 TCL", shortDesc: "Thời kỳ đen tối nhất lịch sử, thảm họa toàn cầu phá vỡ các lục địa và nhấn chìm những đế chế huy hoàng.", tags: "Hủy Diệt, Đứt Gãy, Quái Vật Khởi Sinh",
                     overview: "Chỉ trong chưa đầy hai vạn năm, nền văn minh từng đạt đến đỉnh cao gần như sụp đổ hoàn toàn. Hàng loạt đế quốc biến mất, vô số tri thức thất truyền và phần lớn lịch sử trước đó chỉ còn tồn tại dưới dạng truyền thuyết hoặc những tàn tích bị chôn vùi.",
                     world: "Bản đồ Meownia biến dạng nghiêm trọng: đại hẻm vực nứt toác, các thành phố chìm xuống đáy biển, khí hậu cực đoan. Mana hỗn loạn sinh ra vô số quái vật và các Vùng Đất Cấm.",
-                    features: ["Sự sụp đổ của toàn bộ hệ thống đế quốc và học viện cổ đại.", "Đứt gãy địa chất tạo ra các Hầm Ngục Cổ và Dị Không Gian.", "Sinh tồn trở thành mục tiêu duy nhất của những người sống sót."]
+                    features: ["Sự sụp đổ của toàn bộ hệ thống đế quốc và học viện cổ đại.", "Đứt gãy địa chất tạo ra các Hầm Ngục Cổ và Dị Không Gian.", "Sinh tồn trở thành mục tiêu duy nhất của những người sống sót."],
+                    caption: "Bản đồ của kỷ nguyên đại biến"
                 },
                 {
                     name: "KỶ NGUYÊN TÁI THIẾT", date: "Khoảng 2.300 TCL – 0 CL", shortDesc: "Sự phục sinh từ đống tro tàn, các vương quốc mới hình thành dựa trên di sản khảo cổ của thế giới cũ.", tags: "Tái Sinh, Khảo Cổ, Thống Nhất Lịch",
                     overview: "Sau gần hai vạn năm chìm trong hỗn loạn, Meownia cuối cùng cũng bước vào thời kỳ phục hồi. Những cộng đồng sống sót bắt đầu rời khỏi nơi ẩn náu, xây dựng lại thành phố, tái lập giao thương và từng bước khôi phục nền văn minh trên nền đổ nát của thế giới cổ đại.",
                     world: "Thế giới đi vào trạng thái ổn định địa chất mới. Các nghề nghiệp như Mạo Hiểm Giả, Thợ Săn Di Tích trỗi dậy. Kỷ nguyên kết thúc bằng Hội nghị thống nhất sử dụng Công Lịch (CL).",
-                    features: ["Sự ra đời của các quốc gia và hiệp hội Mạo hiểm giả.", "Khai quật tri thức và tàn tích từ Kỷ Nguyên Hoàng Kim.", "Thiết lập Công Lịch (CL) đánh dấu thời kỳ cận đại."]
+                    features: ["Sự ra đời của các quốc gia và hiệp hội Mạo hiểm giả.", "Khai quật tri thức và tàn tích từ Kỷ Nguyên Hoàng Kim.", "Thiết lập Công Lịch (CL) đánh dấu thời kỳ cận đại."],
+                    caption: "Bản đồ của kỷ nguyên tái thiết"
                 },
                 {
                     name: "KỶ NGUYÊN HIỆN ĐẠI", date: "0 CL – Hiện Tại", shortDesc: "Thời đại vĩ đại đang diễn ra, nơi trật tự pháp luật, ngoại giao và những cuộc đại thám hiểm đan xen.", tags: "Trật Tự Mới, Thương Hội, Bí Ẩn",
                     overview: "Các quốc gia, đế quốc, liên minh, giáo hội và tổ chức quốc tế cùng tồn tại trong một thế giới tương đối ổn định. Giao thương giữa các lục địa diễn ra thường xuyên, học thuật và ma pháp tiếp tục phát triển, trong khi nhiều vùng đất từng bị cô lập đã được khám phá.",
                     world: "Sự bùng nổ của giao thương biển và các học viện ma thuật. Thế giới vẫn còn vô số Hầm Ngục ngủ yên và những góc khuất trên bản đồ đang chờ được chinh phục.",
-                    features: ["Hệ thống luật pháp, giáo dục và kinh tế phát triển toàn diện.", "Những tổ chức liên lục địa và thương hội nắm quyền lực lớn.", "Lịch sử thế giới vẫn đang được viết tiếp bởi những người phiêu lưu."]
+                    features: ["Hệ thống luật pháp, giáo dục và kinh tế phát triển toàn diện.", "Những tổ chức liên lục địa và thương hội nắm quyền lực lớn.", "Lịch sử thế giới vẫn đang được viết tiếp bởi những người phiêu lưu."],
+                    caption: "Bản đồ của kỷ nguyên hiện đại"
                 }
             ],
             rules: [
@@ -507,59 +510,43 @@
             ]
         };
 
-        let appData = JSON.parse(localStorage.getItem('meownia_magic_data')) || JSON.parse(JSON.stringify(defaultAppContent));
+        let appData = JSON.parse(localStorage.getItem('meownia_light_data')) || JSON.parse(JSON.stringify(defaultAppContent));
         let isAdmin = false;
         let currentModalEraId = null;
 
-        // Lưu dữ liệu vào localStorage
-        function saveData() {
-            localStorage.setItem('meownia_magic_data', JSON.stringify(appData));
-        }
+        function saveData() { localStorage.setItem('meownia_light_data', JSON.stringify(appData)); }
         function resetFactoryData() {
-            if(confirm("Tất cả chỉnh sửa sẽ biến mất và quay về thiết lập phép thuật ban đầu. Bạn có chắc chắn?")){
-                localStorage.removeItem('meownia_magic_data');
+            if(confirm("Tất cả văn bản và ảnh sẽ khôi phục về ban đầu. Chắc chắn?")){
+                localStorage.removeItem('meownia_light_data');
+                localStorage.removeItem('meownia_light_images');
                 location.reload();
             }
         }
 
         /* ========================================================
-           2. HỆ THỐNG RENDER ĐỘNG & BẮT SỰ KIỆN LIVE-EDIT
+           2. RENDER GIAO DIỆN & LIVE EDIT
            ======================================================== */
         function renderStaticTexts() {
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (appData.texts[key] !== undefined) el.innerHTML = appData.texts[key];
-                
-                // Khởi tạo Live-Edit listener
                 el.removeEventListener('blur', handleTextEdit);
                 el.addEventListener('blur', handleTextEdit);
             });
         }
-
         function handleTextEdit(e) {
             const key = e.target.getAttribute('data-key');
-            if(key) {
-                appData.texts[key] = e.target.innerHTML;
-                saveData();
-            }
+            if(key) { appData.texts[key] = e.target.innerHTML; saveData(); }
         }
-
         function handleEraEdit(e) {
             const index = e.target.getAttribute('data-era-index');
             const field = e.target.getAttribute('data-era-field');
-            if(index !== null && field) {
-                appData.eras[index][field] = e.target.innerHTML;
-                saveData();
-            }
+            if(index !== null && field) { appData.eras[index][field] = e.target.innerHTML; saveData(); }
         }
-
         function handleRuleEdit(e) {
             const index = e.target.getAttribute('data-rule-index');
             const field = e.target.getAttribute('data-rule-field');
-            if(index !== null && field) {
-                appData.rules[index][field] = e.target.innerHTML;
-                saveData();
-            }
+            if(index !== null && field) { appData.rules[index][field] = e.target.innerHTML; saveData(); }
         }
 
         function renderEras() {
@@ -570,24 +557,17 @@
                 const tagsHtml = tagArr.map(tag => `<span class="era-tag">${tag}</span>`).join('');
                 const card = document.createElement('div');
                 card.className = 'era-card';
-                card.onclick = (e) => { 
-                    if(e.target.isContentEditable) return; // Ngăn mở modal nếu đang edit
-                    openModal(index); 
-                };
+                card.onclick = (e) => { if(e.target.isContentEditable) return; openModal(index); };
                 card.innerHTML = `
                     <h3 class="era-name editable" data-era-index="${index}" data-era-field="name">${era.name}</h3>
                     <div class="era-date editable" data-era-index="${index}" data-era-field="date">${era.date}</div>
                     <p class="era-desc editable" data-era-index="${index}" data-era-field="shortDesc">${era.shortDesc}</p>
                     <div class="era-tags editable" data-era-index="${index}" data-era-field="tags">${era.tags}</div>
-                    <div class="era-action">NGHIÊN CỨU THỜI ĐẠI NÀY &rarr;</div>
+                    <div class="era-action">XEM CHI TIẾT &rarr;</div>
                 `;
                 grid.appendChild(card);
             });
-            
-            // Gắn event edit cho các phần tử vừa tạo
-            document.querySelectorAll('[data-era-index]').forEach(el => {
-                el.addEventListener('blur', handleEraEdit);
-            });
+            document.querySelectorAll('[data-era-index]').forEach(el => el.addEventListener('blur', handleEraEdit));
         }
 
         function renderRules() {
@@ -607,112 +587,108 @@
                 `;
                 container.appendChild(item);
             });
-            
-            // Gắn event edit
-            document.querySelectorAll('[data-rule-index]').forEach(el => {
-                el.addEventListener('blur', handleRuleEdit);
-            });
+            document.querySelectorAll('[data-rule-index]').forEach(el => el.addEventListener('blur', handleRuleEdit));
         }
 
         /* ========================================================
-           3. LOGIC MODAL (BẢNG KỶ NGUYÊN)
+           3. MODAL KỶ NGUYÊN & ZOOM ẢNH
            ======================================================== */
         function loadSavedImage(eraId) {
-            const savedImages = JSON.parse(localStorage.getItem('meownia_era_images')) || {};
+            const savedImages = JSON.parse(localStorage.getItem('meownia_light_images')) || {};
             return savedImages[eraId] || null;
         }
 
         function openModal(id) {
-            currentModalEraId = id;
-            const era = appData.eras[id];
+            currentModalEraId = id; const era = appData.eras[id];
             
-            const titleEl = document.getElementById('modal-title');
-            titleEl.innerHTML = era.name;
-            titleEl.setAttribute('data-era-index', id); titleEl.setAttribute('data-era-field', 'name');
+            const bindField = (elId, field) => {
+                const el = document.getElementById(elId); el.innerHTML = era[field];
+                el.setAttribute('data-era-index', id); el.setAttribute('data-era-field', field);
+            };
+            bindField('modal-title', 'name'); bindField('modal-date', 'date');
+            bindField('modal-overview', 'overview'); bindField('modal-world', 'world');
             
-            const dateEl = document.getElementById('modal-date');
-            dateEl.innerHTML = era.date;
-            dateEl.setAttribute('data-era-index', id); dateEl.setAttribute('data-era-field', 'date');
+            // Xử lý caption tự động nếu chưa có
+            if(!era.caption) era.caption = `Bản đồ của ${era.name.toLowerCase()}`;
+            bindField('modal-caption', 'caption');
             
-            const overEl = document.getElementById('modal-overview');
-            overEl.innerHTML = era.overview;
-            overEl.setAttribute('data-era-index', id); overEl.setAttribute('data-era-field', 'overview');
-            
-            const worldEl = document.getElementById('modal-world');
-            worldEl.innerHTML = era.world;
-            worldEl.setAttribute('data-era-index', id); worldEl.setAttribute('data-era-field', 'world');
-            
-            // Features (Làm đơn giản bằng cách cho edit cả khối HTML bên trong the ul)
             const ul = document.getElementById('modal-features');
             ul.innerHTML = era.features.map((f, i) => `<li class="editable" data-era-index="${id}" data-era-feature-idx="${i}">${f}</li>`).join('');
-            
-            // Gắn event cho features list
             document.querySelectorAll('[data-era-feature-idx]').forEach(el => {
                 el.addEventListener('blur', (e) => {
                     const idx = e.target.getAttribute('data-era-feature-idx');
-                    appData.eras[id].features[idx] = e.target.innerHTML;
-                    saveData();
+                    appData.eras[id].features[idx] = e.target.innerHTML; saveData();
                 });
             });
 
-            // Gắn event lại cho modal fields
             document.querySelectorAll('#era-modal [data-era-field]').forEach(el => {
-                el.removeEventListener('blur', handleEraEdit);
-                el.addEventListener('blur', handleEraEdit);
+                el.removeEventListener('blur', handleEraEdit); el.addEventListener('blur', handleEraEdit);
                 if (isAdmin) el.setAttribute('contenteditable', 'true');
             });
-            if(isAdmin) {
-                document.querySelectorAll('#era-modal [data-era-feature-idx]').forEach(el => el.setAttribute('contenteditable', 'true'));
-            }
+            if(isAdmin) document.querySelectorAll('#era-modal [data-era-feature-idx]').forEach(el => el.setAttribute('contenteditable', 'true'));
 
-            // Xử lý ảnh
             const imgElement = document.getElementById('modal-image');
             const noImgElement = document.getElementById('modal-no-image');
             const savedImg = loadSavedImage(id);
             if (savedImg) {
-                imgElement.src = savedImg;
-                imgElement.style.display = 'block';
-                noImgElement.style.display = 'none';
+                imgElement.src = savedImg; imgElement.style.display = 'block'; noImgElement.style.display = 'none';
             } else {
-                imgElement.style.display = 'none';
-                noImgElement.style.display = 'block';
+                imgElement.style.display = 'none'; noImgElement.style.display = 'block';
             }
-
             document.getElementById('era-modal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Ngăn cuộn nền
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('era-modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            renderEras(); // Render lại lỡ admin có sửa title/desc ở trong modal
+            document.body.style.overflow = 'auto'; renderEras(); 
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('era-modal');
-            if (event.target == modal) closeModal();
+        // TÍNH NĂNG ZOOM ẢNH BẢN ĐỒ
+        function openZoom() {
+            // Không mở zoom nếu không có ảnh hoặc đang click ở chế độ admin vào vùng upload
+            const imgElement = document.getElementById('modal-image');
+            if(imgElement.style.display === 'none' || event.target.tagName === 'BUTTON' || event.target.tagName === 'I') return;
+            
+            const zoomOverlay = document.getElementById('zoom-overlay');
+            const zoomedImg = document.getElementById('zoomed-img');
+            zoomedImg.src = imgElement.src;
+            zoomOverlay.style.display = 'flex';
         }
+
+        function closeZoom() {
+            document.getElementById('zoom-overlay').style.display = 'none';
+            // Reset scale chuột nếu có dùng css transform wheel
+            const zoomedImg = document.getElementById('zoomed-img');
+            zoomedImg.style.transform = 'scale(1)';
+            scaleVal = 1;
+        }
+
+        // Hỗ trợ lăn chuột để zoom mượt trên PC
+        let scaleVal = 1;
+        document.getElementById('zoomed-img').addEventListener('wheel', (e) => {
+            e.preventDefault();
+            scaleVal += e.deltaY * -0.003;
+            scaleVal = Math.min(Math.max(1, scaleVal), 4); // Min 1x, Max 4x
+            document.getElementById('zoomed-img').style.transform = `scale(${scaleVal})`;
+        });
 
         function handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+            const file = event.target.files[0]; if (!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                const img = new Image();
-                img.src = e.target.result;
+                const img = new Image(); img.src = e.target.result;
                 img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 800; 
+                    const canvas = document.createElement('canvas'); const MAX_WIDTH = 1200; // Giữ độ sắc nét cao hơn
                     let width = img.width; let height = img.height;
                     if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                     canvas.width = width; canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                    const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85); // Nén nhẹ 85% giữ nét
                     
-                    let savedImages = JSON.parse(localStorage.getItem('meownia_era_images')) || {};
+                    let savedImages = JSON.parse(localStorage.getItem('meownia_light_images')) || {};
                     savedImages[currentModalEraId] = compressedBase64;
-                    localStorage.setItem('meownia_era_images', JSON.stringify(savedImages));
+                    localStorage.setItem('meownia_light_images', JSON.stringify(savedImages));
                     openModal(currentModalEraId);
                 }
             };
@@ -720,52 +696,39 @@
         }
 
         function toggleAccordion(btn, event) {
-            if(event.target.isContentEditable) return; // Bỏ qua nếu đang click để sửa chữ
+            if(event.target.isContentEditable) return; 
             btn.classList.toggle('active');
             const content = btn.nextElementSibling;
-            if (btn.classList.contains('active')) {
-                content.classList.add('active');
-                btn.querySelector('i').className = "fas fa-times";
-            } else {
-                content.classList.remove('active');
-                btn.querySelector('i').className = "fas fa-plus";
-            }
+            if (btn.classList.contains('active')) { content.classList.add('active'); btn.querySelector('i').className = "fas fa-times"; } 
+            else { content.classList.remove('active'); btn.querySelector('i').className = "fas fa-plus"; }
         }
 
         /* ========================================================
-           4. HỆ THỐNG QUẢN TRỊ ADMIN TỐI THƯỢNG (EDIT EVERYTHING)
+           4. QUYỀN ADMIN (Mật khẩu: bhnt2006)
            ======================================================== */
         document.getElementById('secret-admin-trigger').addEventListener('dblclick', () => {
             if (!isAdmin) {
-                const pass = prompt("Dòng máu thuần chủng, hãy đọc thần chú (Mật khẩu):");
+                const pass = prompt("Nhập mật mã quản trị viên:");
                 if (pass === "bhnt2006") {
-                    isAdmin = true;
-                    document.body.classList.add('is-admin');
-                    
-                    // Kích hoạt ContentEditable cho tất cả các class 'editable'
-                    document.querySelectorAll('.editable').forEach(el => {
-                        el.setAttribute('contenteditable', 'true');
-                    });
-                    
-                    // Nút đổi ảnh hiện ra
+                    isAdmin = true; document.body.classList.add('is-admin');
+                    document.querySelectorAll('.editable').forEach(el => el.setAttribute('contenteditable', 'true'));
                     document.getElementById('btn-upload-img').style.display = 'inline-block';
-                    renderPlaylist(); // Hiện nút xoá nhạc
-                    alert("Cổng Không Gian Quản Trị Đã Mở! Bạn có thể nhấn vào bất kỳ văn bản nào có biểu tượng cây bút để sửa đổi.");
-                } else if (pass !== null) alert("Thần chú sai!");
+                    renderPlaylist();
+                    alert("Cổng Quản Trị Mở! Chạm vào bất kỳ đoạn chữ nào để chỉnh sửa.");
+                } else if (pass !== null) alert("Mật mã không đúng!");
             } else {
-                isAdmin = false;
-                document.body.classList.remove('is-admin');
+                isAdmin = false; document.body.classList.remove('is-admin');
                 document.querySelectorAll('.editable').forEach(el => el.removeAttribute('contenteditable'));
                 document.getElementById('btn-upload-img').style.display = 'none';
                 renderPlaylist();
-                alert("Đã đóng Cổng Quản Trị.");
+                alert("Đã khóa Cổng Quản Trị.");
             }
         });
 
         /* ========================================================
-           5. HỆ THỐNG HỘP NHẠC PHÉP THUẬT
+           5. HỘP NHẠC PHÉP THUẬT
            ======================================================== */
-        let playlist = JSON.parse(localStorage.getItem('meownia_magic_playlist')) || [
+        let playlist = JSON.parse(localStorage.getItem('meownia_light_playlist')) || [
             { title: "Bản Giao Hưởng Tiên Tộc", artist: "Bard of Celestara", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
             { title: "Giai Điệu Hầm Ngục", artist: "Unknown", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" }
         ];
@@ -781,7 +744,7 @@
         function renderPlaylist() {
             playlistContainer.innerHTML = '';
             if (playlist.length === 0) {
-                playlistContainer.innerHTML = '<div style="padding:15px; text-align:center; color:#888;">Hộp nhạc đang trống rỗng.</div>';
+                playlistContainer.innerHTML = '<div style="padding:15px; text-align:center; color:#888;">Hộp nhạc trống.</div>';
                 return;
             }
             playlist.forEach((song, index) => {
@@ -800,23 +763,23 @@
 
         function adminAddMusic() {
             const title = document.getElementById('admin-song-name').value;
-            const artist = document.getElementById('admin-song-artist').value || "Lữ khách ẩn danh";
+            const artist = document.getElementById('admin-song-artist').value || "Ẩn danh";
             const url = document.getElementById('admin-song-url').value;
-            if(!title || !url) { alert("Vui lòng nhập Tên Bản Nhạc và Link Âm Thanh!"); return; }
+            if(!title || !url) { alert("Thiếu tên hoặc link!"); return; }
             playlist.push({ title, artist, url });
-            localStorage.setItem('meownia_magic_playlist', JSON.stringify(playlist));
+            localStorage.setItem('meownia_light_playlist', JSON.stringify(playlist));
             
             document.getElementById('admin-song-name').value = '';
             document.getElementById('admin-song-artist').value = '';
             document.getElementById('admin-song-url').value = '';
-            renderPlaylist(); alert("Đã lưu bản nhạc vào Cổ Vật!");
+            renderPlaylist(); alert("Đã thêm nhạc!");
         }
 
         function deleteSong(event, index) {
             event.stopPropagation(); 
-            if(confirm("Xóa bài hát này khỏi Hộp Nhạc?")) {
+            if(confirm("Xóa bản nhạc này?")) {
                 playlist.splice(index, 1);
-                localStorage.setItem('meownia_magic_playlist', JSON.stringify(playlist));
+                localStorage.setItem('meownia_light_playlist', JSON.stringify(playlist));
                 if (currentSongIndex === index) { audio.pause(); resetPlayerUI(); } 
                 else if (currentSongIndex > index) currentSongIndex--;
                 renderPlaylist();
@@ -865,24 +828,18 @@
         }
 
         function spawnNotes() {
-            const icons = ['fa-music', 'fa-sparkles', 'fa-star', 'fa-moon'];
+            const icons = ['fa-music', 'fa-headphones', 'fa-star'];
             noteInterval = setInterval(() => {
                 const note = document.createElement('i');
                 const randomIcon = icons[Math.floor(Math.random() * icons.length)];
                 note.className = `fas ${randomIcon} note`;
                 note.style.left = Math.random() * 80 + 10 + '%';
                 document.getElementById('floating-notes').appendChild(note);
-                setTimeout(() => note.remove(), 2500);
+                setTimeout(() => note.remove(), 2000);
             }, 800);
         }
 
-        // INIT KHI VỪA VÀO TRANG
-        window.onload = () => {
-            renderStaticTexts();
-            renderEras();
-            renderRules();
-            renderPlaylist();
-        };
+        window.onload = () => { renderStaticTexts(); renderEras(); renderRules(); renderPlaylist(); };
 
     </script>
 </body>
