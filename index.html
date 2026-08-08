@@ -20,7 +20,7 @@
         :root {
             color-scheme: dark;
             
-            /* MÀU NỀN CHỦ ĐẠO - NÂU ĐEN CHÁY (TẠO SỰ HÒA QUYỆN) */
+            /* MÀU NỀN CHỦ ĐẠO - NÂU ĐEN CHÁY */
             --bg-deep: #0C0A09;          
             --bg-card: #161210;          
             
@@ -29,8 +29,9 @@
             --gold-dark: #997A15;        
             --crimson-magic: #8B1E1E;    
             
-            --text-main: #F4EAD5;        
-            --text-muted: #A39687;       
+            /* MÀU CHỮ ĐÃ ĐƯỢC LÀM SÁNG RỰC RỠ HƠN */
+            --text-main: #FDF6E3;        /* Trắng ngà cực kỳ rõ nét */
+            --text-muted: #CDBBA7;       /* Nâu xám sáng hơn cho text phụ */
             
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lora', serif;
@@ -45,30 +46,31 @@
         
         body {
             font-family: var(--font-body) !important;
-            background-color: var(--bg-deep) !important; /* Áp màu nền chủ đạo */
+            background-color: var(--bg-deep) !important;
             color: var(--text-main) !important;
             line-height: 1.6;
             font-size: 1.05rem;
             overflow-x: hidden;
-            /* Thêm ánh sáng lan tỏa rất nhẹ từ giữa màn hình để web không bị phẳng */
             background-image: radial-gradient(circle at center 100vh, rgba(212, 175, 55, 0.03) 0%, transparent 80%) !important;
+            /* Đổ bóng chữ viền đen siêu mỏng giúp text NỔI BẬT trên mọi nền */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
         }
 
-        /* VĂN BẢN HOÀNG GIA - ĐÃ FIX LỖI ĐEN CHỮ */
+        /* VĂN BẢN HOÀNG GIA */
         .gold-text {
             background: linear-gradient(to bottom, #FFF7D6 0%, #E8C86B 30%, #D4AF37 60%, #996515 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
-            /* Dùng filter drop-shadow thay vì text-shadow để tránh lỗi viền đen */
             filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+            text-shadow: none; /* Khử text-shadow gốc để dùng drop-shadow */
         }
         
         .ornament-divider {
             display: flex; align-items: center; justify-content: center;
             margin: 20px 0; color: var(--gold-primary); font-size: 1rem;
-            opacity: 0.8;
+            opacity: 0.8; text-shadow: none;
         }
         .ornament-divider::before, .ornament-divider::after {
             content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.25); margin: 0 20px;
@@ -77,22 +79,20 @@
         /* === HERO SECTION VỚI HIỆU ỨNG SEAMLESS FADE === */
         .hero { 
             position: relative;
-            padding: 80px 15px 130px; /* Thêm padding dưới để có không gian cho hiệu ứng chìm dần */
+            padding: 80px 15px 130px; 
             background-image: url('./Bìa%20Meownia%20ngang.png');
             background-size: cover;
             background-position: center top;
         }
         
-        /* 1. Lớp màng mỏng toàn ảnh để dễ đọc chữ */
         .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(12, 10, 9, 0.35); /* Tối nhẹ */
+            background: rgba(12, 10, 9, 0.35); 
             z-index: 1;
         }
 
-        /* 2. HIỆU ỨNG CỰC KỲ QUAN TRỌNG: Làm ảnh chìm dần vào màu nền trang web */
         .hero::after {
             content: '';
             position: absolute;
@@ -108,9 +108,9 @@
             margin: 0 auto;
             padding: 50px 30px;
             position: relative;
-            z-index: 2; /* Nổi lên trên lớp màng mờ */
+            z-index: 2; 
             text-align: center;
-            background: rgba(12, 10, 9, 0.65); /* Kính mờ màu tối */
+            background: rgba(12, 10, 9, 0.65); 
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 8px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
@@ -123,7 +123,6 @@
         .fantasy-frame::before { top: 6px; }
         .fantasy-frame::after { bottom: 6px; }
         
-        /* Góc hoa văn */
         .frame-corner { position: absolute; width: 22px; height: 22px; border: 2px solid var(--gold-primary); }
         .c-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
         .c-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
@@ -143,12 +142,11 @@
             margin-bottom: 12px; line-height: 1.1;
             user-select: none; cursor: pointer; 
         }
-        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; }
+        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; font-weight: 500; }
 
         /* === NAVIGATION SEAMLESS (KHỚP NỀN) === */
         .sticky-nav {
             position: sticky; top: 0; 
-            /* Trùng 100% với màu nền để tàng hình viền cắt */
             background-color: rgba(12, 10, 9, 0.95);
             z-index: 100; display: flex; justify-content: center; gap: 8px;
             padding: 10px 15px; border-bottom: 1px solid rgba(212, 175, 55, 0.1);
@@ -173,7 +171,7 @@
         }
         
         .intro-main-title { font-family: var(--font-heading); font-size: 2.8rem; margin-bottom: 5px; line-height: 1.2; }
-        .intro-sub-title { font-family: var(--font-heading); font-size: 0.9rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: block; font-weight: 600; }
+        .intro-sub-title { font-family: var(--font-heading); font-size: 0.9rem; color: var(--gold-primary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: block; font-weight: 600; }
 
         /* === ERA CARDS GRID === */
         .era-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
@@ -185,9 +183,9 @@
         }
         .era-card:hover { transform: translateY(-4px); border-color: var(--gold-primary); background: #1C1613; box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
         
-        .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; }
+        .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; text-shadow: none; }
         .era-date { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px; }
-        .era-desc { font-size: 1.05rem; margin-bottom: 25px; flex-grow: 1; color: var(--text-main); }
+        .era-desc { font-size: 1.05rem; margin-bottom: 25px; flex-grow: 1; color: var(--text-main); font-weight: 500;}
         
         /* TAG VIÊN THUỐC (PILL) */
         .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
@@ -199,9 +197,10 @@
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 50px; 
             font-weight: 600;
+            text-shadow: none;
         }
         
-        .era-action { text-align: right; color: var(--gold-dark); font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; transition: 0.3s; letter-spacing: 1px; }
+        .era-action { text-align: right; color: var(--gold-dark); font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; transition: 0.3s; letter-spacing: 1px; text-shadow: none; }
         .era-card:hover .era-action { color: var(--gold-light); }
 
         /* === MODAL CẨM NANG MAGIC === */
@@ -226,14 +225,14 @@
         }
         .modal-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; opacity: 0.95; }
         .modal-image-wrapper:hover img { transform: scale(1.02); opacity: 1; }
-        .no-image-text { color: var(--text-muted); font-style: italic; font-family: var(--font-heading); font-size: 1.1rem; }
+        .no-image-text { color: var(--text-muted); font-style: italic; font-family: var(--font-heading); font-size: 1.1rem; text-shadow: none;}
         
         .image-caption { text-align: center; font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-bottom: 35px; font-family: var(--font-body); }
 
         .modal-text-section { margin-bottom: 30px; }
-        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); padding-bottom: 6px; letter-spacing: 1px; }
-        .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.05rem; color: var(--text-main); }
-        .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.05rem; color: var(--text-main); }
+        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); padding-bottom: 6px; letter-spacing: 1px; text-shadow: none; }
+        .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
+        .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
         .modal-text-section li { margin-bottom: 8px; }
         .modal-text-section li::marker { color: var(--gold-primary); }
 
@@ -243,7 +242,7 @@
             padding: 12px 35px; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
             cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px; width: 100%; max-width: 300px;
         }
-        .btn-select-era:hover { background: var(--gold-primary); color: var(--bg-deep); }
+        .btn-select-era:hover { background: var(--gold-primary); color: var(--bg-deep); text-shadow: none;}
 
         /* === ZOOM IMAGE OVERLAY === */
         .zoom-overlay {
@@ -264,13 +263,14 @@
             width: 100%; text-align: left; padding: 18px 22px; background: transparent; border: none;
             color: var(--gold-light); font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
             cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; letter-spacing: 1px;
+            text-shadow: none;
         }
         .accordion-header:hover { background: rgba(212, 175, 55, 0.05); }
-        .accordion-header i { transition: transform 0.3s; color: var(--gold-dark); }
+        .accordion-header i { transition: transform 0.3s; color: var(--gold-dark); text-shadow: none;}
         .accordion-header.active i { transform: rotate(45deg); color: var(--gold-primary); }
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding: 0 22px; }
         .accordion-content.active { padding: 0 22px 22px; max-height: 600px; }
-        .accordion-content p { color: var(--text-main); font-size: 1.05rem; }
+        .accordion-content p { color: var(--text-main); font-size: 1.05rem; font-weight: 500; }
 
         /* === ĐĨA NHẠC & WIDGET === */
         .music-widget { position: fixed; bottom: 25px; right: 25px; z-index: 999; }
@@ -278,7 +278,7 @@
             width: 55px; height: 55px; border-radius: 50%; 
             background: conic-gradient(from 0deg, #111, #222 45deg, #0a0a0a 90deg, #222 135deg, #111 180deg, #222 225deg, #0a0a0a 270deg, #222 315deg, #111);
             border: 2px solid var(--gold-primary); position: relative; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
             transition: transform 0.3s;
         }
         .record-disc::before { content: ''; position: absolute; width: 38px; height: 38px; border-radius: 50%; border: 1px dashed rgba(212, 175, 55, 0.3); pointer-events: none; }
@@ -289,13 +289,13 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
         .floating-notes { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 100%; height: 60px; pointer-events: none; }
-        .note { position: absolute; bottom: 0; font-size: 1.1rem; color: var(--gold-primary); opacity: 0; animation: floatUp 2s ease-out forwards; }
+        .note { position: absolute; bottom: 0; font-size: 1.1rem; color: var(--gold-primary); opacity: 0; animation: floatUp 2s ease-out forwards; text-shadow: none; }
         @keyframes floatUp { 0% { transform: translateY(0) scale(0.6); opacity: 1; } 100% { transform: translateY(-50px) translateX(15px) scale(1.1) rotate(15deg); opacity: 0; } }
 
         .music-panel {
             display: none; position: fixed; bottom: 90px; right: 25px; width: 300px; max-width: calc(100vw - 40px);
             background: var(--bg-card); border: 1px solid var(--gold-dark);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.9); z-index: 998; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 998; border-radius: 6px; overflow: hidden;
         }
         .music-panel-header { background: var(--bg-deep); color: var(--gold-primary); padding: 12px; text-align: center; font-family: var(--font-heading); font-size: 1rem; font-weight: 700; position: relative; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
         .close-music { position: absolute; right: 12px; top: 12px; cursor: pointer; color: var(--text-muted); transition: 0.3s; padding: 4px; }
@@ -307,7 +307,7 @@
         .playlist-item { padding: 10px 15px; border-bottom: 1px dashed rgba(212, 175, 55, 0.15); cursor: pointer; transition: 0.2s; }
         .playlist-item:hover { background: rgba(212, 175, 55, 0.05); }
         .playlist-item.active { background: rgba(212, 175, 55, 0.1); border-left: 3px solid var(--gold-primary); }
-        .song-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .song-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: none;}
         .song-artist { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
         
         .music-controls { padding: 15px; background: var(--bg-deep); border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center; }
@@ -315,12 +315,26 @@
         .progress-bar { height: 100%; background: var(--gold-primary); width: 0%; pointer-events: none; border-radius: 4px; }
         .play-btn { background: var(--gold-primary); color: var(--bg-deep); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; }
 
-        /* === ADMIN PANEL === */
-        .admin-panel { display: none; background: #231C18; color: var(--text-main); padding: 25px; border: 1px solid var(--crimson-magic); margin-bottom: 30px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        /* === BỘ CÔNG CỤ ÉP KIỂU CHO VĂN BẢN ĐƯỢC ADMIN DÁN VÀO === */
+        /* Cấm tuyệt đối các thẻ con bên trong editable mang định dạng lạ */
+        .editable * {
+            font-family: inherit !important;
+            color: inherit !important;
+            background: transparent !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            text-shadow: inherit !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* === ADMIN PANEL & INLINE EDITING === */
+        .admin-panel { display: none; background: #2A1F18; color: var(--text-main); padding: 20px; border: 1px solid var(--crimson-magic); margin-bottom: 30px; border-radius: 6px; box-shadow: 0 5px 15px rgba(139,30,30,0.2); }
         body.is-admin .admin-panel { display: block; }
-        .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 18px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.95rem; margin-top: 10px; transition: 0.3s; }
+        .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 15px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: 0.3s; text-shadow: none;}
         .admin-btn:hover { background: var(--gold-primary); }
-        .admin-input { width: 100%; padding: 10px; margin: 5px 0 10px; border: 1px solid rgba(212,175,55,0.3); background: #16120F; color: #FFF; border-radius: 4px; font-family: var(--font-body); font-size: 0.95rem; }
+        .admin-input { width: 100%; padding: 8px; margin: 5px 0 10px; border: 1px solid rgba(212,175,55,0.4); background: #16120F; color: #FFF; border-radius: 4px; font-family: var(--font-body); font-size: 0.95rem; }
         
         .editable { position: relative; transition: 0.3s; outline: none; }
         body.is-admin .editable { padding-right: 20px; border-bottom: 1px dashed var(--gold-primary); }
@@ -328,14 +342,14 @@
         body.is-admin .editable::after {
             content: '\f304'; font-family: "Font Awesome 6 Free"; font-weight: 900;
             position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-            font-size: 0.8rem; color: var(--gold-primary); opacity: 0.6; pointer-events: none;
+            font-size: 0.8rem; color: var(--gold-primary); opacity: 0.6; pointer-events: none; text-shadow: none;
         }
         body.is-admin .editable:hover::after { opacity: 1; }
-        body.is-admin .editable:focus { border: 1px solid var(--gold-primary); background: #000; padding: 2px 20px 2px 5px; border-radius: 4px; }
+        body.is-admin .editable:focus { border: 1px solid var(--gold-primary); background: #0A0705; padding: 2px 20px 2px 5px; border-radius: 4px; }
 
         /* === TỐI ƯU HÓA MOBILE === */
         @media (max-width: 768px) {
-            .hero { padding: 50px 10px 100px; } /* Vẫn giữ bottom padding để hiệu ứng chìm ảnh mượt */
+            .hero { padding: 50px 10px 100px; } 
             .fantasy-frame { padding: 40px 15px; }
             .hero-title { font-size: 3rem; margin-bottom: 5px; }
             .hero-label { margin-bottom: 15px; font-size: 0.75rem; padding: 4px 15px;}
@@ -405,7 +419,7 @@
         <!-- BẢNG ĐIỀU KHIỂN ADMIN -->
         <div class="admin-panel" id="admin-panel">
             <h3 style="margin-bottom: 10px; color: var(--gold-primary); font-family: var(--font-heading); font-size: 1.3rem;"><i class="fas fa-feather-alt"></i> QUYỀN NĂNG TỐI THƯỢNG (ADMIN)</h3>
-            <p style="margin-bottom: 20px; font-style: italic; font-size: 0.95rem;">*Chạm vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> để thay đổi thực tại. Dữ liệu lưu cục bộ.</p>
+            <p style="margin-bottom: 20px; font-style: italic; font-size: 0.95rem;">*Chạm vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> để thay đổi thực tại. Bất kỳ chữ nào được dán (paste) vào sẽ tự động khớp với màu và viền của website.</p>
             
             <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px dashed var(--gold-primary); margin-bottom: 15px; border-radius: 4px;">
                 <h4 style="color: var(--gold-light); font-family: var(--font-heading); margin-bottom: 10px;"><i class="fas fa-music"></i> Hộp Nhạc Phép Thuật</h4>
@@ -606,18 +620,31 @@
             ]
         };
 
-        let appData = JSON.parse(localStorage.getItem('meownia_fade_v9')) || JSON.parse(JSON.stringify(defaultAppContent));
+        let appData = JSON.parse(localStorage.getItem('meownia_final_v10')) || JSON.parse(JSON.stringify(defaultAppContent));
         let isAdmin = false;
         let currentModalEraId = null;
 
-        function saveData() { localStorage.setItem('meownia_fade_v9', JSON.stringify(appData)); }
+        function saveData() { localStorage.setItem('meownia_final_v10', JSON.stringify(appData)); }
         function resetFactoryData() {
             if(confirm("Khôi phục toàn bộ văn bản và ảnh về bản gốc?")){
-                localStorage.removeItem('meownia_fade_v9');
-                localStorage.removeItem('meownia_fade_img_v9');
+                localStorage.removeItem('meownia_final_v10');
+                localStorage.removeItem('meownia_final_img_v10');
                 location.reload();
             }
         }
+
+        /* ========================================================
+           BẮT SỰ KIỆN PASTE - ÉP CHỈ NHẬN TEXT (XÓA ĐỊNH DẠNG CŨ)
+           ======================================================== */
+        document.addEventListener('paste', function(e) {
+            if (e.target && e.target.classList && e.target.classList.contains('editable')) {
+                e.preventDefault();
+                // Lấy nội dung dưới dạng text thuần túy
+                var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                // Chèn vào vị trí con trỏ
+                document.execCommand('insertText', false, text);
+            }
+        });
 
         /* ========================================================
            2. RENDER GIAO DIỆN & LIVE EDIT
@@ -690,7 +717,7 @@
            3. MODAL KỶ NGUYÊN & ZOOM ẢNH
            ======================================================== */
         function loadSavedImage(eraId) {
-            const savedImages = JSON.parse(localStorage.getItem('meownia_fade_img_v9')) || {};
+            const savedImages = JSON.parse(localStorage.getItem('meownia_final_img_v10')) || {};
             return savedImages[eraId] || null;
         }
 
@@ -777,9 +804,9 @@
                     const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
                     const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85); 
                     
-                    let savedImages = JSON.parse(localStorage.getItem('meownia_fade_img_v9')) || {};
+                    let savedImages = JSON.parse(localStorage.getItem('meownia_final_img_v10')) || {};
                     savedImages[currentModalEraId] = compressedBase64;
-                    localStorage.setItem('meownia_fade_img_v9', JSON.stringify(savedImages));
+                    localStorage.setItem('meownia_final_img_v10', JSON.stringify(savedImages));
                     openModal(currentModalEraId);
                 }
             };
@@ -819,7 +846,7 @@
         /* ========================================================
            5. HỘP NHẠC PHÉP THUẬT
            ======================================================== */
-        let playlist = JSON.parse(localStorage.getItem('meownia_fade_music_v9')) || [
+        let playlist = JSON.parse(localStorage.getItem('meownia_final_music_v10')) || [
             { title: "Bản Giao Hưởng Tiên Tộc", artist: "Bard of Celestara", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
             { title: "Giai Điệu Hầm Ngục", artist: "Unknown", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" }
         ];
@@ -858,7 +885,7 @@
             const url = document.getElementById('admin-song-url').value;
             if(!title || !url) { alert("Thiếu tên hoặc link!"); return; }
             playlist.push({ title, artist, url });
-            localStorage.setItem('meownia_fade_music_v9', JSON.stringify(playlist));
+            localStorage.setItem('meownia_final_music_v10', JSON.stringify(playlist));
             
             document.getElementById('admin-song-name').value = '';
             document.getElementById('admin-song-artist').value = '';
@@ -870,7 +897,7 @@
             event.stopPropagation(); 
             if(confirm("Xóa bản nhạc này?")) {
                 playlist.splice(index, 1);
-                localStorage.setItem('meownia_fade_music_v9', JSON.stringify(playlist));
+                localStorage.setItem('meownia_final_music_v10', JSON.stringify(playlist));
                 if (currentSongIndex === index) { audio.pause(); resetPlayerUI(); } 
                 else if (currentSongIndex > index) currentSongIndex--;
                 renderPlaylist();
