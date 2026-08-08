@@ -66,24 +66,43 @@
             content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.3); margin: 0 20px;
         }
 
-        /* === HERO SECTION ĐÃ THU GỌN === */
+        /* === HERO SECTION VỚI ẢNH NỀN BỊ LÀM MỜ === */
         .hero { 
-            padding: 30px 15px; 
-            background: radial-gradient(circle at top, #241D18 0%, var(--bg-deep) 80%);
+            position: relative;
+            padding: 50px 15px; 
+            /* Gắn ảnh từ GitHub */
+            background-image: url('./Bìa%20Meownia%20ngang.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Lớp màng mờ ma thuật (Dark & Blur Overlay) */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Gradient làm tối ảnh để nổi bật chữ */
+            background: linear-gradient(to bottom, rgba(22, 18, 15, 0.6) 0%, rgba(22, 18, 15, 0.95) 100%);
+            backdrop-filter: blur(4px); /* Làm mờ bức ảnh */
+            z-index: 1;
         }
         
         .fantasy-frame {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 20px;
             position: relative;
+            z-index: 2; /* Nổi lên trên lớp màng mờ */
             text-align: center;
             border-top: 2px solid var(--gold-primary);
             border-bottom: 2px solid var(--gold-primary);
-            background: rgba(212, 175, 55, 0.02);
+            background: rgba(22, 18, 15, 0.45); /* Nền hơi tối cho riêng cái khung */
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
+        
         .fantasy-frame::before, .fantasy-frame::after {
-            content: ''; position: absolute; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.3);
+            content: ''; position: absolute; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.4);
         }
         .fantasy-frame::before { top: 5px; }
         .fantasy-frame::after { bottom: 5px; }
@@ -98,17 +117,17 @@
             display: inline-block; border: 1px solid var(--gold-dark); padding: 4px 20px;
             font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 3px;
             color: var(--gold-light); text-transform: uppercase; margin-bottom: 15px;
-            border-radius: 2px;
+            border-radius: 2px; background: rgba(212, 175, 55, 0.1);
         }
-        .hero-welcome { font-size: 1.15rem; margin-bottom: 5px; font-style: italic; color: var(--text-muted); }
+        .hero-welcome { font-size: 1.15rem; margin-bottom: 5px; font-style: italic; color: #E8DCC8; }
         
         .hero-title {
-            font-family: var(--font-heading); font-size: 3.8rem; letter-spacing: 2px;
+            font-family: var(--font-heading); font-size: 4rem; letter-spacing: 2px;
             margin-bottom: 10px; line-height: 1.1;
             user-select: none; cursor: pointer; 
-            text-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
         }
-        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; }
+        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
         /* === NAVIGATION === */
         .sticky-nav {
@@ -295,16 +314,15 @@
         body.is-admin .editable:hover::after { opacity: 1; }
         body.is-admin .editable:focus { border: 1px solid var(--gold-primary); background: #000; padding: 2px 20px 2px 5px; border-radius: 4px; }
 
-        /* === TỐI ƯU HÓA MOBILE (VUỐT NGANG MƯỢT MÀ) === */
+        /* === TỐI ƯU HÓA MOBILE === */
         @media (max-width: 768px) {
-            .hero { padding: 20px 10px; }
-            .fantasy-frame { padding: 30px 15px; }
-            .hero-title { font-size: 2.6rem; margin-bottom: 5px; }
+            .hero { padding: 40px 10px; }
+            .fantasy-frame { padding: 35px 15px; }
+            .hero-title { font-size: 2.8rem; margin-bottom: 5px; }
             .hero-label { margin-bottom: 15px; font-size: 0.75rem; padding: 4px 15px;}
-            .hero-desc { font-size: 1rem; line-height: 1.5; }
+            .hero-desc { font-size: 1.05rem; line-height: 1.5; }
             .frame-corner { width: 15px; height: 15px; }
             
-            /* Menu vuốt ngang trên điện thoại */
             .sticky-nav {
                 justify-content: flex-start;
                 flex-wrap: nowrap;
@@ -319,8 +337,8 @@
             .era-grid { grid-template-columns: 1fr; gap: 15px; }
             .era-card { padding: 20px; }
             
-            .intro-box { padding: 25px 15px; }
-            .intro-main-title { font-size: 2rem; }
+            .intro-box { padding: 30px 15px; }
+            .intro-main-title { font-size: 2.2rem; }
             .intro-sub-title { font-size: 0.85rem; letter-spacing: 1px;}
             
             .modal-content { width: 95%; margin: 15px auto; }
@@ -337,7 +355,7 @@
 </head>
 <body>
 
-    <!-- HERO SECTION VỚI KHUNG FANTASY NHỎ GỌN -->
+    <!-- HERO SECTION VỚI ẢNH NỀN GITHUB BỊ LÀM MỜ -->
     <header class="hero" id="top">
         <div class="fantasy-frame">
             <div class="frame-corner c-tl"></div>
@@ -569,15 +587,15 @@
             ]
         };
 
-        let appData = JSON.parse(localStorage.getItem('meownia_compact_v6')) || JSON.parse(JSON.stringify(defaultAppContent));
+        let appData = JSON.parse(localStorage.getItem('meownia_final_v7')) || JSON.parse(JSON.stringify(defaultAppContent));
         let isAdmin = false;
         let currentModalEraId = null;
 
-        function saveData() { localStorage.setItem('meownia_compact_v6', JSON.stringify(appData)); }
+        function saveData() { localStorage.setItem('meownia_final_v7', JSON.stringify(appData)); }
         function resetFactoryData() {
             if(confirm("Khôi phục toàn bộ văn bản và ảnh về bản gốc?")){
-                localStorage.removeItem('meownia_compact_v6');
-                localStorage.removeItem('meownia_compact_img_v6');
+                localStorage.removeItem('meownia_final_v7');
+                localStorage.removeItem('meownia_final_img_v7');
                 location.reload();
             }
         }
@@ -653,7 +671,7 @@
            3. MODAL KỶ NGUYÊN & ZOOM ẢNH
            ======================================================== */
         function loadSavedImage(eraId) {
-            const savedImages = JSON.parse(localStorage.getItem('meownia_compact_img_v6')) || {};
+            const savedImages = JSON.parse(localStorage.getItem('meownia_final_img_v7')) || {};
             return savedImages[eraId] || null;
         }
 
@@ -740,9 +758,9 @@
                     const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
                     const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85); 
                     
-                    let savedImages = JSON.parse(localStorage.getItem('meownia_compact_img_v6')) || {};
+                    let savedImages = JSON.parse(localStorage.getItem('meownia_final_img_v7')) || {};
                     savedImages[currentModalEraId] = compressedBase64;
-                    localStorage.setItem('meownia_compact_img_v6', JSON.stringify(savedImages));
+                    localStorage.setItem('meownia_final_img_v7', JSON.stringify(savedImages));
                     openModal(currentModalEraId);
                 }
             };
@@ -782,7 +800,7 @@
         /* ========================================================
            5. HỘP NHẠC PHÉP THUẬT
            ======================================================== */
-        let playlist = JSON.parse(localStorage.getItem('meownia_compact_music_v6')) || [
+        let playlist = JSON.parse(localStorage.getItem('meownia_final_music_v7')) || [
             { title: "Bản Giao Hưởng Tiên Tộc", artist: "Bard of Celestara", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
             { title: "Giai Điệu Hầm Ngục", artist: "Unknown", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" }
         ];
@@ -821,7 +839,7 @@
             const url = document.getElementById('admin-song-url').value;
             if(!title || !url) { alert("Thiếu tên hoặc link!"); return; }
             playlist.push({ title, artist, url });
-            localStorage.setItem('meownia_compact_music_v6', JSON.stringify(playlist));
+            localStorage.setItem('meownia_final_music_v7', JSON.stringify(playlist));
             
             document.getElementById('admin-song-name').value = '';
             document.getElementById('admin-song-artist').value = '';
@@ -833,7 +851,7 @@
             event.stopPropagation(); 
             if(confirm("Xóa bản nhạc này?")) {
                 playlist.splice(index, 1);
-                localStorage.setItem('meownia_compact_music_v6', JSON.stringify(playlist));
+                localStorage.setItem('meownia_final_music_v7', JSON.stringify(playlist));
                 if (currentSongIndex === index) { audio.pause(); resetPlayerUI(); } 
                 else if (currentSongIndex > index) currentSongIndex--;
                 renderPlaylist();
