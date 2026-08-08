@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="color-scheme" content="dark">
-    <meta name="description" content="Cẩm Nang Du Hành Meownia World - Royal Dark Fantasy.">
+    <meta name="description" content="Cẩm Nang Du Hành Meownia World - Seamless Dark Fantasy.">
     <title>Cẩm Nang Du Hành | Meownia World</title>
 
     <!-- Google Fonts Hỗ Trợ Tiếng Việt Tuyệt Đối -->
@@ -20,21 +20,23 @@
         :root {
             color-scheme: dark;
             
-            --bg-deep: #16120F;          
-            --bg-card: #1F1915;          
+            /* MÀU NỀN CHỦ ĐẠO - NÂU ĐEN CHÁY (TẠO SỰ HÒA QUYỆN) */
+            --bg-deep: #0C0A09;          
+            --bg-card: #161210;          
+            
             --gold-primary: #D4AF37;     
             --gold-light: #F9E596;       
             --gold-dark: #997A15;        
             --crimson-magic: #8B1E1E;    
             
             --text-main: #F4EAD5;        
-            --text-muted: #BBAA99;       
+            --text-muted: #A39687;       
             
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lora', serif;
             
-            --border-royal: 1px solid rgba(212, 175, 55, 0.3);
-            --shadow-soft: 0 8px 25px rgba(0, 0, 0, 0.4);
+            --border-royal: 1px solid rgba(212, 175, 55, 0.25);
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         /* === RESET & GLOBAL === */
@@ -43,11 +45,13 @@
         
         body {
             font-family: var(--font-body) !important;
-            background-color: var(--bg-deep) !important;
+            background-color: var(--bg-deep) !important; /* Áp màu nền chủ đạo */
             color: var(--text-main) !important;
             line-height: 1.6;
             font-size: 1.05rem;
             overflow-x: hidden;
+            /* Thêm ánh sáng lan tỏa rất nhẹ từ giữa màn hình để web không bị phẳng */
+            background-image: radial-gradient(circle at center 100vh, rgba(212, 175, 55, 0.03) 0%, transparent 80%) !important;
         }
 
         /* VĂN BẢN HOÀNG GIA - ĐÃ FIX LỖI ĐEN CHỮ */
@@ -57,128 +61,142 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
+            /* Dùng filter drop-shadow thay vì text-shadow để tránh lỗi viền đen */
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
         }
         
         .ornament-divider {
             display: flex; align-items: center; justify-content: center;
             margin: 20px 0; color: var(--gold-primary); font-size: 1rem;
+            opacity: 0.8;
         }
         .ornament-divider::before, .ornament-divider::after {
-            content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.3); margin: 0 20px;
+            content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.25); margin: 0 20px;
         }
 
-        /* === HERO SECTION ĐÃ HIỆN RÕ ẢNH NỀN === */
+        /* === HERO SECTION VỚI HIỆU ỨNG SEAMLESS FADE === */
         .hero { 
             position: relative;
-            padding: 70px 15px; 
+            padding: 80px 15px 130px; /* Thêm padding dưới để có không gian cho hiệu ứng chìm dần */
             background-image: url('./Bìa%20Meownia%20ngang.png');
             background-size: cover;
-            background-position: center;
+            background-position: center top;
         }
         
-        /* Lớp màng mỏng để chữ nổi nhưng KHÔNG LÀM MỜ ẢNH quá mức */
+        /* 1. Lớp màng mỏng toàn ảnh để dễ đọc chữ */
         .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(22, 18, 15, 0.3) 0%, rgba(22, 18, 15, 0.85) 100%);
-            backdrop-filter: blur(1px); /* Làm mờ cực nhẹ thôi để thấy rõ ảnh */
+            background: rgba(12, 10, 9, 0.35); /* Tối nhẹ */
             z-index: 1;
         }
+
+        /* 2. HIỆU ỨNG CỰC KỲ QUAN TRỌNG: Làm ảnh chìm dần vào màu nền trang web */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 200px;
+            background: linear-gradient(to bottom, rgba(12, 10, 9, 0) 0%, rgba(12, 10, 9, 1) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
         
+        /* KHUNG FANTASY KÍNH MỜ */
         .fantasy-frame {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 30px;
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Nổi lên trên lớp màng mờ */
             text-align: center;
-            border-top: 2px solid var(--gold-primary);
-            border-bottom: 2px solid var(--gold-primary);
-            background: rgba(22, 18, 15, 0.3); /* Xuyên thấu tốt hơn */
-            border-radius: 4px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            background: rgba(12, 10, 9, 0.65); /* Kính mờ màu tối */
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
         }
         
         .fantasy-frame::before, .fantasy-frame::after {
-            content: ''; position: absolute; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.4);
+            content: ''; position: absolute; left: 15px; right: 15px; height: 1px; background: rgba(212, 175, 55, 0.3);
         }
-        .fantasy-frame::before { top: 5px; }
-        .fantasy-frame::after { bottom: 5px; }
+        .fantasy-frame::before { top: 6px; }
+        .fantasy-frame::after { bottom: 6px; }
         
-        .frame-corner { position: absolute; width: 20px; height: 20px; border: 2px solid var(--gold-primary); }
-        .c-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-        .c-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
-        .c-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
-        .c-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+        /* Góc hoa văn */
+        .frame-corner { position: absolute; width: 22px; height: 22px; border: 2px solid var(--gold-primary); }
+        .c-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
+        .c-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
+        .c-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
+        .c-br { bottom: -2px; right: -2px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
 
         .hero-label {
-            display: inline-block; border: 1px solid var(--gold-dark); padding: 4px 20px;
+            display: inline-block; border: 1px solid var(--gold-dark); padding: 4px 22px;
             font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 3px;
-            color: var(--gold-light); text-transform: uppercase; margin-bottom: 15px;
-            border-radius: 2px; background: rgba(212, 175, 55, 0.2);
-            backdrop-filter: blur(2px);
+            color: var(--gold-light); text-transform: uppercase; margin-bottom: 20px;
+            border-radius: 3px; background: rgba(212, 175, 55, 0.1);
         }
-        .hero-welcome { font-size: 1.15rem; margin-bottom: 5px; font-style: italic; color: #E8DCC8; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .hero-welcome { font-size: 1.2rem; margin-bottom: 5px; font-style: italic; color: #E8DCC8; }
         
         .hero-title {
-            font-family: var(--font-heading); font-size: 4rem; letter-spacing: 2px;
-            margin-bottom: 10px; line-height: 1.1;
+            font-family: var(--font-heading); font-size: 4.2rem; letter-spacing: 2px;
+            margin-bottom: 12px; line-height: 1.1;
             user-select: none; cursor: pointer; 
-            /* Fix lỗi đen chữ: Dùng filter drop-shadow thay vì text-shadow */
-            filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 20px rgba(0,0,0,0.5));
         }
-        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; text-shadow: 0 2px 5px rgba(0,0,0,1); }
+        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; }
 
-        /* === NAVIGATION === */
+        /* === NAVIGATION SEAMLESS (KHỚP NỀN) === */
         .sticky-nav {
-            position: sticky; top: 0; background-color: rgba(22, 18, 15, 0.95);
+            position: sticky; top: 0; 
+            /* Trùng 100% với màu nền để tàng hình viền cắt */
+            background-color: rgba(12, 10, 9, 0.95);
             z-index: 100; display: flex; justify-content: center; gap: 8px;
-            padding: 10px 15px; border-bottom: var(--border-royal);
-            backdrop-filter: blur(10px); box-shadow: var(--shadow-soft); flex-wrap: wrap;
+            padding: 10px 15px; border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px); flex-wrap: wrap;
         }
         .nav-item {
-            color: var(--text-main); text-decoration: none; padding: 6px 14px;
+            color: var(--text-main); text-decoration: none; padding: 6px 16px;
             font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600;
             transition: 0.3s; display: flex; align-items: center; gap: 6px; border-radius: 20px; white-space: nowrap;
         }
-        .nav-item:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.1); }
-        .nav-item.active { background: var(--crimson-magic); color: #FFF; border: 1px solid rgba(255,255,255,0.1); }
+        .nav-item:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.08); }
+        .nav-item.active { background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); border: 1px solid rgba(212, 175, 55, 0.3); }
 
         /* === CONTAINER & SECTIONS === */
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px 15px 50px; }
         .section-header { text-align: center; margin-bottom: 40px; }
         
         .intro-box {
-            background: var(--bg-card); border: var(--border-royal); padding: 40px 30px; 
-            text-align: center; position: relative; margin-bottom: 50px; border-radius: 6px;
+            background: var(--bg-card); border: var(--border-royal); padding: 45px 35px; 
+            text-align: center; position: relative; margin-bottom: 50px; border-radius: 8px;
             box-shadow: var(--shadow-soft);
         }
         
-        .intro-main-title { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px; line-height: 1.2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        .intro-main-title { font-family: var(--font-heading); font-size: 2.8rem; margin-bottom: 5px; line-height: 1.2; }
         .intro-sub-title { font-family: var(--font-heading); font-size: 0.9rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: block; font-weight: 600; }
 
         /* === ERA CARDS GRID === */
         .era-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
         .era-card {
-            background: var(--bg-card); border: var(--border-royal); padding: 25px; 
+            background: var(--bg-card); border: var(--border-royal); padding: 30px; 
             cursor: pointer; transition: all 0.3s ease; position: relative; 
-            border-radius: 6px; box-shadow: var(--shadow-soft); 
+            border-radius: 8px; box-shadow: var(--shadow-soft); 
             display: flex; flex-direction: column;
         }
-        .era-card:hover { transform: translateY(-3px); border-color: var(--gold-primary); background: #27201C; }
+        .era-card:hover { transform: translateY(-4px); border-color: var(--gold-primary); background: #1C1613; box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
         
-        .era-name { font-family: var(--font-heading); font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; }
+        .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; }
         .era-date { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px; }
-        .era-desc { font-size: 1.05rem; margin-bottom: 20px; flex-grow: 1; color: var(--text-main); }
+        .era-desc { font-size: 1.05rem; margin-bottom: 25px; flex-grow: 1; color: var(--text-main); }
         
-        .era-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 25px; }
+        /* TAG VIÊN THUỐC (PILL) */
+        .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
         .era-tag { 
             font-family: var(--font-body); font-size: 0.8rem; 
-            padding: 4px 12px; 
+            padding: 5px 14px; 
             background-color: rgba(212, 175, 55, 0.08); 
             color: var(--gold-light); 
-            border: 1px solid var(--gold-dark);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 50px; 
             font-weight: 600;
         }
@@ -189,40 +207,40 @@
         /* === MODAL CẨM NANG MAGIC === */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); }
         .modal-content {
-            background-color: var(--bg-card); margin: 30px auto; border: 2px solid var(--gold-primary);
-            width: 95%; max-width: 850px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; border-radius: 6px;
+            background-color: var(--bg-card); margin: 30px auto; border: 1px solid var(--gold-dark);
+            width: 95%; max-width: 850px; position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+            display: flex; flex-direction: column; border-radius: 8px;
         }
         .modal-close { position: absolute; right: 15px; top: 15px; font-size: 32px; color: var(--text-muted); cursor: pointer; z-index: 10; transition: 0.3s; line-height: 1; padding: 5px; }
         .modal-close:hover { color: var(--gold-light); }
         
-        .modal-header { padding: 35px 30px 15px; text-align: center; border-bottom: 1px dashed rgba(212, 175, 55, 0.3); }
-        .modal-title { font-family: var(--font-heading); font-size: 2.2rem; line-height: 1.2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));}
+        .modal-header { padding: 35px 30px 15px; text-align: center; border-bottom: 1px dashed rgba(212, 175, 55, 0.2); }
+        .modal-title { font-family: var(--font-heading); font-size: 2.2rem; line-height: 1.2; }
         .modal-date { font-size: 1rem; color: var(--text-muted); font-style: italic; margin-top: 5px; }
         
-        .modal-body { padding: 25px 30px; }
+        .modal-body { padding: 30px; }
         .modal-image-wrapper { 
-            width: 100%; aspect-ratio: 4/3; background: #0A0705; border: 1px solid var(--gold-dark); 
+            width: 100%; aspect-ratio: 4/3; background: #0A0705; border: 1px solid rgba(212, 175, 55, 0.4); 
             position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; 
-            border-radius: 4px; cursor: zoom-in; margin-bottom: 8px;
+            border-radius: 6px; cursor: zoom-in; margin-bottom: 10px;
         }
         .modal-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; opacity: 0.95; }
         .modal-image-wrapper:hover img { transform: scale(1.02); opacity: 1; }
         .no-image-text { color: var(--text-muted); font-style: italic; font-family: var(--font-heading); font-size: 1.1rem; }
         
-        .image-caption { text-align: center; font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-bottom: 30px; font-family: var(--font-body); }
+        .image-caption { text-align: center; font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-bottom: 35px; font-family: var(--font-body); }
 
-        .modal-text-section { margin-bottom: 25px; }
-        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 10px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 6px; letter-spacing: 1px; }
+        .modal-text-section { margin-bottom: 30px; }
+        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); padding-bottom: 6px; letter-spacing: 1px; }
         .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.05rem; color: var(--text-main); }
         .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.05rem; color: var(--text-main); }
         .modal-text-section li { margin-bottom: 8px; }
         .modal-text-section li::marker { color: var(--gold-primary); }
 
-        .modal-footer { padding: 15px 30px 30px; text-align: center; }
+        .modal-footer { padding: 15px 30px 35px; text-align: center; }
         .btn-select-era {
-            background: transparent; color: var(--gold-primary); border: 2px solid var(--gold-primary);
-            padding: 10px 30px; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
+            background: rgba(212, 175, 55, 0.05); color: var(--gold-primary); border: 1px solid var(--gold-primary);
+            padding: 12px 35px; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
             cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px; width: 100%; max-width: 300px;
         }
         .btn-select-era:hover { background: var(--gold-primary); color: var(--bg-deep); }
@@ -230,28 +248,28 @@
         /* === ZOOM IMAGE OVERLAY === */
         .zoom-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(10, 7, 5, 0.95); z-index: 2000;
+            background: rgba(12, 10, 9, 0.95); z-index: 2000;
             justify-content: center; align-items: center; cursor: zoom-out;
         }
         .zoom-overlay img {
             max-width: 98vw; max-height: 98vh; object-fit: contain;
-            border: 2px solid var(--gold-primary); border-radius: 4px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); transition: transform 0.2s;
+            border: 1px solid var(--gold-primary); border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: transform 0.2s;
         }
 
         /* === ACCORDION QUY TẮC === */
         .accordion-container { margin-top: 50px; }
-        .accordion-item { border: 1px solid rgba(212, 175, 55, 0.2); background: var(--bg-card); margin-bottom: 10px; border-radius: 6px; transition: 0.3s; }
+        .accordion-item { border: 1px solid rgba(212, 175, 55, 0.15); background: var(--bg-card); margin-bottom: 12px; border-radius: 6px; transition: 0.3s; }
         .accordion-header {
-            width: 100%; text-align: left; padding: 16px 20px; background: transparent; border: none;
+            width: 100%; text-align: left; padding: 18px 22px; background: transparent; border: none;
             color: var(--gold-light); font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
             cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; letter-spacing: 1px;
         }
         .accordion-header:hover { background: rgba(212, 175, 55, 0.05); }
         .accordion-header i { transition: transform 0.3s; color: var(--gold-dark); }
         .accordion-header.active i { transform: rotate(45deg); color: var(--gold-primary); }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding: 0 20px; }
-        .accordion-content.active { padding: 0 20px 20px; max-height: 600px; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding: 0 22px; }
+        .accordion-content.active { padding: 0 22px 22px; max-height: 600px; }
         .accordion-content p { color: var(--text-main); font-size: 1.05rem; }
 
         /* === ĐĨA NHẠC & WIDGET === */
@@ -260,7 +278,7 @@
             width: 55px; height: 55px; border-radius: 50%; 
             background: conic-gradient(from 0deg, #111, #222 45deg, #0a0a0a 90deg, #222 135deg, #111 180deg, #222 225deg, #0a0a0a 270deg, #222 315deg, #111);
             border: 2px solid var(--gold-primary); position: relative; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center;
             transition: transform 0.3s;
         }
         .record-disc::before { content: ''; position: absolute; width: 38px; height: 38px; border-radius: 50%; border: 1px dashed rgba(212, 175, 55, 0.3); pointer-events: none; }
@@ -277,7 +295,7 @@
         .music-panel {
             display: none; position: fixed; bottom: 90px; right: 25px; width: 300px; max-width: calc(100vw - 40px);
             background: var(--bg-card); border: 1px solid var(--gold-dark);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 998; border-radius: 6px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9); z-index: 998; border-radius: 8px; overflow: hidden;
         }
         .music-panel-header { background: var(--bg-deep); color: var(--gold-primary); padding: 12px; text-align: center; font-family: var(--font-heading); font-size: 1rem; font-weight: 700; position: relative; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
         .close-music { position: absolute; right: 12px; top: 12px; cursor: pointer; color: var(--text-muted); transition: 0.3s; padding: 4px; }
@@ -297,12 +315,12 @@
         .progress-bar { height: 100%; background: var(--gold-primary); width: 0%; pointer-events: none; border-radius: 4px; }
         .play-btn { background: var(--gold-primary); color: var(--bg-deep); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; }
 
-        /* === ADMIN PANEL & INLINE EDITING === */
-        .admin-panel { display: none; background: #2A1F18; color: var(--text-main); padding: 20px; border: 1px solid var(--crimson-magic); margin-bottom: 30px; border-radius: 6px; box-shadow: 0 5px 15px rgba(139,30,30,0.2); }
+        /* === ADMIN PANEL === */
+        .admin-panel { display: none; background: #231C18; color: var(--text-main); padding: 25px; border: 1px solid var(--crimson-magic); margin-bottom: 30px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         body.is-admin .admin-panel { display: block; }
-        .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 15px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: 0.3s; }
+        .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 18px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.95rem; margin-top: 10px; transition: 0.3s; }
         .admin-btn:hover { background: var(--gold-primary); }
-        .admin-input { width: 100%; padding: 8px; margin: 5px 0 10px; border: 1px solid rgba(212,175,55,0.4); background: #16120F; color: #FFF; border-radius: 4px; font-family: var(--font-body); font-size: 0.95rem; }
+        .admin-input { width: 100%; padding: 10px; margin: 5px 0 10px; border: 1px solid rgba(212,175,55,0.3); background: #16120F; color: #FFF; border-radius: 4px; font-family: var(--font-body); font-size: 0.95rem; }
         
         .editable { position: relative; transition: 0.3s; outline: none; }
         body.is-admin .editable { padding-right: 20px; border-bottom: 1px dashed var(--gold-primary); }
@@ -317,11 +335,11 @@
 
         /* === TỐI ƯU HÓA MOBILE === */
         @media (max-width: 768px) {
-            .hero { padding: 40px 10px; }
-            .fantasy-frame { padding: 30px 15px; }
-            .hero-title { font-size: 2.6rem; margin-bottom: 5px; }
+            .hero { padding: 50px 10px 100px; } /* Vẫn giữ bottom padding để hiệu ứng chìm ảnh mượt */
+            .fantasy-frame { padding: 40px 15px; }
+            .hero-title { font-size: 3rem; margin-bottom: 5px; }
             .hero-label { margin-bottom: 15px; font-size: 0.75rem; padding: 4px 15px;}
-            .hero-desc { font-size: 1rem; line-height: 1.5; }
+            .hero-desc { font-size: 1.05rem; line-height: 1.5; }
             .frame-corner { width: 15px; height: 15px; }
             
             .sticky-nav {
@@ -336,10 +354,10 @@
             .nav-item { scroll-snap-align: start; flex-shrink: 0; }
             
             .era-grid { grid-template-columns: 1fr; gap: 15px; }
-            .era-card { padding: 20px; }
+            .era-card { padding: 25px 20px; }
             
-            .intro-box { padding: 25px 15px; }
-            .intro-main-title { font-size: 2rem; }
+            .intro-box { padding: 35px 20px; }
+            .intro-main-title { font-size: 2.2rem; }
             .intro-sub-title { font-size: 0.85rem; letter-spacing: 1px;}
             
             .modal-content { width: 95%; margin: 15px auto; }
@@ -356,7 +374,7 @@
 </head>
 <body>
 
-    <!-- HERO SECTION VỚI ẢNH NỀN GITHUB BỊ LÀM MỜ NHẸ -->
+    <!-- HERO SECTION VỚI ẢNH NỀN FADE CHÌM VÀO BACKGROUND -->
     <header class="hero" id="top">
         <div class="fantasy-frame">
             <div class="frame-corner c-tl"></div>
@@ -371,7 +389,7 @@
         </div>
     </header>
 
-    <!-- NAVIGATION (VUỐT NGANG TRÊN MOBILE) -->
+    <!-- NAVIGATION TÀNG HÌNH VỚI NỀN -->
     <nav class="sticky-nav">
         <a href="#top" class="nav-item active"><i class="fas fa-globe"></i> <span class="editable" data-key="nav.1">Thế Giới</span></a>
         <a href="#" class="nav-item" onclick="alert('Tính năng đang phong ấn!')"><i class="fas fa-map"></i> <span class="editable" data-key="nav.2">Vùng Đất</span></a>
@@ -386,12 +404,12 @@
         
         <!-- BẢNG ĐIỀU KHIỂN ADMIN -->
         <div class="admin-panel" id="admin-panel">
-            <h3 style="margin-bottom: 10px; color: var(--gold-primary); font-family: var(--font-heading); font-size: 1.2rem;"><i class="fas fa-feather-alt"></i> QUYỀN NĂNG TỐI THƯỢNG (ADMIN)</h3>
-            <p style="margin-bottom: 15px; font-style: italic; font-size: 0.9rem;">*Chạm vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> để thay đổi thực tại. Dữ liệu lưu cục bộ.</p>
+            <h3 style="margin-bottom: 10px; color: var(--gold-primary); font-family: var(--font-heading); font-size: 1.3rem;"><i class="fas fa-feather-alt"></i> QUYỀN NĂNG TỐI THƯỢNG (ADMIN)</h3>
+            <p style="margin-bottom: 20px; font-style: italic; font-size: 0.95rem;">*Chạm vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> để thay đổi thực tại. Dữ liệu lưu cục bộ.</p>
             
-            <div style="background: rgba(0,0,0,0.3); padding: 15px; border: 1px dashed var(--gold-primary); margin-bottom: 10px; border-radius: 4px;">
-                <h4 style="color: var(--gold-light); font-family: var(--font-heading); margin-bottom: 8px;"><i class="fas fa-music"></i> Hộp Nhạc Phép Thuật</h4>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px dashed var(--gold-primary); margin-bottom: 15px; border-radius: 4px;">
+                <h4 style="color: var(--gold-light); font-family: var(--font-heading); margin-bottom: 10px;"><i class="fas fa-music"></i> Hộp Nhạc Phép Thuật</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <input type="text" id="admin-song-name" class="admin-input" placeholder="Tên Bản Nhạc" style="flex:1; min-width: 120px;">
                     <input type="text" id="admin-song-artist" class="admin-input" placeholder="Nghệ sĩ" style="flex:1; min-width: 100px;">
                 </div>
@@ -408,7 +426,7 @@
                 
                 <div class="ornament-divider">✦</div>
                 <p class="editable" data-key="intro.p1">Meownia là một thế giới fantasy rộng lớn, nơi nhiều nền văn minh, chủng tộc và vùng đất cùng tồn tại qua những thời đại khác nhau. Thế giới không xoay quanh một nhân vật chính duy nhất, và không có một con đường được định sẵn cho tất cả mọi người.</p>
-                <p style="margin-top: 10px;" class="editable" data-key="intro.p2">Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.</p>
+                <p style="margin-top: 15px;" class="editable" data-key="intro.p2">Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.</p>
             </div>
         </section>
 
@@ -416,17 +434,17 @@
             <div class="section-header">
                 <h2 class="section-title gold-text editable" data-key="eraSection.title">8 KỶ NGUYÊN</h2>
                 <p class="editable" data-key="eraSection.desc" style="color: var(--text-muted);">Tám thời đại của Meownia — mỗi thời đại là một ngã rẽ khác để bước vào thế giới.</p>
-                <div class="ornament-divider" style="max-width: 200px; margin: 10px auto;">✦</div>
+                <div class="ornament-divider" style="max-width: 200px; margin: 15px auto;">✦</div>
             </div>
             
             <div class="era-grid" id="era-grid-container"></div>
         </section>
 
         <section id="rules" class="accordion-container">
-            <div class="section-header" style="margin-bottom: 25px;">
+            <div class="section-header" style="margin-bottom: 30px;">
                 <h2 class="section-title gold-text editable" data-key="ruleSection.title">QUY TẮC THẾ GIỚI</h2>
                 <p class="editable" data-key="ruleSection.desc" style="color: var(--text-muted);">Bốn nguyên lý tối thượng lữ khách cần biết trước khi bắt đầu.</p>
-                <div class="ornament-divider" style="max-width: 200px; margin: 10px auto;">✦</div>
+                <div class="ornament-divider" style="max-width: 200px; margin: 15px auto;">✦</div>
             </div>
             
             <div id="rules-container"></div>
@@ -453,7 +471,7 @@
                 <p class="image-caption editable" id="modal-caption" data-key-dynamic="true">Bản đồ của kỷ nguyên...</p>
                 
                 <div style="text-align:center;">
-                    <button class="admin-btn" id="btn-upload-img" style="display: none; margin-bottom: 20px;" onclick="document.getElementById('admin-img-upload').click()"><i class="fas fa-magic"></i> Đổi Ảnh</button>
+                    <button class="admin-btn" id="btn-upload-img" style="display: none; margin-bottom: 25px;" onclick="document.getElementById('admin-img-upload').click()"><i class="fas fa-magic"></i> Đổi Ảnh Bản Đồ</button>
                 </div>
                 
                 <div class="modal-text-section">
@@ -588,15 +606,15 @@
             ]
         };
 
-        let appData = JSON.parse(localStorage.getItem('meownia_final_v8')) || JSON.parse(JSON.stringify(defaultAppContent));
+        let appData = JSON.parse(localStorage.getItem('meownia_fade_v9')) || JSON.parse(JSON.stringify(defaultAppContent));
         let isAdmin = false;
         let currentModalEraId = null;
 
-        function saveData() { localStorage.setItem('meownia_final_v8', JSON.stringify(appData)); }
+        function saveData() { localStorage.setItem('meownia_fade_v9', JSON.stringify(appData)); }
         function resetFactoryData() {
             if(confirm("Khôi phục toàn bộ văn bản và ảnh về bản gốc?")){
-                localStorage.removeItem('meownia_final_v8');
-                localStorage.removeItem('meownia_final_img_v8');
+                localStorage.removeItem('meownia_fade_v9');
+                localStorage.removeItem('meownia_fade_img_v9');
                 location.reload();
             }
         }
@@ -672,7 +690,7 @@
            3. MODAL KỶ NGUYÊN & ZOOM ẢNH
            ======================================================== */
         function loadSavedImage(eraId) {
-            const savedImages = JSON.parse(localStorage.getItem('meownia_final_img_v8')) || {};
+            const savedImages = JSON.parse(localStorage.getItem('meownia_fade_img_v9')) || {};
             return savedImages[eraId] || null;
         }
 
@@ -759,9 +777,9 @@
                     const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
                     const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85); 
                     
-                    let savedImages = JSON.parse(localStorage.getItem('meownia_final_img_v8')) || {};
+                    let savedImages = JSON.parse(localStorage.getItem('meownia_fade_img_v9')) || {};
                     savedImages[currentModalEraId] = compressedBase64;
-                    localStorage.setItem('meownia_final_img_v8', JSON.stringify(savedImages));
+                    localStorage.setItem('meownia_fade_img_v9', JSON.stringify(savedImages));
                     openModal(currentModalEraId);
                 }
             };
@@ -801,7 +819,7 @@
         /* ========================================================
            5. HỘP NHẠC PHÉP THUẬT
            ======================================================== */
-        let playlist = JSON.parse(localStorage.getItem('meownia_final_music_v8')) || [
+        let playlist = JSON.parse(localStorage.getItem('meownia_fade_music_v9')) || [
             { title: "Bản Giao Hưởng Tiên Tộc", artist: "Bard of Celestara", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
             { title: "Giai Điệu Hầm Ngục", artist: "Unknown", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" }
         ];
@@ -840,7 +858,7 @@
             const url = document.getElementById('admin-song-url').value;
             if(!title || !url) { alert("Thiếu tên hoặc link!"); return; }
             playlist.push({ title, artist, url });
-            localStorage.setItem('meownia_final_music_v8', JSON.stringify(playlist));
+            localStorage.setItem('meownia_fade_music_v9', JSON.stringify(playlist));
             
             document.getElementById('admin-song-name').value = '';
             document.getElementById('admin-song-artist').value = '';
@@ -852,7 +870,7 @@
             event.stopPropagation(); 
             if(confirm("Xóa bản nhạc này?")) {
                 playlist.splice(index, 1);
-                localStorage.setItem('meownia_final_music_v8', JSON.stringify(playlist));
+                localStorage.setItem('meownia_fade_music_v9', JSON.stringify(playlist));
                 if (currentSongIndex === index) { audio.pause(); resetPlayerUI(); } 
                 else if (currentSongIndex > index) currentSongIndex--;
                 renderPlaylist();
