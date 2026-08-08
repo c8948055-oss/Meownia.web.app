@@ -2,11 +2,9 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <!-- Khai báo viewport cho phép điện thoại dùng 2 ngón tay zoom ảnh thoải mái -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <!-- KHÓA CHẶT TRÌNH DUYỆT Ở CHẾ ĐỘ SÁNG -->
     <meta name="color-scheme" content="only light">
-    <meta name="description" content="Cẩm Nang Du Hành Meownia World - Fantasy, Magic, Classic.">
+    <meta name="description" content="Cẩm Nang Du Hành Meownia World - Khám phá thế giới giả tưởng.">
     <title>Cẩm Nang Du Hành | Meownia World</title>
 
     <!-- Google Fonts Hỗ Trợ Tiếng Việt Tuyệt Đối -->
@@ -18,32 +16,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* === BỘ BIẾN MÀU FANTASY SÁNG (LIGHT MODE STRICT) === */
+        /* === BỘ BIẾN MÀU FANTASY SÁNG TỐI ƯU === */
         :root {
-            color-scheme: only light; /* Khóa chế độ sáng */
+            color-scheme: only light; 
             
-            --bg-parchment: #FDFBF7;     /* Trắng kem nền nã, màu giấy da cao cấp */
-            --bg-card: #FFFFFF;          /* Nền thẻ trắng tinh khiết */
-            --gold-primary: #C59B27;     /* Vàng đồng hoàng gia */
-            --gold-light: #E8C86B;       /* Vàng sáng */
-            --gold-dark: #967315;        /* Vàng sẫm cho viền */
-            --crimson-magic: #8B1E1E;    /* Đỏ đô thẫm - Quyền lực */
-            --text-main: #36261E;        /* Nâu đen thẫm - Rất dễ đọc */
-            --text-muted: #6E5A4B;       /* Nâu nhạt cho chữ phụ */
+            --bg-parchment: #FCFAF5;     /* Trắng kem mượt, tối ưu hiệu năng */
+            --bg-card: #FFFFFF;          
+            --gold-primary: #C59B27;     
+            --gold-light: #F4E5BA;       /* Vàng nhạt cho tag viên thuốc */
+            --gold-dark: #967315;        
+            --crimson-magic: #8B1E1E;    
+            --text-main: #36261E;        
+            --text-muted: #7A6556;       
+            
+            --hero-bg-dark: #322117;     /* Nâu thẫm cho block Hero */
+            --hero-bg-light: #4A3222;    /* Nâu sáng hơn tạo gradient */
             
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lora', serif;
             
-            --border-magic: 1px solid rgba(197, 155, 39, 0.4);
-            --shadow-soft: 0 8px 25px rgba(54, 38, 30, 0.06);
-            --shadow-hover: 0 15px 35px rgba(197, 155, 39, 0.15);
+            --border-magic: 1px solid rgba(197, 155, 39, 0.3);
+            --shadow-soft: 0 4px 15px rgba(54, 38, 30, 0.05);
+            --shadow-hover: 0 10px 30px rgba(197, 155, 39, 0.12);
         }
 
         /* === RESET & GLOBAL === */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         
-        /* Gắn !important để ép các trình duyệt chặn Dark Mode tự động */
         body {
             font-family: var(--font-body) !important;
             background-color: var(--bg-parchment) !important;
@@ -51,53 +51,44 @@
             line-height: 1.8;
             font-size: 1.1rem;
             overflow-x: hidden;
-            /* Texture nền vân giấy rất nhẹ */
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>') !important;
+            /* ĐÃ XÓA SVG NOISE ĐỂ WEB CHẠY MƯỢT MÀ KHÔNG GIẬT LAG */
         }
 
-        /* HỆ THỐNG CSS CHO VĂN BẢN (TEXT STYLING) */
-        .gold-text {
-            color: var(--gold-dark);
-            font-weight: 700;
+        /* === HERO SECTION ĐỘC LẬP (MÀU NÂU THẪM) === */
+        .hero { 
+            text-align: center; 
+            padding: 80px 20px 70px; 
+            position: relative; 
+            background: linear-gradient(180deg, var(--hero-bg-dark) 0%, var(--hero-bg-light) 100%);
+            border-bottom: 2px solid var(--gold-primary);
         }
-        
-        .ornament-divider {
-            display: flex; align-items: center; justify-content: center;
-            margin: 25px 0; color: var(--gold-primary); font-size: 1.2rem;
-        }
-        .ornament-divider::before, .ornament-divider::after {
-            content: ""; flex: 1; border-bottom: 1px solid rgba(197, 155, 39, 0.3); margin: 0 15px;
-        }
-
-        /* === HERO SECTION === */
-        .hero { text-align: center; padding: 80px 20px 50px; position: relative; }
         .hero-label {
-            display: inline-block; border: 1px solid var(--gold-primary); padding: 6px 25px;
+            display: inline-block; border: 1px solid var(--gold-primary); padding: 4px 25px;
             font-family: var(--font-heading); font-size: 0.95rem; letter-spacing: 3px;
-            color: var(--gold-dark); text-transform: uppercase; margin-bottom: 20px;
-            background: rgba(197, 155, 39, 0.05); border-radius: 4px;
+            color: var(--gold-light); text-transform: uppercase; margin-bottom: 25px;
+            border-radius: 4px; background: rgba(197, 155, 39, 0.1);
         }
-        .hero-welcome { font-size: 1.3rem; margin-bottom: 5px; font-style: italic; color: var(--text-muted); }
+        .hero-welcome { font-size: 1.3rem; margin-bottom: 5px; font-style: italic; color: #D8C3A5; }
         .hero-title {
-            font-family: var(--font-heading); font-size: 4rem; letter-spacing: 2px;
-            margin-bottom: 15px; font-weight: 800; color: var(--crimson-magic);
-            user-select: none; cursor: pointer; text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+            font-family: var(--font-heading); font-size: 4.5rem; letter-spacing: 2px;
+            margin-bottom: 15px; font-weight: 800; color: #FFFFFF;
+            user-select: none; cursor: pointer; text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
-        .hero-desc { font-size: 1.2rem; max-width: 650px; margin: 0 auto; color: var(--text-main); }
+        .hero-desc { font-size: 1.2rem; max-width: 650px; margin: 0 auto; color: #EAE0D5; }
 
         /* === NAVIGATION === */
         .sticky-nav {
-            position: sticky; top: 0; background-color: rgba(253, 251, 247, 0.95);
+            position: sticky; top: 0; background-color: var(--hero-bg-dark);
             z-index: 100; display: flex; justify-content: center; gap: 8px;
-            padding: 12px 15px; border-bottom: var(--border-magic); backdrop-filter: blur(8px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); flex-wrap: wrap;
+            padding: 12px 15px; border-bottom: var(--border-magic);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); flex-wrap: wrap;
         }
         .nav-item {
-            color: var(--text-main); text-decoration: none; padding: 6px 15px;
+            color: #EAE0D5; text-decoration: none; padding: 6px 15px;
             font-family: var(--font-heading); font-size: 1rem; font-weight: 600;
             transition: 0.3s; display: flex; align-items: center; gap: 6px; border-radius: 20px;
         }
-        .nav-item:hover { color: var(--crimson-magic); background: rgba(197, 155, 39, 0.1); }
+        .nav-item:hover { color: var(--gold-light); background: rgba(255, 255, 255, 0.05); }
         .nav-item.active { background: var(--crimson-magic); color: #FFF; }
 
         /* === CONTAINER & SECTIONS === */
@@ -106,18 +97,23 @@
         .section-tag { color: var(--crimson-magic); font-family: var(--font-heading); font-weight: 700; letter-spacing: 2px; font-size: 1rem; margin-bottom: 10px; display: block; text-transform: uppercase; }
         .section-title { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-main); margin-bottom: 15px; }
         
+        .ornament-divider {
+            display: flex; align-items: center; justify-content: center;
+            margin: 25px 0; color: var(--gold-primary); font-size: 1.2rem;
+        }
+        .ornament-divider::before, .ornament-divider::after { content: ""; flex: 1; border-bottom: 1px solid rgba(197, 155, 39, 0.3); margin: 0 15px; }
+
         .intro-box {
-            background: var(--bg-card); border: var(--border-magic); padding: 40px; 
+            background: var(--bg-card); border: var(--border-magic); padding: 50px 40px; 
             text-align: center; box-shadow: var(--shadow-soft); position: relative; 
             margin-bottom: 50px; border-radius: 8px;
         }
-        .intro-box::before, .intro-box::after {
-            content: '❖'; position: absolute; color: var(--gold-primary); font-size: 1.2rem; opacity: 0.5;
-        }
-        .intro-box::before { top: 15px; left: 20px; }
-        .intro-box::after { bottom: 15px; right: 20px; }
+        
+        /* Chỉnh sửa riêng cho tiêu đề phần intro */
+        .intro-main-title { font-family: var(--font-heading); font-size: 3rem; color: var(--crimson-magic); font-weight: 800; margin-bottom: 5px; line-height: 1.2; }
+        .intro-sub-title { font-family: var(--font-heading); font-size: 1rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; display: block; font-weight: 600; }
 
-        /* === ERA CARDS GRID (SÁNG MỊN) === */
+        /* === ERA CARDS GRID === */
         .era-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
         .era-card {
             background: var(--bg-card); border: var(--border-magic); padding: 30px; 
@@ -126,19 +122,30 @@
         }
         .era-card:hover { transform: translateY(-5px); border-color: var(--gold-primary); box-shadow: var(--shadow-hover); }
         
-        .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--crimson-magic); margin-bottom: 5px; font-weight: 700; }
+        .era-name { font-family: var(--font-heading); font-size: 1.6rem; color: var(--crimson-magic); margin-bottom: 5px; font-weight: 700; }
         .era-date { font-size: 0.95rem; color: var(--gold-dark); font-style: italic; margin-bottom: 15px; font-weight: 600; }
         .era-desc { font-size: 1.05rem; margin-bottom: 20px; flex-grow: 1; color: var(--text-muted); }
-        .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-        .era-tag { font-family: var(--font-heading); font-size: 0.8rem; padding: 4px 12px; background: rgba(197, 155, 39, 0.08); border: 1px solid rgba(197, 155, 39, 0.3); color: var(--gold-dark); border-radius: 20px; font-weight: 600; }
+        
+        /* TAG VIÊN THUỐC (PILL) */
+        .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
+        .era-tag { 
+            font-family: var(--font-body); font-size: 0.85rem; 
+            padding: 6px 16px; /* Dài ra một chút */
+            background-color: var(--gold-light); 
+            color: var(--text-main); 
+            border-radius: 50px; /* Bo tròn tuyệt đối thành viên thuốc */
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
         .era-action { text-align: right; color: var(--gold-dark); font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; transition: 0.3s; }
         .era-card:hover .era-action { color: var(--crimson-magic); }
 
-        /* === MODAL CẨM NANG MAGIC (LIGHT) === */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(30, 20, 15, 0.7); backdrop-filter: blur(5px); }
+        /* === MODAL CẨM NANG MAGIC === */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(30, 20, 15, 0.85); backdrop-filter: blur(3px); }
         .modal-content {
             background-color: var(--bg-parchment); margin: 3vh auto; border: 2px solid var(--gold-primary);
-            width: 92%; max-width: 1000px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            width: 92%; max-width: 1000px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             display: flex; flex-direction: column; border-radius: 8px;
         }
         .modal-close { position: absolute; right: 20px; top: 15px; font-size: 35px; color: var(--text-muted); cursor: pointer; z-index: 10; transition: 0.3s; line-height: 1; }
@@ -205,18 +212,23 @@
         .accordion-content.active { padding: 0 25px 25px; max-height: 600px; }
         .accordion-content p { color: var(--text-main); font-size: 1.1rem; }
 
-        /* === MUSIC PLAYER WIDGET === */
+        /* === ĐĨA NHẠC QUAY TRÒN (NÂNG CẤP HIỆU ỨNG) === */
         .music-widget { position: fixed; bottom: 30px; right: 30px; z-index: 999; }
         .record-disc {
-            width: 60px; height: 60px; border-radius: 50%; background: #111;
+            width: 65px; height: 65px; border-radius: 50%; 
+            /* Tạo hiệu ứng vệt phản quang của đĩa than (Vinyl grooves) */
+            background: conic-gradient(from 0deg, #111, #333 45deg, #111 90deg, #333 135deg, #111 180deg, #333 225deg, #111 270deg, #333 315deg, #111);
             border: 3px solid var(--gold-primary); position: relative; cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;
             transition: transform 0.3s;
         }
-        .record-disc::before { content: ''; position: absolute; width: 50px; height: 50px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.2); }
-        .record-disc::after { content: ''; width: 16px; height: 16px; background: var(--crimson-magic); border-radius: 50%; border: 2px solid var(--gold-light); }
+        .record-disc::before { content: ''; position: absolute; width: 45px; height: 45px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.1); pointer-events: none; }
+        /* Tâm đĩa than */
+        .record-disc::after { content: ''; width: 22px; height: 22px; background: var(--crimson-magic); border-radius: 50%; border: 2px solid var(--gold-light); pointer-events: none; }
+        
         .record-disc:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(197, 155, 39, 0.4); }
-        .record-disc.playing { animation: spin 4s linear infinite; }
+        /* Vòng quay tuyến tính đều đặn */
+        .record-disc.playing { animation: spin 3s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
         .floating-notes { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 100%; height: 80px; pointer-events: none; }
@@ -225,7 +237,7 @@
 
         /* MUSIC MODAL PANEL */
         .music-panel {
-            display: none; position: fixed; bottom: 100px; right: 30px; width: 320px;
+            display: none; position: fixed; bottom: 105px; right: 30px; width: 320px;
             background: var(--bg-card); border: 2px solid var(--gold-primary);
             box-shadow: 0 15px 35px rgba(0,0,0,0.15); z-index: 998; border-radius: 8px; overflow: hidden;
         }
@@ -269,10 +281,15 @@
 
         /* === RESPONSIVE ĐIỆN THOẠI === */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
+            .hero { padding: 60px 15px 40px; }
+            .hero-title { font-size: 2.8rem; }
             .hero-desc { font-size: 1.05rem; }
             .era-grid { grid-template-columns: 1fr; gap: 20px; }
             .era-card { padding: 20px; }
+            
+            .intro-box { padding: 30px 20px; }
+            .intro-main-title { font-size: 2.2rem; }
+            
             .modal-content { width: 95%; margin: 2vh auto; }
             .modal-header, .modal-body, .modal-footer { padding: 20px; }
             .modal-title { font-size: 2rem; }
@@ -283,7 +300,7 @@
 </head>
 <body>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (NỀN NÂU THẪM) -->
     <header class="hero" id="top">
         <div class="hero-label editable" data-key="hero.label">CẨM NANG DU HÀNH</div>
         <p class="hero-welcome editable" data-key="hero.welcome">Chào mừng lữ khách ghé thăm</p>
@@ -323,8 +340,10 @@
 
         <section id="intro">
             <div class="intro-box">
-                <span class="section-tag editable" data-key="intro.tag">THẾ GIỚI</span>
-                <h2 class="section-title editable" data-key="intro.title">MEOWNIA · TỔNG QUAN · 8 KỶ NGUYÊN</h2>
+                <!-- CẤU TRÚC TIÊU ĐỀ MỚI THEO YÊU CẦU -->
+                <h2 class="intro-main-title editable" data-key="intro.titleMain">MEOWNIA WORLD</h2>
+                <span class="intro-sub-title editable" data-key="intro.titleSub">TỔNG QUAN · 8 KỶ NGUYÊN · QUY TẮC THẾ GIỚI</span>
+                
                 <div class="ornament-divider">✦</div>
                 <p class="editable" data-key="intro.p1">Meownia là một thế giới fantasy rộng lớn, nơi nhiều nền văn minh, chủng tộc và vùng đất cùng tồn tại qua những thời đại khác nhau. Thế giới không xoay quanh một nhân vật chính duy nhất, và không có một con đường được định sẵn cho tất cả mọi người.</p>
                 <p style="margin-top: 15px;" class="editable" data-key="intro.p2">Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.</p>
@@ -438,7 +457,8 @@
                 "hero.label": "CẨM NANG DU HÀNH", "hero.welcome": "Chào mừng lữ khách ghé thăm", "hero.title": "MEOWNIA WORLD",
                 "hero.desc": "Đây là một thế giới fantasy rộng lớn,<br>nơi bạn có thể tự do viết nên cuộc đời của mình.",
                 "nav.1": "Thế Giới", "nav.2": "Vùng Đất", "nav.3": "Chủng Tộc", "nav.4": "Xã Hội", "nav.5": "Ma Thuật", "nav.6": "Nhân Vật",
-                "intro.tag": "THẾ GIỚI", "intro.title": "MEOWNIA · TỔNG QUAN · 8 KỶ NGUYÊN",
+                "intro.titleMain": "MEOWNIA WORLD",
+                "intro.titleSub": "TỔNG QUAN · 8 KỶ NGUYÊN · QUY TẮC THẾ GIỚI",
                 "intro.p1": "Meownia là một thế giới fantasy rộng lớn, nơi nhiều nền văn minh, chủng tộc và vùng đất cùng tồn tại qua những thời đại khác nhau. Thế giới không xoay quanh một nhân vật chính duy nhất, và không có một con đường được định sẵn cho tất cả mọi người.",
                 "intro.p2": "Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.",
                 "eraSection.title": "8 KỶ NGUYÊN", "eraSection.desc": "Tám thời đại của Meownia — mỗi thời đại là một cách khác để bước vào thế giới.",
@@ -510,15 +530,15 @@
             ]
         };
 
-        let appData = JSON.parse(localStorage.getItem('meownia_light_data')) || JSON.parse(JSON.stringify(defaultAppContent));
+        let appData = JSON.parse(localStorage.getItem('meownia_v3_data')) || JSON.parse(JSON.stringify(defaultAppContent));
         let isAdmin = false;
         let currentModalEraId = null;
 
-        function saveData() { localStorage.setItem('meownia_light_data', JSON.stringify(appData)); }
+        function saveData() { localStorage.setItem('meownia_v3_data', JSON.stringify(appData)); }
         function resetFactoryData() {
             if(confirm("Tất cả văn bản và ảnh sẽ khôi phục về ban đầu. Chắc chắn?")){
-                localStorage.removeItem('meownia_light_data');
-                localStorage.removeItem('meownia_light_images');
+                localStorage.removeItem('meownia_v3_data');
+                localStorage.removeItem('meownia_v3_images');
                 location.reload();
             }
         }
@@ -562,7 +582,7 @@
                     <h3 class="era-name editable" data-era-index="${index}" data-era-field="name">${era.name}</h3>
                     <div class="era-date editable" data-era-index="${index}" data-era-field="date">${era.date}</div>
                     <p class="era-desc editable" data-era-index="${index}" data-era-field="shortDesc">${era.shortDesc}</p>
-                    <div class="era-tags editable" data-era-index="${index}" data-era-field="tags">${era.tags}</div>
+                    <div class="era-tags editable" data-era-index="${index}" data-era-field="tags">${tagsHtml}</div>
                     <div class="era-action">XEM CHI TIẾT &rarr;</div>
                 `;
                 grid.appendChild(card);
@@ -594,7 +614,7 @@
            3. MODAL KỶ NGUYÊN & ZOOM ẢNH
            ======================================================== */
         function loadSavedImage(eraId) {
-            const savedImages = JSON.parse(localStorage.getItem('meownia_light_images')) || {};
+            const savedImages = JSON.parse(localStorage.getItem('meownia_v3_images')) || {};
             return savedImages[eraId] || null;
         }
 
@@ -608,8 +628,7 @@
             bindField('modal-title', 'name'); bindField('modal-date', 'date');
             bindField('modal-overview', 'overview'); bindField('modal-world', 'world');
             
-            // Xử lý caption tự động nếu chưa có
-            if(!era.caption) era.caption = `Bản đồ của ${era.name.toLowerCase()}`;
+            if(!era.caption) era.caption = `Bản đồ của kỷ nguyên ${era.name.toLowerCase()}`;
             bindField('modal-caption', 'caption');
             
             const ul = document.getElementById('modal-features');
@@ -646,7 +665,6 @@
 
         // TÍNH NĂNG ZOOM ẢNH BẢN ĐỒ
         function openZoom() {
-            // Không mở zoom nếu không có ảnh hoặc đang click ở chế độ admin vào vùng upload
             const imgElement = document.getElementById('modal-image');
             if(imgElement.style.display === 'none' || event.target.tagName === 'BUTTON' || event.target.tagName === 'I') return;
             
@@ -658,18 +676,17 @@
 
         function closeZoom() {
             document.getElementById('zoom-overlay').style.display = 'none';
-            // Reset scale chuột nếu có dùng css transform wheel
             const zoomedImg = document.getElementById('zoomed-img');
             zoomedImg.style.transform = 'scale(1)';
             scaleVal = 1;
         }
 
-        // Hỗ trợ lăn chuột để zoom mượt trên PC
+        // Zoom chuột PC
         let scaleVal = 1;
         document.getElementById('zoomed-img').addEventListener('wheel', (e) => {
             e.preventDefault();
             scaleVal += e.deltaY * -0.003;
-            scaleVal = Math.min(Math.max(1, scaleVal), 4); // Min 1x, Max 4x
+            scaleVal = Math.min(Math.max(1, scaleVal), 4);
             document.getElementById('zoomed-img').style.transform = `scale(${scaleVal})`;
         });
 
@@ -679,16 +696,16 @@
             reader.onload = function(e) {
                 const img = new Image(); img.src = e.target.result;
                 img.onload = function() {
-                    const canvas = document.createElement('canvas'); const MAX_WIDTH = 1200; // Giữ độ sắc nét cao hơn
+                    const canvas = document.createElement('canvas'); const MAX_WIDTH = 1200; 
                     let width = img.width; let height = img.height;
                     if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                     canvas.width = width; canvas.height = height;
                     const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
-                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85); // Nén nhẹ 85% giữ nét
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85); 
                     
-                    let savedImages = JSON.parse(localStorage.getItem('meownia_light_images')) || {};
+                    let savedImages = JSON.parse(localStorage.getItem('meownia_v3_images')) || {};
                     savedImages[currentModalEraId] = compressedBase64;
-                    localStorage.setItem('meownia_light_images', JSON.stringify(savedImages));
+                    localStorage.setItem('meownia_v3_images', JSON.stringify(savedImages));
                     openModal(currentModalEraId);
                 }
             };
@@ -728,7 +745,7 @@
         /* ========================================================
            5. HỘP NHẠC PHÉP THUẬT
            ======================================================== */
-        let playlist = JSON.parse(localStorage.getItem('meownia_light_playlist')) || [
+        let playlist = JSON.parse(localStorage.getItem('meownia_v3_playlist')) || [
             { title: "Bản Giao Hưởng Tiên Tộc", artist: "Bard of Celestara", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
             { title: "Giai Điệu Hầm Ngục", artist: "Unknown", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" }
         ];
@@ -767,7 +784,7 @@
             const url = document.getElementById('admin-song-url').value;
             if(!title || !url) { alert("Thiếu tên hoặc link!"); return; }
             playlist.push({ title, artist, url });
-            localStorage.setItem('meownia_light_playlist', JSON.stringify(playlist));
+            localStorage.setItem('meownia_v3_playlist', JSON.stringify(playlist));
             
             document.getElementById('admin-song-name').value = '';
             document.getElementById('admin-song-artist').value = '';
@@ -779,7 +796,7 @@
             event.stopPropagation(); 
             if(confirm("Xóa bản nhạc này?")) {
                 playlist.splice(index, 1);
-                localStorage.setItem('meownia_light_playlist', JSON.stringify(playlist));
+                localStorage.setItem('meownia_v3_playlist', JSON.stringify(playlist));
                 if (currentSongIndex === index) { audio.pause(); resetPlayerUI(); } 
                 else if (currentSongIndex > index) currentSongIndex--;
                 renderPlaylist();
