@@ -29,11 +29,8 @@
             --gold-light: #F9E596;       
             --gold-dark: #997A15;        
             --crimson-magic: #8B1E1E;    
-            
-            /* Đẩy màu chữ sáng bừng lên, trắng ngà tinh khiết */
-            --text-main: #FFFFFA;        
-            --text-muted: #D8CBB8;       
-            
+            --text-main: #FDF6E3;        
+            --text-muted: #CDBBA7;       
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lora', serif;
             --border-royal: 1px solid rgba(212, 175, 55, 0.25);
@@ -48,21 +45,10 @@
             background-color: var(--bg-deep) !important;
             color: var(--text-main) !important;
             line-height: 1.6;
+            font-size: 1.05rem;
             overflow-x: hidden;
             background-image: radial-gradient(circle at center 100vh, rgba(212, 175, 55, 0.03) 0%, transparent 80%) !important;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
-        }
-
-        /* Đồng bộ tuyệt đối size chữ cho tất cả các đoạn văn bản */
-        .intro-box p, 
-        .era-desc, 
-        .accordion-content p, 
-        .modal-text-section p, 
-        .modal-text-section ul {
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--text-main);
-            line-height: 1.6;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
         }
 
         .gold-text {
@@ -155,6 +141,7 @@
         .era-card:hover { transform: translateY(-4px); border-color: var(--gold-primary); background: #1C1613; box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
         .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; text-shadow: none; }
         .era-date { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px; }
+        .era-desc { font-size: 1.05rem; margin-bottom: 25px; flex-grow: 1; color: var(--text-main); font-weight: 500;}
         
         .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
         .era-tag { 
@@ -193,6 +180,8 @@
 
         .modal-text-section { margin-bottom: 30px; }
         .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); padding-bottom: 6px; letter-spacing: 1px; text-shadow: none; }
+        .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
+        .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
         .modal-text-section li { margin-bottom: 8px; }
         .modal-text-section li::marker { color: var(--gold-primary); }
 
@@ -232,17 +221,16 @@
             overflow: hidden;
             padding: 0 25px;
         }
-        /* Padding ảo để văn bản bên trong không bị cắt chéo khi mở */
-        .accordion-inner p { padding-top: 5px; padding-bottom: 25px; }
+        .accordion-inner p { padding-top: 5px; padding-bottom: 25px; color: var(--text-main); font-size: 1.05rem; font-weight: 500;}
 
-        /* === THANH TRA CỨU THUẬT NGỮ (BÊN TRÁI) === */
+        /* === THANH TRA CỨU THUẬT NGỮ (GLOSSARY) - BÊN TRÁI === */
         .glossary-widget {
             position: fixed; left: 25px; top: 50%; transform: translateY(-50%); z-index: 999;
             width: 55px; height: 55px; border-radius: 50%;
             background: rgba(12, 10, 9, 0.95);
             border: 2px solid var(--gold-primary); cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
-            transition: 0.3s; color: var(--gold-primary); font-size: 1.5rem; text-shadow: none;
+            transition: transform 0.3s; color: var(--gold-primary); font-size: 1.5rem; text-shadow: none;
         }
         .glossary-widget:hover { transform: translateY(-50%) scale(1.1); background: rgba(212, 175, 55, 0.1); color: var(--gold-light); }
         
@@ -313,7 +301,7 @@
         /* === BỘ CÔNG CỤ ÉP KIỂU CHO VĂN BẢN ĐƯỢC ADMIN DÁN VÀO === */
         .editable * { font-family: inherit !important; color: inherit !important; background: transparent !important; font-size: inherit !important; font-weight: inherit !important; line-height: inherit !important; text-shadow: inherit !important; margin: 0 !important; padding: 0 !important; }
 
-        /* === ADMIN PANEL & INLINE EDITING === */
+        /* === ADMIN PANEL === */
         .admin-panel { display: none; background: #2A1F18; color: var(--text-main); padding: 20px; border: 1px solid var(--crimson-magic); margin-bottom: 30px; border-radius: 6px; box-shadow: 0 5px 15px rgba(139,30,30,0.2); }
         body.is-admin .admin-panel { display: block; }
         .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 15px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: 0.3s; text-shadow: none;}
@@ -334,18 +322,12 @@
             font-size: 0.85rem; z-index: 1000; display: none; text-shadow: none; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.8);
         }
 
-        /* === TỐI ƯU HÓA MOBILE (TEXT ĐỒNG BỘ SIZE) === */
+        /* === TỐI ƯU HÓA MOBILE === */
         @media (max-width: 768px) {
             body { font-size: 0.95rem; }
             
             /* Thu nhỏ đồng bộ mọi text nội dung xuống 0.95rem trên mobile */
-            .intro-box p, 
-            .era-desc, 
-            .accordion-content p, 
-            .modal-text-section p, 
-            .modal-text-section ul {
-                font-size: 0.95rem;
-            }
+            .intro-box p, .era-desc, .accordion-inner p, .modal-text-section p, .modal-text-section ul { font-size: 0.95rem; }
 
             .hero { padding: 40px 10px 80px; } 
             .fantasy-frame { padding: 30px 15px; }
@@ -371,12 +353,12 @@
             .modal-footer { padding: 15px 15px 25px; }
             .modal-title { font-size: 1.6rem; }
             
-            /* Giao diện Mobile cho Glossary */
-            .glossary-widget { left: 15px; width: 45px; height: 45px; font-size: 1.2rem;}
+            /* Giao diện Mobile cho Glossary ra giữa màn hình để dễ bấm */
             .glossary-panel {
                 top: 50%; left: 50%; transform: translate(-50%, -50%);
                 width: 90%; max-width: 320px;
             }
+            .glossary-widget { left: 15px; width: 45px; height: 45px; font-size: 1.2rem;}
             
             .music-panel { bottom: 80px; right: 15px; width: 280px; }
             .music-widget { right: 15px; bottom: 15px; width: 45px; height: 45px;}
@@ -521,7 +503,7 @@
         <img id="zoomed-img" src="" alt="Bản đồ Kỷ Nguyên Phóng To">
     </div>
 
-    <!-- GLOSSARY WIDGET (NẰM TRÁI MÀN HÌNH) -->
+    <!-- GLOSSARY WIDGET (BÊN TRÁI MÀN HÌNH) -->
     <div class="glossary-widget" onclick="toggleGlossary()">
         <i class="fas fa-book-journal-whills"></i>
     </div>
@@ -538,7 +520,7 @@
         <div class="glossary-list" id="glossary-list-container"></div>
     </div>
 
-    <!-- MUSIC PLAYER WIDGET (NẰM PHẢI MÀN HÌNH) -->
+    <!-- MUSIC PLAYER WIDGET (BÊN PHẢI MÀN HÌNH) -->
     <div class="music-widget">
         <div class="floating-notes" id="floating-notes"></div>
         <div class="record-disc" id="record-disc" onclick="handleDiscClick()"></div>
@@ -565,7 +547,6 @@
 
     <!-- === JAVASCRIPT === -->
     <script>
-        // Khởi tạo kết nối Supabase (Cloud) - ID: 3
         const supabaseUrl = 'https://xdqanrqpgognavsfkrtt.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcWFucnFwZ29nbmF2c2ZrcnR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzE3NTAsImV4cCI6MjEwMTI0Nzc1MH0.f_EXEkRLrZXTyHTrp5jyRiw0tlvDjkepDcbo6IrO95o';
         const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); 
@@ -662,7 +643,6 @@
         let isAdmin = false;
         let currentModalEraId = null;
 
-        // BẮT SỰ KIỆN PASTE - DỌN DẸP ĐỊNH DẠNG
         document.addEventListener('paste', function(e) {
             if (e.target && e.target.classList && e.target.classList.contains('editable')) {
                 e.preventDefault();
@@ -680,15 +660,14 @@
                 if (data && data.content) {
                     appData = { ...defaultAppContent, ...data.content };
                 } else {
-                    const localData = await localforage.getItem('meownia_final_v14');
+                    const localData = await localforage.getItem('meownia_final_v15');
                     if (localData) appData = { ...defaultAppContent, ...localData };
                 }
             } catch(e) {
-                const localData = await localforage.getItem('meownia_final_v14');
+                const localData = await localforage.getItem('meownia_final_v15');
                 if (localData) appData = { ...defaultAppContent, ...localData };
             }
             
-            // Ép an toàn tránh sập
             if(!appData.eras) appData.eras = defaultAppContent.eras;
             if(!appData.rules) appData.rules = defaultAppContent.rules;
             if(!appData.texts) appData.texts = defaultAppContent.texts;
@@ -706,7 +685,7 @@
             syncUI.style.display = 'block';
             syncUI.innerHTML = '<i class="fas fa-sync fa-spin"></i> Đang đồng bộ Cloud...';
             
-            await localforage.setItem('meownia_final_v14', appData);
+            await localforage.setItem('meownia_final_v15', appData);
 
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(async () => {
@@ -722,7 +701,17 @@
             }, 1500);
         }
 
+        function sortPlaylist() {
+            if (!appData.playlist || appData.playlist.length === 0) return;
+            let currentUrl = currentSongIndex >= 0 ? appData.playlist[currentSongIndex].url : null;
+            appData.playlist.sort((a, b) => a.title.localeCompare(b.title, 'vi'));
+            if (currentUrl) {
+                currentSongIndex = appData.playlist.findIndex(s => s.url === currentUrl);
+            }
+        }
+
         function initApp() {
+            sortPlaylist();
             renderStaticTexts();
             renderEras();
             renderRules();
@@ -937,7 +926,7 @@
         });
 
         /* ========================================================
-           5. HỘP NHẠC PHÉP THUẬT
+           5. HỘP NHẠC PHÉP THUẬT (BẬT/TẮT BẢNG NHẠC CHẠY BÊN DƯỚI)
            ======================================================== */
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-icon');
@@ -968,11 +957,12 @@
         }
 
         function adminAddMusic() {
-            const title = document.getElementById('admin-song-name').value;
-            const artist = document.getElementById('admin-song-artist').value || "Ẩn danh";
-            const url = document.getElementById('admin-song-url').value;
+            const title = document.getElementById('admin-song-name').value.trim();
+            const artist = document.getElementById('admin-song-artist').value.trim() || "Ẩn danh";
+            const url = document.getElementById('admin-song-url').value.trim();
             if(!title || !url) { alert("Thiếu tên hoặc link!"); return; }
             appData.playlist.push({ title, artist, url });
+            sortPlaylist();
             saveData();
             
             document.getElementById('admin-song-name').value = '';
@@ -994,13 +984,19 @@
 
         function handleDiscClick() {
             const panel = document.getElementById('music-panel');
-            panel.style.display = 'block';
             
-            if (!isPlaying && appData.playlist.length > 0) {
-                const randomIdx = Math.floor(Math.random() * appData.playlist.length);
-                loadAndPlay(randomIdx);
+            // Toggle bật/tắt bảng nhạc
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else {
+                panel.style.display = 'block';
+                // TỰ ĐỘNG PHÁT NGẪU NHIÊN NẾU CHƯA CÓ BÀI NÀO ĐƯỢC CHỌN (MỚI VÀO TRANG)
+                if (currentSongIndex === -1 && appData.playlist.length > 0) {
+                    const randomIdx = Math.floor(Math.random() * appData.playlist.length);
+                    loadAndPlay(randomIdx);
+                }
+                renderPlaylist();
             }
-            renderPlaylist();
         }
 
         function closeMusicModal() {
