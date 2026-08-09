@@ -29,8 +29,11 @@
             --gold-light: #F9E596;       
             --gold-dark: #997A15;        
             --crimson-magic: #8B1E1E;    
-            --text-main: #FDF6E3;        
-            --text-muted: #CDBBA7;       
+            
+            /* Đẩy màu chữ sáng bừng lên, trắng ngà tinh khiết */
+            --text-main: #FFFFFA;        
+            --text-muted: #D8CBB8;       
+            
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lora', serif;
             --border-royal: 1px solid rgba(212, 175, 55, 0.25);
@@ -45,10 +48,21 @@
             background-color: var(--bg-deep) !important;
             color: var(--text-main) !important;
             line-height: 1.6;
-            font-size: 1.05rem;
             overflow-x: hidden;
             background-image: radial-gradient(circle at center 100vh, rgba(212, 175, 55, 0.03) 0%, transparent 80%) !important;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+        }
+
+        /* Đồng bộ tuyệt đối size chữ cho tất cả các đoạn văn bản */
+        .intro-box p, 
+        .era-desc, 
+        .accordion-content p, 
+        .modal-text-section p, 
+        .modal-text-section ul {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
         .gold-text {
@@ -141,7 +155,6 @@
         .era-card:hover { transform: translateY(-4px); border-color: var(--gold-primary); background: #1C1613; box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
         .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; text-shadow: none; }
         .era-date { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px; }
-        .era-desc { font-size: 1.05rem; margin-bottom: 25px; flex-grow: 1; color: var(--text-main); font-weight: 500;}
         
         .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
         .era-tag { 
@@ -180,8 +193,6 @@
 
         .modal-text-section { margin-bottom: 30px; }
         .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); padding-bottom: 6px; letter-spacing: 1px; text-shadow: none; }
-        .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
-        .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
         .modal-text-section li { margin-bottom: 8px; }
         .modal-text-section li::marker { color: var(--gold-primary); }
 
@@ -221,21 +232,22 @@
             overflow: hidden;
             padding: 0 25px;
         }
-        .accordion-inner p { color: var(--text-main); font-size: 1.05rem; font-weight: 500; padding-top: 5px; padding-bottom: 20px;}
+        /* Padding ảo để văn bản bên trong không bị cắt chéo khi mở */
+        .accordion-inner p { padding-top: 5px; padding-bottom: 25px; }
 
-        /* === THANH TRA CỨU THUẬT NGỮ (GLOSSARY) - BÊN PHẢI CHÍNH GIỮA === */
+        /* === THANH TRA CỨU THUẬT NGỮ (BÊN TRÁI) === */
         .glossary-widget {
-            position: fixed; right: 25px; top: 50%; transform: translateY(-50%); z-index: 999;
+            position: fixed; left: 25px; top: 50%; transform: translateY(-50%); z-index: 999;
             width: 55px; height: 55px; border-radius: 50%;
             background: rgba(12, 10, 9, 0.95);
             border: 2px solid var(--gold-primary); cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
-            transition: transform 0.3s; color: var(--gold-primary); font-size: 1.5rem; text-shadow: none;
+            transition: 0.3s; color: var(--gold-primary); font-size: 1.5rem; text-shadow: none;
         }
         .glossary-widget:hover { transform: translateY(-50%) scale(1.1); background: rgba(212, 175, 55, 0.1); color: var(--gold-light); }
         
         .glossary-panel {
-            display: none; position: fixed; right: 90px; top: 50%; transform: translateY(-50%); width: 320px; max-width: calc(100vw - 40px);
+            display: none; position: fixed; left: 90px; top: 50%; transform: translateY(-50%); width: 320px; max-width: calc(100vw - 40px);
             background: var(--bg-card); border: 1px solid var(--gold-dark);
             box-shadow: 0 15px 40px rgba(0,0,0,0.9); z-index: 998; border-radius: 8px; overflow: hidden;
         }
@@ -255,7 +267,7 @@
         .glossary-def { font-size: 0.95rem; color: #D8C3A5; margin-top: 8px; display: none; line-height: 1.5; font-weight: 400;}
         .glossary-empty { padding: 20px; text-align: center; color: var(--text-muted); font-style: italic; }
 
-        /* === ĐĨA NHẠC & WIDGET (BÊN PHẢI CUỐI CÙNG CỦA MÀN HÌNH) === */
+        /* === ĐĨA NHẠC & WIDGET (BÊN PHẢI) === */
         .music-widget { position: fixed; bottom: 25px; right: 25px; z-index: 999; }
         .record-disc {
             width: 55px; height: 55px; border-radius: 50%; 
@@ -322,44 +334,52 @@
             font-size: 0.85rem; z-index: 1000; display: none; text-shadow: none; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.8);
         }
 
-        /* === TỐI ƯU HÓA MOBILE === */
+        /* === TỐI ƯU HÓA MOBILE (TEXT ĐỒNG BỘ SIZE) === */
         @media (max-width: 768px) {
-            body { font-size: 0.9rem; }
+            body { font-size: 0.95rem; }
+            
+            /* Thu nhỏ đồng bộ mọi text nội dung xuống 0.95rem trên mobile */
+            .intro-box p, 
+            .era-desc, 
+            .accordion-content p, 
+            .modal-text-section p, 
+            .modal-text-section ul {
+                font-size: 0.95rem;
+            }
+
             .hero { padding: 40px 10px 80px; } 
             .fantasy-frame { padding: 30px 15px; }
-            .hero-title { font-size: 2rem; margin-bottom: 5px; letter-spacing: 1px; }
+            .hero-title { font-size: 2.2rem; margin-bottom: 5px; letter-spacing: 1px; }
             .hero-label { margin-bottom: 15px; font-size: 0.75rem; padding: 4px 15px;}
-            .hero-desc { font-size: 0.9rem; line-height: 1.5; }
             .frame-corner { width: 15px; height: 15px; }
             
             .sticky-nav { padding: 8px 5px; gap: 5px; justify-content: center; flex-wrap: wrap; }
-            .nav-item { font-size: 0.8rem; padding: 6px 10px; white-space: nowrap; }
+            .nav-item { font-size: 0.85rem; padding: 6px 10px; white-space: nowrap; }
             
             .era-grid { grid-template-columns: 1fr; gap: 15px; }
             .era-card { padding: 20px 15px; }
-            .era-name { font-size: 1.2rem; }
-            .era-desc { font-size: 0.9rem; }
-            .era-tag { padding: 4px 14px; font-size: 0.7rem; }
+            .era-name { font-size: 1.3rem; }
+            .era-tag { padding: 4px 14px; font-size: 0.75rem; }
             
             .intro-box { padding: 25px 15px; }
-            .intro-main-title { font-size: 1.6rem; }
+            .intro-main-title { font-size: 1.8rem; }
             .intro-sub-title { font-size: 0.75rem; letter-spacing: 1px;}
             
             .modal-content { width: 95%; margin: 15px auto; }
             .modal-header { padding: 25px 20px 15px; }
             .modal-body { padding: 20px 15px; }
             .modal-footer { padding: 15px 15px 25px; }
-            .modal-title { font-size: 1.5rem; }
+            .modal-title { font-size: 1.6rem; }
             
-            /* Giao diện Mobile cho Glossary ra giữa màn hình */
+            /* Giao diện Mobile cho Glossary */
+            .glossary-widget { left: 15px; width: 45px; height: 45px; font-size: 1.2rem;}
             .glossary-panel {
                 top: 50%; left: 50%; transform: translate(-50%, -50%);
-                width: 90%; max-width: 320px; right: auto;
+                width: 90%; max-width: 320px;
             }
-            .glossary-widget { right: 15px; width: 45px; height: 45px; font-size: 1.2rem;}
             
-            .music-panel { bottom: 80px; right: 15px; width: 280px; left: auto;}
-            .music-widget { right: 15px; bottom: 15px; width: 45px; height: 45px; left: auto;}
+            .music-panel { bottom: 80px; right: 15px; width: 280px; }
+            .music-widget { right: 15px; bottom: 15px; width: 45px; height: 45px;}
             .record-disc { width: 45px; height: 45px; }
         }
     </style>
@@ -501,7 +521,7 @@
         <img id="zoomed-img" src="" alt="Bản đồ Kỷ Nguyên Phóng To">
     </div>
 
-    <!-- GLOSSARY WIDGET (BÊN PHẢI) -->
+    <!-- GLOSSARY WIDGET (NẰM TRÁI MÀN HÌNH) -->
     <div class="glossary-widget" onclick="toggleGlossary()">
         <i class="fas fa-book-journal-whills"></i>
     </div>
@@ -518,7 +538,7 @@
         <div class="glossary-list" id="glossary-list-container"></div>
     </div>
 
-    <!-- MUSIC PLAYER WIDGET (BÊN PHẢI) -->
+    <!-- MUSIC PLAYER WIDGET (NẰM PHẢI MÀN HÌNH) -->
     <div class="music-widget">
         <div class="floating-notes" id="floating-notes"></div>
         <div class="record-disc" id="record-disc" onclick="handleDiscClick()"></div>
@@ -545,10 +565,10 @@
 
     <!-- === JAVASCRIPT === -->
     <script>
-        // Khởi tạo kết nối Supabase (Cloud)
+        // Khởi tạo kết nối Supabase (Cloud) - ID: 3
         const supabaseUrl = 'https://xdqanrqpgognavsfkrtt.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcWFucnFwZ29nbmF2c2ZrcnR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzE3NTAsImV4cCI6MjEwMTI0Nzc1MH0.f_EXEkRLrZXTyHTrp5jyRiw0tlvDjkepDcbo6IrO95o';
-        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); // FIX LỖI SẬP WEB KHÔNG BẤM NÚT ĐƯỢC
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); 
 
         const defaultAppContent = {
             texts: {
@@ -642,7 +662,7 @@
         let isAdmin = false;
         let currentModalEraId = null;
 
-        // BẮT SỰ KIỆN PASTE DỌN DẸP ĐỊNH DẠNG
+        // BẮT SỰ KIỆN PASTE - DỌN DẸP ĐỊNH DẠNG
         document.addEventListener('paste', function(e) {
             if (e.target && e.target.classList && e.target.classList.contains('editable')) {
                 e.preventDefault();
@@ -651,24 +671,24 @@
             }
         });
 
-        // HỆ THỐNG ĐỒNG BỘ CLOUD (SUPABASE) - Đổi ID thành 999 để độc lập hoàn toàn với LoveMap cũ
+        // HỆ THỐNG ĐỒNG BỘ CLOUD (SUPABASE)
         async function fetchInitialData() {
             document.getElementById('sync-status').style.display = 'block';
             document.getElementById('sync-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu Cloud...';
             try {
-                const { data, error } = await supabaseClient.from('lovemap').select('content').eq('id', 999).single();
+                const { data, error } = await supabaseClient.from('lovemap').select('content').eq('id', 3).single();
                 if (data && data.content) {
                     appData = { ...defaultAppContent, ...data.content };
                 } else {
-                    const localData = await localforage.getItem('meownia_final_cloud_v3');
+                    const localData = await localforage.getItem('meownia_final_v14');
                     if (localData) appData = { ...defaultAppContent, ...localData };
                 }
             } catch(e) {
-                const localData = await localforage.getItem('meownia_final_cloud_v3');
+                const localData = await localforage.getItem('meownia_final_v14');
                 if (localData) appData = { ...defaultAppContent, ...localData };
             }
             
-            // Ép nhận dữ liệu an toàn tránh sập web
+            // Ép an toàn tránh sập
             if(!appData.eras) appData.eras = defaultAppContent.eras;
             if(!appData.rules) appData.rules = defaultAppContent.rules;
             if(!appData.texts) appData.texts = defaultAppContent.texts;
@@ -686,11 +706,11 @@
             syncUI.style.display = 'block';
             syncUI.innerHTML = '<i class="fas fa-sync fa-spin"></i> Đang đồng bộ Cloud...';
             
-            await localforage.setItem('meownia_final_cloud_v3', appData);
+            await localforage.setItem('meownia_final_v14', appData);
 
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(async () => {
-                const { error } = await supabaseClient.from('lovemap').upsert({ id: 999, content: appData });
+                const { error } = await supabaseClient.from('lovemap').upsert({ id: 3, content: appData });
                 if(error) {
                     syncUI.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Lỗi Cloud! Đã lưu máy.';
                     syncUI.style.color = "#ff4444";
@@ -778,7 +798,7 @@
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-inner">
-                            <p style="padding-top: 5px; padding-bottom: 25px;" class="editable" data-rule-index="${index}" data-rule-field="content">${rule.content}</p>
+                            <p class="editable" data-rule-index="${index}" data-rule-field="content">${rule.content}</p>
                         </div>
                     </div>
                 `;
@@ -917,7 +937,7 @@
         });
 
         /* ========================================================
-           5. HỘP NHẠC PHÉP THUẬT (AUTO RANDOM KHI BẤM ĐĨA)
+           5. HỘP NHẠC PHÉP THUẬT
            ======================================================== */
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-icon');
@@ -972,7 +992,6 @@
             }
         }
 
-        // BẤM VÀO ĐĨA NHẠC: Random nhạc + Hiện Bảng ngay lập tức
         function handleDiscClick() {
             const panel = document.getElementById('music-panel');
             panel.style.display = 'block';
