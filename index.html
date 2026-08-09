@@ -14,30 +14,29 @@
     
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase & LocalForage for Sync -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
 
     <style>
         /* === BỘ BIẾN MÀU ROYAL DARK FANTASY === */
         :root {
             color-scheme: dark;
-            
-            --bg-deep: #16120F;          
-            --bg-card: #1F1915;          
+            --bg-deep: #0C0A09;          
+            --bg-card: #161210;          
             --gold-primary: #D4AF37;     
             --gold-light: #F9E596;       
             --gold-dark: #997A15;        
             --crimson-magic: #8B1E1E;    
-            
-            --text-main: #F4EAD5;        
-            --text-muted: #BBAA99;       
-            
+            --text-main: #FDF6E3;        
+            --text-muted: #CDBBA7;       
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lora', serif;
-            
-            --border-royal: 1px solid rgba(212, 175, 55, 0.3);
-            --shadow-soft: 0 8px 25px rgba(0, 0, 0, 0.4);
+            --border-royal: 1px solid rgba(212, 175, 55, 0.25);
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
-        /* === RESET & GLOBAL === */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         
@@ -48,194 +47,205 @@
             line-height: 1.6;
             font-size: 1.05rem;
             overflow-x: hidden;
+            background-image: radial-gradient(circle at center 100vh, rgba(212, 175, 55, 0.03) 0%, transparent 80%) !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
         }
 
-        /* VĂN BẢN HOÀNG GIA */
         .gold-text {
-            background: linear-gradient(to bottom, #FFF7D6 0%, #D4AF37 50%, #996515 100%);
+            background: linear-gradient(to bottom, #FFF7D6 0%, #E8C86B 30%, #D4AF37 60%, #996515 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+            text-shadow: none; 
         }
         
         .ornament-divider {
             display: flex; align-items: center; justify-content: center;
             margin: 20px 0; color: var(--gold-primary); font-size: 1rem;
+            opacity: 0.8; text-shadow: none;
         }
         .ornament-divider::before, .ornament-divider::after {
-            content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.3); margin: 0 20px;
+            content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.25); margin: 0 20px;
         }
 
-        /* === HERO SECTION ĐÃ THU GỌN === */
+        /* === HERO SECTION === */
         .hero { 
-            padding: 30px 15px; 
-            background: radial-gradient(circle at top, #241D18 0%, var(--bg-deep) 80%);
+            position: relative;
+            padding: 80px 15px 130px; 
+            background-image: url('./Bìa%20Meownia%20ngang.png');
+            background-size: cover;
+            background-position: center top;
         }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 10, 9, 0.35); z-index: 1; }
+        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; background: linear-gradient(to bottom, rgba(12, 10, 9, 0) 0%, rgba(12, 10, 9, 1) 100%); z-index: 1; pointer-events: none; }
         
         .fantasy-frame {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            text-align: center;
-            border-top: 2px solid var(--gold-primary);
-            border-bottom: 2px solid var(--gold-primary);
-            background: rgba(212, 175, 55, 0.02);
+            max-width: 800px; margin: 0 auto; padding: 50px 30px; position: relative; z-index: 2; 
+            text-align: center; background: rgba(12, 10, 9, 0.65); border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); backdrop-filter: blur(5px);
         }
-        .fantasy-frame::before, .fantasy-frame::after {
-            content: ''; position: absolute; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.3);
-        }
-        .fantasy-frame::before { top: 5px; }
-        .fantasy-frame::after { bottom: 5px; }
+        .fantasy-frame::before, .fantasy-frame::after { content: ''; position: absolute; left: 15px; right: 15px; height: 1px; background: rgba(212, 175, 55, 0.3); }
+        .fantasy-frame::before { top: 6px; } .fantasy-frame::after { bottom: 6px; }
         
-        .frame-corner { position: absolute; width: 20px; height: 20px; border: 2px solid var(--gold-primary); }
-        .c-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-        .c-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
-        .c-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
-        .c-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+        .frame-corner { position: absolute; width: 22px; height: 22px; border: 2px solid var(--gold-primary); }
+        .c-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
+        .c-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
+        .c-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
+        .c-br { bottom: -2px; right: -2px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
 
         .hero-label {
-            display: inline-block; border: 1px solid var(--gold-dark); padding: 4px 20px;
+            display: inline-block; border: 1px solid var(--gold-dark); padding: 4px 22px;
             font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 3px;
-            color: var(--gold-light); text-transform: uppercase; margin-bottom: 15px;
-            border-radius: 2px;
+            color: var(--gold-light); text-transform: uppercase; margin-bottom: 20px;
+            border-radius: 3px; background: rgba(212, 175, 55, 0.1);
         }
-        .hero-welcome { font-size: 1.15rem; margin-bottom: 5px; font-style: italic; color: var(--text-muted); }
-        
-        .hero-title {
-            font-family: var(--font-heading); font-size: 3.8rem; letter-spacing: 2px;
-            margin-bottom: 10px; line-height: 1.1;
-            user-select: none; cursor: pointer; 
-            text-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
-        }
-        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; }
+        .hero-welcome { font-size: 1.2rem; margin-bottom: 5px; font-style: italic; color: #E8DCC8; }
+        .hero-title { font-family: var(--font-heading); font-size: 4.2rem; letter-spacing: 2px; margin-bottom: 12px; line-height: 1.1; user-select: none; cursor: pointer; }
+        .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; font-weight: 500; }
 
         /* === NAVIGATION === */
         .sticky-nav {
-            position: sticky; top: 0; background-color: rgba(22, 18, 15, 0.95);
+            position: sticky; top: 0; background-color: rgba(12, 10, 9, 0.95);
             z-index: 100; display: flex; justify-content: center; gap: 8px;
-            padding: 10px 15px; border-bottom: var(--border-royal);
-            backdrop-filter: blur(10px); box-shadow: var(--shadow-soft); flex-wrap: wrap;
+            padding: 10px 15px; border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px); flex-wrap: wrap;
         }
         .nav-item {
-            color: var(--text-main); text-decoration: none; padding: 6px 14px;
+            color: var(--text-main); text-decoration: none; padding: 6px 16px;
             font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600;
             transition: 0.3s; display: flex; align-items: center; gap: 6px; border-radius: 20px; white-space: nowrap;
         }
-        .nav-item:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.1); }
-        .nav-item.active { background: var(--crimson-magic); color: #FFF; border: 1px solid rgba(255,255,255,0.1); }
+        .nav-item:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.08); }
+        .nav-item.active { background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); border: 1px solid rgba(212, 175, 55, 0.3); }
 
         /* === CONTAINER & SECTIONS === */
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 15px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px 15px 50px; }
         .section-header { text-align: center; margin-bottom: 40px; }
         
         .intro-box {
-            background: var(--bg-card); border: var(--border-royal); padding: 40px 30px; 
-            text-align: center; position: relative; margin-bottom: 50px; border-radius: 6px;
-            box-shadow: var(--shadow-soft);
+            background: var(--bg-card); border: var(--border-royal); padding: 45px 35px; 
+            text-align: center; position: relative; margin-bottom: 50px; border-radius: 8px; box-shadow: var(--shadow-soft);
         }
-        
-        .intro-main-title { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 5px; line-height: 1.2; }
-        .intro-sub-title { font-family: var(--font-heading); font-size: 0.9rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: block; font-weight: 600; }
+        .intro-main-title { font-family: var(--font-heading); font-size: 2.8rem; margin-bottom: 5px; line-height: 1.2; }
+        .intro-sub-title { font-family: var(--font-heading); font-size: 0.9rem; color: var(--gold-primary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: block; font-weight: 600; }
 
         /* === ERA CARDS GRID === */
         .era-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
         .era-card {
-            background: var(--bg-card); border: var(--border-royal); padding: 25px; 
-            cursor: pointer; transition: all 0.3s ease; position: relative; 
-            border-radius: 6px; box-shadow: var(--shadow-soft); 
+            background: var(--bg-card); border: var(--border-royal); padding: 30px; 
+            transition: all 0.3s ease; position: relative; border-radius: 8px; box-shadow: var(--shadow-soft); 
             display: flex; flex-direction: column;
         }
-        .era-card:hover { transform: translateY(-3px); border-color: var(--gold-primary); background: #27201C; }
-        
-        .era-name { font-family: var(--font-heading); font-size: 1.4rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; }
+        .era-card:hover { transform: translateY(-4px); border-color: var(--gold-primary); background: #1C1613; box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
+        .era-name { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold-primary); margin-bottom: 5px; font-weight: 700; text-shadow: none; }
         .era-date { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px; }
-        .era-desc { font-size: 1.05rem; margin-bottom: 20px; flex-grow: 1; color: var(--text-main); }
+        .era-desc { font-size: 1.05rem; margin-bottom: 25px; flex-grow: 1; color: var(--text-main); font-weight: 500;}
         
-        .era-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 25px; }
+        .era-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
         .era-tag { 
             font-family: var(--font-body); font-size: 0.8rem; 
-            padding: 4px 12px; 
-            background-color: rgba(212, 175, 55, 0.08); 
-            color: var(--gold-light); 
-            border: 1px solid var(--gold-dark);
-            border-radius: 50px; 
-            font-weight: 600;
+            padding: 5px 18px; 
+            background-color: rgba(212, 175, 55, 0.08); color: var(--gold-light); 
+            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 50px; font-weight: 600; text-shadow: none;
         }
         
-        .era-action { text-align: right; color: var(--gold-dark); font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; transition: 0.3s; letter-spacing: 1px; }
+        .era-action { text-align: right; color: var(--gold-dark); font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; transition: 0.3s; letter-spacing: 1px; text-shadow: none; cursor: pointer; display: inline-block; align-self: flex-end;}
         .era-card:hover .era-action { color: var(--gold-light); }
 
-        /* === MODAL CẨM NANG MAGIC === */
+        /* === MODAL CẨM NANG === */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); }
         .modal-content {
-            background-color: var(--bg-card); margin: 30px auto; border: 2px solid var(--gold-primary);
-            width: 95%; max-width: 850px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; border-radius: 6px;
+            background-color: var(--bg-card); margin: 30px auto; border: 1px solid var(--gold-dark);
+            width: 95%; max-width: 850px; position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+            display: flex; flex-direction: column; border-radius: 8px;
         }
         .modal-close { position: absolute; right: 15px; top: 15px; font-size: 32px; color: var(--text-muted); cursor: pointer; z-index: 10; transition: 0.3s; line-height: 1; padding: 5px; }
         .modal-close:hover { color: var(--gold-light); }
-        
-        .modal-header { padding: 35px 30px 15px; text-align: center; border-bottom: 1px dashed rgba(212, 175, 55, 0.3); }
+        .modal-header { padding: 35px 30px 15px; text-align: center; border-bottom: 1px dashed rgba(212, 175, 55, 0.2); }
         .modal-title { font-family: var(--font-heading); font-size: 2.2rem; line-height: 1.2; }
         .modal-date { font-size: 1rem; color: var(--text-muted); font-style: italic; margin-top: 5px; }
         
-        .modal-body { padding: 25px 30px; }
+        .modal-body { padding: 30px; }
         .modal-image-wrapper { 
-            width: 100%; aspect-ratio: 4/3; background: #0A0705; border: 1px solid var(--gold-dark); 
+            width: 100%; aspect-ratio: 4/3; background: #0A0705; border: 1px solid rgba(212, 175, 55, 0.4); 
             position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; 
-            border-radius: 4px; cursor: zoom-in; margin-bottom: 8px;
+            border-radius: 6px; cursor: zoom-in; margin-bottom: 10px;
         }
         .modal-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; opacity: 0.95; }
         .modal-image-wrapper:hover img { transform: scale(1.02); opacity: 1; }
-        .no-image-text { color: var(--text-muted); font-style: italic; font-family: var(--font-heading); font-size: 1.1rem; }
-        
-        .image-caption { text-align: center; font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-bottom: 30px; font-family: var(--font-body); }
+        .no-image-text { color: var(--text-muted); font-style: italic; font-family: var(--font-heading); font-size: 1.1rem; text-shadow: none;}
+        .image-caption { text-align: center; font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-bottom: 35px; font-family: var(--font-body); }
 
-        .modal-text-section { margin-bottom: 25px; }
-        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 10px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 6px; letter-spacing: 1px; }
-        .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.05rem; color: var(--text-main); }
-        .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.05rem; color: var(--text-main); }
+        .modal-text-section { margin-bottom: 30px; }
+        .modal-text-section h3 { font-family: var(--font-heading); color: var(--gold-primary); font-size: 1.25rem; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); padding-bottom: 6px; letter-spacing: 1px; text-shadow: none; }
+        .modal-text-section p { margin-bottom: 12px; text-align: justify; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
+        .modal-text-section ul { padding-left: 20px; margin-top: 10px; font-size: 1.05rem; color: var(--text-main); font-weight: 500; }
         .modal-text-section li { margin-bottom: 8px; }
         .modal-text-section li::marker { color: var(--gold-primary); }
 
-        .modal-footer { padding: 15px 30px 30px; text-align: center; }
+        .modal-footer { padding: 15px 30px 35px; text-align: center; }
         .btn-select-era {
-            background: transparent; color: var(--gold-primary); border: 2px solid var(--gold-primary);
-            padding: 10px 30px; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
+            background: rgba(212, 175, 55, 0.05); color: var(--gold-primary); border: 1px solid var(--gold-primary);
+            padding: 12px 35px; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
             cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px; width: 100%; max-width: 300px;
         }
-        .btn-select-era:hover { background: var(--gold-primary); color: var(--bg-deep); }
+        .btn-select-era:hover { background: var(--gold-primary); color: var(--bg-deep); text-shadow: none;}
 
         /* === ZOOM IMAGE OVERLAY === */
-        .zoom-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(10, 7, 5, 0.95); z-index: 2000;
-            justify-content: center; align-items: center; cursor: zoom-out;
-        }
-        .zoom-overlay img {
-            max-width: 98vw; max-height: 98vh; object-fit: contain;
-            border: 2px solid var(--gold-primary); border-radius: 4px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); transition: transform 0.2s;
-        }
+        .zoom-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(12, 10, 9, 0.95); z-index: 2000; justify-content: center; align-items: center; cursor: zoom-out; }
+        .zoom-overlay img { max-width: 98vw; max-height: 98vh; object-fit: contain; border: 1px solid var(--gold-primary); border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: transform 0.2s; }
 
         /* === ACCORDION QUY TẮC === */
         .accordion-container { margin-top: 50px; }
-        .accordion-item { border: 1px solid rgba(212, 175, 55, 0.2); background: var(--bg-card); margin-bottom: 10px; border-radius: 6px; transition: 0.3s; }
+        .accordion-item { border: 1px solid rgba(212, 175, 55, 0.15); background: var(--bg-card); margin-bottom: 12px; border-radius: 6px; transition: 0.3s; }
         .accordion-header {
-            width: 100%; text-align: left; padding: 16px 20px; background: transparent; border: none;
+            width: 100%; text-align: left; padding: 18px 22px; background: transparent; border: none;
             color: var(--gold-light); font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; letter-spacing: 1px;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; letter-spacing: 1px; text-shadow: none;
         }
         .accordion-header:hover { background: rgba(212, 175, 55, 0.05); }
-        .accordion-header i { transition: transform 0.3s; color: var(--gold-dark); }
+        .accordion-header i { transition: transform 0.3s; color: var(--gold-dark); text-shadow: none;}
         .accordion-header.active i { transform: rotate(45deg); color: var(--gold-primary); }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding: 0 20px; }
-        .accordion-content.active { padding: 0 20px 20px; max-height: 600px; }
-        .accordion-content p { color: var(--text-main); font-size: 1.05rem; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding: 0 22px; }
+        .accordion-content.active { padding: 0 22px 22px; max-height: 600px; }
+        .accordion-content p { color: var(--text-main); font-size: 1.05rem; font-weight: 500; }
+
+        /* === THANH TRA CỨU THUẬT NGỮ (BÊN PHẢI CHÍNH GIỮA) === */
+        .glossary-widget {
+            position: fixed; right: 25px; top: 50%; transform: translateY(-50%); z-index: 999;
+            width: 55px; height: 55px; border-radius: 50%;
+            background: rgba(12, 10, 9, 0.95);
+            border: 2px solid var(--gold-primary); cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
+            transition: 0.3s; color: var(--gold-primary); font-size: 1.5rem; text-shadow: none;
+        }
+        .glossary-widget:hover { transform: translateY(-50%) scale(1.1); background: rgba(212, 175, 55, 0.1); color: var(--gold-light); }
+        
+        .glossary-panel {
+            display: none; position: fixed; right: 90px; top: 50%; transform: translateY(-50%); width: 320px; max-width: calc(100vw - 40px);
+            background: var(--bg-card); border: 1px solid var(--gold-dark);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9); z-index: 998; border-radius: 8px; overflow: hidden;
+        }
+        .glossary-header { background: var(--bg-deep); color: var(--gold-primary); padding: 12px; text-align: center; font-family: var(--font-heading); font-size: 1rem; font-weight: 700; position: relative; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .close-glossary { position: absolute; right: 12px; top: 12px; cursor: pointer; color: var(--text-muted); transition: 0.3s; padding: 4px; }
+        .close-glossary:hover { color: var(--gold-light); }
+        
+        .glossary-search-container { padding: 15px; border-bottom: 1px solid rgba(212, 175, 55, 0.15); background: rgba(0,0,0,0.3); }
+        .glossary-search-input { width: 100%; padding: 8px 15px; background: var(--bg-deep); border: 1px solid rgba(212,175,55,0.4); color: var(--text-main); border-radius: 20px; font-family: var(--font-body); font-size: 0.95rem; outline: none; transition: 0.3s;}
+        .glossary-search-input:focus { border-color: var(--gold-primary); box-shadow: inset 0 0 5px rgba(212, 175, 55, 0.2); }
+        
+        .glossary-list { max-height: 280px; overflow-y: auto; padding: 5px 0; }
+        .glossary-list::-webkit-scrollbar { width: 4px; }
+        .glossary-list::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
+        .glossary-item { padding: 12px 15px; border-bottom: 1px dashed rgba(212, 175, 55, 0.15); }
+        .glossary-term { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--gold-light); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-shadow: none;}
+        .glossary-def { font-size: 0.95rem; color: #D8C3A5; margin-top: 8px; display: none; line-height: 1.5; font-weight: 400;}
+        .glossary-empty { padding: 20px; text-align: center; color: var(--text-muted); font-style: italic; }
 
         /* === ĐĨA NHẠC & WIDGET === */
-        .music-widget { position: fixed; bottom: 25px; right: 25px; z-index: 999; }
+        .music-widget { position: fixed; bottom: 25px; left: 25px; z-index: 999; }
         .record-disc {
             width: 55px; height: 55px; border-radius: 50%; 
             background: conic-gradient(from 0deg, #111, #222 45deg, #0a0a0a 90deg, #222 135deg, #111 180deg, #222 225deg, #0a0a0a 270deg, #222 315deg, #111);
@@ -251,13 +261,13 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
         .floating-notes { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 100%; height: 60px; pointer-events: none; }
-        .note { position: absolute; bottom: 0; font-size: 1.1rem; color: var(--gold-primary); opacity: 0; animation: floatUp 2s ease-out forwards; }
+        .note { position: absolute; bottom: 0; font-size: 1.1rem; color: var(--gold-primary); opacity: 0; animation: floatUp 2s ease-out forwards; text-shadow: none; }
         @keyframes floatUp { 0% { transform: translateY(0) scale(0.6); opacity: 1; } 100% { transform: translateY(-50px) translateX(15px) scale(1.1) rotate(15deg); opacity: 0; } }
 
         .music-panel {
-            display: none; position: fixed; bottom: 90px; right: 25px; width: 300px; max-width: calc(100vw - 40px);
+            display: none; position: fixed; bottom: 90px; left: 25px; width: 300px; max-width: calc(100vw - 40px);
             background: var(--bg-card); border: 1px solid var(--gold-dark);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 998; border-radius: 6px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9); z-index: 998; border-radius: 8px; overflow: hidden;
         }
         .music-panel-header { background: var(--bg-deep); color: var(--gold-primary); padding: 12px; text-align: center; font-family: var(--font-heading); font-size: 1rem; font-weight: 700; position: relative; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
         .close-music { position: absolute; right: 12px; top: 12px; cursor: pointer; color: var(--text-muted); transition: 0.3s; padding: 4px; }
@@ -269,7 +279,7 @@
         .playlist-item { padding: 10px 15px; border-bottom: 1px dashed rgba(212, 175, 55, 0.15); cursor: pointer; transition: 0.2s; }
         .playlist-item:hover { background: rgba(212, 175, 55, 0.05); }
         .playlist-item.active { background: rgba(212, 175, 55, 0.1); border-left: 3px solid var(--gold-primary); }
-        .song-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .song-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: none;}
         .song-artist { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
         
         .music-controls { padding: 15px; background: var(--bg-deep); border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center; }
@@ -277,67 +287,77 @@
         .progress-bar { height: 100%; background: var(--gold-primary); width: 0%; pointer-events: none; border-radius: 4px; }
         .play-btn { background: var(--gold-primary); color: var(--bg-deep); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; }
 
+        /* === BỘ CÔNG CỤ ÉP KIỂU CHO VĂN BẢN ĐƯỢC ADMIN DÁN VÀO === */
+        .editable * { font-family: inherit !important; color: inherit !important; background: transparent !important; font-size: inherit !important; font-weight: inherit !important; line-height: inherit !important; text-shadow: inherit !important; margin: 0 !important; padding: 0 !important; }
+
         /* === ADMIN PANEL & INLINE EDITING === */
         .admin-panel { display: none; background: #2A1F18; color: var(--text-main); padding: 20px; border: 1px solid var(--crimson-magic); margin-bottom: 30px; border-radius: 6px; box-shadow: 0 5px 15px rgba(139,30,30,0.2); }
         body.is-admin .admin-panel { display: block; }
-        .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 15px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: 0.3s; }
+        .admin-btn { background: var(--gold-dark); color: #FFF; border: none; padding: 8px 15px; border-radius: 4px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: 0.3s; text-shadow: none;}
         .admin-btn:hover { background: var(--gold-primary); }
         .admin-input { width: 100%; padding: 8px; margin: 5px 0 10px; border: 1px solid rgba(212,175,55,0.4); background: #16120F; color: #FFF; border-radius: 4px; font-family: var(--font-body); font-size: 0.95rem; }
         
         .editable { position: relative; transition: 0.3s; outline: none; }
         body.is-admin .editable { padding-right: 20px; border-bottom: 1px dashed var(--gold-primary); }
         body.is-admin .editable:hover { background: rgba(212, 175, 55, 0.1); }
-        body.is-admin .editable::after {
-            content: '\f304'; font-family: "Font Awesome 6 Free"; font-weight: 900;
-            position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-            font-size: 0.8rem; color: var(--gold-primary); opacity: 0.6; pointer-events: none;
-        }
+        body.is-admin .editable::after { content: '\f304'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--gold-primary); opacity: 0.6; pointer-events: none; text-shadow: none; }
         body.is-admin .editable:hover::after { opacity: 1; }
-        body.is-admin .editable:focus { border: 1px solid var(--gold-primary); background: #000; padding: 2px 20px 2px 5px; border-radius: 4px; }
+        body.is-admin .editable:focus { border: 1px solid var(--gold-primary); background: #0A0705; padding: 2px 20px 2px 5px; border-radius: 4px; }
 
-        /* === TỐI ƯU HÓA MOBILE (VUỐT NGANG MƯỢT MÀ) === */
+        /* Cloud Sync UI */
+        #sync-status {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(12, 10, 9, 0.95); color: var(--gold-light);
+            padding: 8px 20px; border-radius: 20px; border: 1px solid var(--gold-dark);
+            font-size: 0.85rem; z-index: 1000; display: none; text-shadow: none; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+        }
+
+        /* === TỐI ƯU HÓA MOBILE === */
         @media (max-width: 768px) {
-            .hero { padding: 20px 10px; }
+            body { font-size: 0.9rem; }
+            .hero { padding: 40px 10px 80px; } 
             .fantasy-frame { padding: 30px 15px; }
-            .hero-title { font-size: 2.6rem; margin-bottom: 5px; }
+            .hero-title { font-size: 2.2rem; margin-bottom: 5px; letter-spacing: 1px; }
             .hero-label { margin-bottom: 15px; font-size: 0.75rem; padding: 4px 15px;}
-            .hero-desc { font-size: 1rem; line-height: 1.5; }
+            .hero-desc { font-size: 0.95rem; line-height: 1.5; }
             .frame-corner { width: 15px; height: 15px; }
             
-            /* Menu vuốt ngang trên điện thoại */
-            .sticky-nav {
-                justify-content: flex-start;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                padding: 10px 15px;
-                scroll-snap-type: x mandatory;
-            }
-            .sticky-nav::-webkit-scrollbar { display: none; }
-            .nav-item { scroll-snap-align: start; flex-shrink: 0; }
+            .sticky-nav { padding: 8px 5px; gap: 5px; justify-content: center; flex-wrap: wrap; }
+            .nav-item { font-size: 0.85rem; padding: 6px 10px; white-space: nowrap; }
             
             .era-grid { grid-template-columns: 1fr; gap: 15px; }
-            .era-card { padding: 20px; }
+            .era-card { padding: 20px 15px; }
+            .era-name { font-size: 1.3rem; }
+            .era-desc { font-size: 0.95rem; }
+            .era-tag { padding: 4px 14px; font-size: 0.75rem; }
             
             .intro-box { padding: 25px 15px; }
-            .intro-main-title { font-size: 2rem; }
-            .intro-sub-title { font-size: 0.85rem; letter-spacing: 1px;}
+            .intro-main-title { font-size: 1.8rem; }
+            .intro-sub-title { font-size: 0.75rem; letter-spacing: 1px;}
             
             .modal-content { width: 95%; margin: 15px auto; }
             .modal-header { padding: 25px 20px 15px; }
             .modal-body { padding: 20px 15px; }
             .modal-footer { padding: 15px 15px 25px; }
-            .modal-title { font-size: 1.8rem; }
+            .modal-title { font-size: 1.6rem; }
             
-            .music-panel { bottom: 90px; right: 15px; width: 280px; }
-            .music-widget { right: 15px; bottom: 15px; }
-            .record-disc { width: 50px; height: 50px; }
+            /* Giao diện Mobile cho Glossary ra giữa màn hình */
+            .glossary-panel {
+                top: 50%; left: 50%; transform: translate(-50%, -50%);
+                width: 90%; max-width: 320px; right: auto;
+            }
+            .glossary-widget { right: 15px; width: 45px; height: 45px; font-size: 1.2rem;}
+            
+            .music-panel { bottom: 80px; left: 15px; width: 280px; }
+            .music-widget { left: 15px; bottom: 15px; width: 45px; height: 45px;}
+            .record-disc { width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HERO SECTION VỚI KHUNG FANTASY NHỎ GỌN -->
+    <div id="sync-status"><i class="fas fa-sync fa-spin"></i> Đang tải từ Cloud...</div>
+
+    <!-- HERO SECTION -->
     <header class="hero" id="top">
         <div class="fantasy-frame">
             <div class="frame-corner c-tl"></div>
@@ -352,7 +372,7 @@
         </div>
     </header>
 
-    <!-- NAVIGATION (VUỐT NGANG TRÊN MOBILE) -->
+    <!-- NAVIGATION TÀNG HÌNH VỚI NỀN -->
     <nav class="sticky-nav">
         <a href="#top" class="nav-item active"><i class="fas fa-globe"></i> <span class="editable" data-key="nav.1">Thế Giới</span></a>
         <a href="#" class="nav-item" onclick="alert('Tính năng đang phong ấn!')"><i class="fas fa-map"></i> <span class="editable" data-key="nav.2">Vùng Đất</span></a>
@@ -367,19 +387,25 @@
         
         <!-- BẢNG ĐIỀU KHIỂN ADMIN -->
         <div class="admin-panel" id="admin-panel">
-            <h3 style="margin-bottom: 10px; color: var(--gold-primary); font-family: var(--font-heading); font-size: 1.2rem;"><i class="fas fa-feather-alt"></i> QUYỀN NĂNG TỐI THƯỢNG (ADMIN)</h3>
-            <p style="margin-bottom: 15px; font-style: italic; font-size: 0.9rem;">*Chạm vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> để thay đổi thực tại. Dữ liệu lưu cục bộ.</p>
+            <h3 style="margin-bottom: 10px; color: var(--gold-primary); font-family: var(--font-heading); font-size: 1.3rem;"><i class="fas fa-feather-alt"></i> QUYỀN NĂNG TỐI THƯỢNG (ADMIN)</h3>
+            <p style="margin-bottom: 20px; font-style: italic; font-size: 0.95rem;">*Chạm vào <strong>bất kỳ văn bản nào có biểu tượng cây bút</strong> để thay đổi thực tại. Dữ liệu sẽ đồng bộ Cloud.</p>
             
-            <div style="background: rgba(0,0,0,0.3); padding: 15px; border: 1px dashed var(--gold-primary); margin-bottom: 10px; border-radius: 4px;">
-                <h4 style="color: var(--gold-light); font-family: var(--font-heading); margin-bottom: 8px;"><i class="fas fa-music"></i> Hộp Nhạc Phép Thuật</h4>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px dashed var(--gold-primary); margin-bottom: 15px; border-radius: 4px;">
+                <h4 style="color: var(--gold-light); font-family: var(--font-heading); margin-bottom: 10px;"><i class="fas fa-music"></i> Hộp Nhạc Phép Thuật</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <input type="text" id="admin-song-name" class="admin-input" placeholder="Tên Bản Nhạc" style="flex:1; min-width: 120px;">
                     <input type="text" id="admin-song-artist" class="admin-input" placeholder="Nghệ sĩ" style="flex:1; min-width: 100px;">
                 </div>
                 <input type="text" id="admin-song-url" class="admin-input" placeholder="Link MP3">
                 <button class="admin-btn" onclick="adminAddMusic()"><i class="fas fa-plus"></i> Khảm Âm Nhạc</button>
             </div>
-            <button class="admin-btn" onclick="resetFactoryData()" style="background: transparent; border: 1px solid #777; color: #AAA;"><i class="fas fa-undo"></i> Khôi Phục Gốc</button>
+
+            <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px dashed var(--gold-primary); margin-bottom: 15px; border-radius: 4px;">
+                <h4 style="color: var(--gold-light); font-family: var(--font-heading); margin-bottom: 10px;"><i class="fas fa-book"></i> Thêm Thuật Ngữ (Từ Điển Lore)</h4>
+                <input type="text" id="admin-glossary-term" class="admin-input" placeholder="Tên thuật ngữ (VD: Leyline)">
+                <textarea id="admin-glossary-def" class="admin-input" placeholder="Định nghĩa ngắn (1-3 câu)..." rows="3" style="resize:vertical;"></textarea>
+                <button class="admin-btn" onclick="adminAddGlossary()"><i class="fas fa-plus"></i> Khảm Thuật Ngữ</button>
+            </div>
         </div>
 
         <section id="intro">
@@ -389,7 +415,7 @@
                 
                 <div class="ornament-divider">✦</div>
                 <p class="editable" data-key="intro.p1">Meownia là một thế giới fantasy rộng lớn, nơi nhiều nền văn minh, chủng tộc và vùng đất cùng tồn tại qua những thời đại khác nhau. Thế giới không xoay quanh một nhân vật chính duy nhất, và không có một con đường được định sẵn cho tất cả mọi người.</p>
-                <p style="margin-top: 10px;" class="editable" data-key="intro.p2">Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.</p>
+                <p style="margin-top: 15px;" class="editable" data-key="intro.p2">Meownia trải qua 8 Kỷ Nguyên, mỗi thời kỳ mang một diện mạo và hoàn cảnh riêng. Người chơi có thể lựa chọn bất kỳ Kỷ Nguyên nào để bắt đầu cuộc đời của nhân vật mình.</p>
             </div>
         </section>
 
@@ -397,17 +423,17 @@
             <div class="section-header">
                 <h2 class="section-title gold-text editable" data-key="eraSection.title">8 KỶ NGUYÊN</h2>
                 <p class="editable" data-key="eraSection.desc" style="color: var(--text-muted);">Tám thời đại của Meownia — mỗi thời đại là một ngã rẽ khác để bước vào thế giới.</p>
-                <div class="ornament-divider" style="max-width: 200px; margin: 10px auto;">✦</div>
+                <div class="ornament-divider" style="max-width: 200px; margin: 15px auto;">✦</div>
             </div>
             
             <div class="era-grid" id="era-grid-container"></div>
         </section>
 
         <section id="rules" class="accordion-container">
-            <div class="section-header" style="margin-bottom: 25px;">
+            <div class="section-header" style="margin-bottom: 30px;">
                 <h2 class="section-title gold-text editable" data-key="ruleSection.title">QUY TẮC THẾ GIỚI</h2>
                 <p class="editable" data-key="ruleSection.desc" style="color: var(--text-muted);">Bốn nguyên lý tối thượng lữ khách cần biết trước khi bắt đầu.</p>
-                <div class="ornament-divider" style="max-width: 200px; margin: 10px auto;">✦</div>
+                <div class="ornament-divider" style="max-width: 200px; margin: 15px auto;">✦</div>
             </div>
             
             <div id="rules-container"></div>
@@ -434,7 +460,7 @@
                 <p class="image-caption editable" id="modal-caption" data-key-dynamic="true">Bản đồ của kỷ nguyên...</p>
                 
                 <div style="text-align:center;">
-                    <button class="admin-btn" id="btn-upload-img" style="display: none; margin-bottom: 20px;" onclick="document.getElementById('admin-img-upload').click()"><i class="fas fa-magic"></i> Đổi Ảnh</button>
+                    <button class="admin-btn" id="btn-upload-img" style="display: none; margin-bottom: 25px;" onclick="document.getElementById('admin-img-upload').click()"><i class="fas fa-magic"></i> Đổi Ảnh Bản Đồ</button>
                 </div>
                 
                 <div class="modal-text-section">
@@ -464,17 +490,34 @@
         <img id="zoomed-img" src="" alt="Bản đồ Kỷ Nguyên Phóng To">
     </div>
 
-    <!-- MUSIC PLAYER WIDGET -->
+    <!-- GLOSSARY WIDGET (BÊN PHẢI) -->
+    <div class="glossary-widget" onclick="toggleGlossary()">
+        <i class="fas fa-book-journal-whills"></i>
+    </div>
+
+    <!-- GLOSSARY PANEL -->
+    <div class="glossary-panel" id="glossary-panel">
+        <div class="glossary-header">
+            <i class="fas fa-search" style="color: var(--gold-primary);"></i> TRA CỨU THUẬT NGỮ
+            <i class="fas fa-times close-glossary" onclick="toggleGlossary()"></i>
+        </div>
+        <div class="glossary-search-container">
+            <input type="text" id="glossary-search" class="glossary-search-input" placeholder="Tìm thuật ngữ..." oninput="renderGlossary()">
+        </div>
+        <div class="glossary-list" id="glossary-list-container"></div>
+    </div>
+
+    <!-- MUSIC PLAYER WIDGET (BÊN TRÁI) -->
     <div class="music-widget">
         <div class="floating-notes" id="floating-notes"></div>
-        <div class="record-disc" id="record-disc" onclick="toggleMusicModal()"></div>
+        <div class="record-disc" id="record-disc" onclick="handleDiscClick()"></div>
     </div>
 
     <!-- HỘP NHẠC MODAL -->
     <div class="music-panel" id="music-panel">
         <div class="music-panel-header">
             <i class="fas fa-compact-disc" style="color: var(--gold-primary);"></i> HỘP NHẠC CỔ REMIX
-            <i class="fas fa-times close-music" onclick="toggleMusicModal()"></i>
+            <i class="fas fa-times close-music" onclick="closeMusicModal()"></i>
         </div>
         <div class="playlist" id="playlist-container"></div>
         <div class="music-controls">
@@ -491,6 +534,12 @@
 
     <!-- === JAVASCRIPT === -->
     <script>
+        // Khởi tạo kết nối Supabase (Cloud)
+        const supabaseUrl = 'https://xdqanrqpgognavsfkrtt.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcWFucnFwZ29nbmF2c2ZrcnR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzE3NTAsImV4cCI6MjEwMTI0Nzc1MH0.f_EXEkRLrZXTyHTrp5jyRiw0tlvDjkepDcbo6IrO95o';
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); // FIX LỖI SẬP WEB Ở ĐÂY
+
+        // Dữ liệu mặc định
         const defaultAppContent = {
             texts: {
                 "hero.label": "CẨM NANG DU HÀNH", "hero.welcome": "Chào mừng lữ khách ghé thăm", "hero.title": "MEOWNIA WORLD",
@@ -566,20 +615,90 @@
                 { title: "02 · MỌI LỰA CHỌN ĐỀU CÓ HỆ QUẢ", content: "Không có sức mạnh nào miễn phí, không có hành động nào vô giá. Một phép màu luôn có cái giá phải trả. Mọi quyết định đều tạo ra hệ quả, có thể ngay lập tức hoặc ám ảnh đến thế hệ sau." },
                 { title: "03 · SỨC MẠNH LUÔN CÓ GIỚI HẠN", content: "Mana là năng lượng nền tảng nhưng không vô hạn. Mọi sinh vật đều phải trải qua sinh lão bệnh tử. Bất tử tuyệt đối không tồn tại, ngay cả Thần linh cũng có thể suy yếu hoặc bị tiêu diệt bằng phương pháp thích hợp." },
                 { title: "04 · TRI THỨC KHÔNG PHẢI LUÔN LÀ SỰ THẬT", content: "Không tồn tại cá nhân hay tổ chức nào nắm giữ toàn bộ chân lý của Meownia. Lịch sử có thể bị bóp méo hoặc thất truyền, thần thoại có thể là lịch sử và ngược lại. Chân lý tuyệt đối gần như không thể đạt tới." }
-            ]
+            ],
+            playlist: [
+                { title: "Bản Giao Hưởng Tiên Tộc", artist: "Bard of Celestara", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
+                { title: "Giai Điệu Hầm Ngục", artist: "Unknown", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" }
+            ],
+            glossary: [
+                { term: "Mana", definition: "Năng lượng nền tảng duy trì toàn bộ thế giới Meownia." },
+                { term: "Leyline", definition: "Mạch năng lượng ma thuật chạy dọc thế giới, cung cấp mana cho vạn vật." },
+                { term: "Đại Biến", definition: "Sự kiện thảm họa tàn phá thế giới cổ đại, làm đứt gãy lục địa và sinh ra vô số quái vật." }
+            ],
+            images: {}
         };
 
-        let appData = JSON.parse(localStorage.getItem('meownia_compact_v6')) || JSON.parse(JSON.stringify(defaultAppContent));
+        let appData = defaultAppContent;
         let isAdmin = false;
         let currentModalEraId = null;
 
-        function saveData() { localStorage.setItem('meownia_compact_v6', JSON.stringify(appData)); }
-        function resetFactoryData() {
-            if(confirm("Khôi phục toàn bộ văn bản và ảnh về bản gốc?")){
-                localStorage.removeItem('meownia_compact_v6');
-                localStorage.removeItem('meownia_compact_img_v6');
-                location.reload();
+        // BẮT SỰ KIỆN PASTE DỌN DẸP ĐỊNH DẠNG
+        document.addEventListener('paste', function(e) {
+            if (e.target && e.target.classList && e.target.classList.contains('editable')) {
+                e.preventDefault();
+                var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                document.execCommand('insertText', false, text);
             }
+        });
+
+        // HỆ THỐNG ĐỒNG BỘ CLOUD (SUPABASE)
+        async function fetchInitialData() {
+            document.getElementById('sync-status').style.display = 'block';
+            document.getElementById('sync-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu Cloud...';
+            try {
+                // Đổi ID thành 3 để tạo phân vùng hoàn toàn mới, không đè mất web LoveMap cũ
+                const { data, error } = await supabaseClient.from('lovemap').select('content').eq('id', 3).single();
+                if (data && data.content) {
+                    appData = { ...defaultAppContent, ...data.content };
+                } else {
+                    const localData = await localforage.getItem('meownia_final_v13');
+                    if (localData) appData = { ...defaultAppContent, ...localData };
+                }
+            } catch(e) {
+                const localData = await localforage.getItem('meownia_final_v13');
+                if (localData) appData = { ...defaultAppContent, ...localData };
+            }
+            
+            // Ép an toàn tránh sập
+            if(!appData.eras) appData.eras = defaultAppContent.eras;
+            if(!appData.rules) appData.rules = defaultAppContent.rules;
+            if(!appData.texts) appData.texts = defaultAppContent.texts;
+            if(!appData.playlist) appData.playlist = defaultAppContent.playlist;
+            if(!appData.glossary) appData.glossary = defaultAppContent.glossary;
+            if(!appData.images) appData.images = {};
+            
+            document.getElementById('sync-status').style.display = 'none';
+            initApp();
+        }
+
+        let saveTimeout;
+        async function saveData() {
+            const syncUI = document.getElementById('sync-status');
+            syncUI.style.display = 'block';
+            syncUI.innerHTML = '<i class="fas fa-sync fa-spin"></i> Đang đồng bộ Cloud...';
+            
+            await localforage.setItem('meownia_final_v13', appData);
+
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(async () => {
+                const { error } = await supabaseClient.from('lovemap').upsert({ id: 3, content: appData });
+                if(error) {
+                    syncUI.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Lỗi Cloud! Đã lưu máy.';
+                    syncUI.style.color = "#ff4444";
+                } else {
+                    syncUI.innerHTML = '<i class="fas fa-check-circle"></i> Đã đồng bộ Cloud';
+                    syncUI.style.color = "#4CAF50";
+                    setTimeout(() => syncUI.style.display = 'none', 2000);
+                }
+            }, 1500);
+        }
+
+        function initApp() {
+            renderStaticTexts();
+            renderEras();
+            renderRules();
+            renderPlaylist();
+            renderGlossary();
         }
 
         /* ========================================================
@@ -612,21 +731,29 @@
             const grid = document.getElementById('era-grid-container');
             grid.innerHTML = '';
             appData.eras.forEach((era, index) => {
-                const tagArr = era.tags.split(',').map(t => t.trim());
-                const tagsHtml = tagArr.map(tag => `<span class="era-tag">${tag}</span>`).join('');
+                let tagsHtml = '';
+                if(isAdmin) {
+                    tagsHtml = `<div class="editable" data-era-index="${index}" data-era-field="tags">${era.tags}</div>`;
+                } else {
+                    const tagArr = era.tags.split(',').map(t => t.trim()).filter(t => t);
+                    tagsHtml = tagArr.map(tag => `<span class="era-tag">${tag}</span>`).join('');
+                }
+
                 const card = document.createElement('div');
                 card.className = 'era-card';
-                card.onclick = (e) => { if(e.target.isContentEditable) return; openModal(index); };
                 card.innerHTML = `
                     <h3 class="era-name editable" data-era-index="${index}" data-era-field="name">${era.name}</h3>
                     <div class="era-date editable" data-era-index="${index}" data-era-field="date">${era.date}</div>
                     <p class="era-desc editable" data-era-index="${index}" data-era-field="shortDesc">${era.shortDesc}</p>
-                    <div class="era-tags editable" data-era-index="${index}" data-era-field="tags">${tagsHtml}</div>
-                    <div class="era-action">XEM CHI TIẾT &rarr;</div>
+                    <div class="era-tags">${tagsHtml}</div>
+                    <div class="era-action" onclick="openModal(${index})">XEM CHI TIẾT &rarr;</div>
                 `;
                 grid.appendChild(card);
             });
-            document.querySelectorAll('[data-era-index]').forEach(el => el.addEventListener('blur', handleEraEdit));
+            document.querySelectorAll('.era-card .editable').forEach(el => {
+                if(isAdmin) el.setAttribute('contenteditable', 'true');
+                el.addEventListener('blur', handleEraEdit);
+            });
         }
 
         function renderRules() {
@@ -646,17 +773,15 @@
                 `;
                 container.appendChild(item);
             });
-            document.querySelectorAll('[data-rule-index]').forEach(el => el.addEventListener('blur', handleRuleEdit));
+            document.querySelectorAll('#rules-container .editable').forEach(el => {
+                if(isAdmin) el.setAttribute('contenteditable', 'true');
+                el.addEventListener('blur', handleRuleEdit);
+            });
         }
 
         /* ========================================================
            3. MODAL KỶ NGUYÊN & ZOOM ẢNH
            ======================================================== */
-        function loadSavedImage(eraId) {
-            const savedImages = JSON.parse(localStorage.getItem('meownia_compact_img_v6')) || {};
-            return savedImages[eraId] || null;
-        }
-
         function openModal(id) {
             currentModalEraId = id; const era = appData.eras[id];
             
@@ -687,7 +812,7 @@
 
             const imgElement = document.getElementById('modal-image');
             const noImgElement = document.getElementById('modal-no-image');
-            const savedImg = loadSavedImage(id);
+            const savedImg = appData.images[id];
             if (savedImg) {
                 imgElement.src = savedImg; imgElement.style.display = 'block'; noImgElement.style.display = 'none';
             } else {
@@ -740,9 +865,8 @@
                     const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
                     const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85); 
                     
-                    let savedImages = JSON.parse(localStorage.getItem('meownia_compact_img_v6')) || {};
-                    savedImages[currentModalEraId] = compressedBase64;
-                    localStorage.setItem('meownia_compact_img_v6', JSON.stringify(savedImages));
+                    appData.images[currentModalEraId] = compressedBase64;
+                    saveData();
                     openModal(currentModalEraId);
                 }
             };
@@ -767,26 +891,25 @@
                     isAdmin = true; document.body.classList.add('is-admin');
                     document.querySelectorAll('.editable').forEach(el => el.setAttribute('contenteditable', 'true'));
                     document.getElementById('btn-upload-img').style.display = 'inline-block';
+                    renderEras(); 
                     renderPlaylist();
+                    renderGlossary();
                     alert("Cổng Quản Trị Mở! Chạm vào văn bản để chỉnh sửa.");
                 } else if (pass !== null) alert("Mật mã không đúng!");
             } else {
                 isAdmin = false; document.body.classList.remove('is-admin');
                 document.querySelectorAll('.editable').forEach(el => el.removeAttribute('contenteditable'));
                 document.getElementById('btn-upload-img').style.display = 'none';
+                renderEras(); 
                 renderPlaylist();
+                renderGlossary();
                 alert("Đã khóa Cổng Quản Trị.");
             }
         });
 
         /* ========================================================
-           5. HỘP NHẠC PHÉP THUẬT
+           5. HỘP NHẠC PHÉP THUẬT (AUTO RANDOM)
            ======================================================== */
-        let playlist = JSON.parse(localStorage.getItem('meownia_compact_music_v6')) || [
-            { title: "Bản Giao Hưởng Tiên Tộc", artist: "Bard of Celestara", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
-            { title: "Giai Điệu Hầm Ngục", artist: "Unknown", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" }
-        ];
-
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-icon');
         const recordDisc = document.getElementById('record-disc');
@@ -797,11 +920,11 @@
 
         function renderPlaylist() {
             playlistContainer.innerHTML = '';
-            if (playlist.length === 0) {
+            if (appData.playlist.length === 0) {
                 playlistContainer.innerHTML = '<div style="padding:15px; text-align:center; color:#888;">Hộp nhạc trống.</div>';
                 return;
             }
-            playlist.forEach((song, index) => {
+            appData.playlist.forEach((song, index) => {
                 const item = document.createElement('div');
                 item.className = `playlist-item ${index === currentSongIndex ? 'active' : ''}`;
                 const deleteHtml = isAdmin ? `<i class="fas fa-trash" style="color:#ff4444; float:right; margin-top:5px;" onclick="deleteSong(event, ${index})"></i>` : '';
@@ -820,8 +943,8 @@
             const artist = document.getElementById('admin-song-artist').value || "Ẩn danh";
             const url = document.getElementById('admin-song-url').value;
             if(!title || !url) { alert("Thiếu tên hoặc link!"); return; }
-            playlist.push({ title, artist, url });
-            localStorage.setItem('meownia_compact_music_v6', JSON.stringify(playlist));
+            appData.playlist.push({ title, artist, url });
+            saveData();
             
             document.getElementById('admin-song-name').value = '';
             document.getElementById('admin-song-artist').value = '';
@@ -832,30 +955,40 @@
         function deleteSong(event, index) {
             event.stopPropagation(); 
             if(confirm("Xóa bản nhạc này?")) {
-                playlist.splice(index, 1);
-                localStorage.setItem('meownia_compact_music_v6', JSON.stringify(playlist));
+                appData.playlist.splice(index, 1);
+                saveData();
                 if (currentSongIndex === index) { audio.pause(); resetPlayerUI(); } 
                 else if (currentSongIndex > index) currentSongIndex--;
                 renderPlaylist();
             }
         }
 
-        function toggleMusicModal() {
+        // BẤM VÀO ĐĨA NHẠC: Random nhạc + Hiện Bảng ngay lập tức
+        function handleDiscClick() {
             const panel = document.getElementById('music-panel');
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+            panel.style.display = 'block';
+            
+            if (!isPlaying && appData.playlist.length > 0) {
+                const randomIdx = Math.floor(Math.random() * appData.playlist.length);
+                loadAndPlay(randomIdx);
+            }
             renderPlaylist();
         }
 
+        function closeMusicModal() {
+            document.getElementById('music-panel').style.display = 'none';
+        }
+
         function togglePlayPause() {
-            if (playlist.length === 0) return;
-            if (currentSongIndex === -1) { loadAndPlay(Math.floor(Math.random() * playlist.length)); return; }
+            if (appData.playlist.length === 0) return;
+            if (currentSongIndex === -1) { loadAndPlay(Math.floor(Math.random() * appData.playlist.length)); return; }
             if (isPlaying) { audio.pause(); playBtn.className = 'fas fa-play'; recordDisc.classList.remove('playing'); clearInterval(noteInterval); } 
             else { audio.play(); playBtn.className = 'fas fa-pause'; recordDisc.classList.add('playing'); spawnNotes(); }
             isPlaying = !isPlaying;
         }
 
         function loadAndPlay(index) {
-            currentSongIndex = index; audio.src = playlist[index].url; audio.play();
+            currentSongIndex = index; audio.src = appData.playlist[index].url; audio.play();
             isPlaying = true; playBtn.className = 'fas fa-pause'; recordDisc.classList.add('playing');
             renderPlaylist(); clearInterval(noteInterval); spawnNotes();
         }
@@ -867,7 +1000,7 @@
 
         audio.addEventListener('ended', () => {
             let nextIndex = currentSongIndex + 1;
-            if (nextIndex < playlist.length) loadAndPlay(nextIndex);
+            if (nextIndex < appData.playlist.length) loadAndPlay(nextIndex);
             else { resetPlayerUI(); renderPlaylist(); }
         });
 
@@ -893,7 +1026,98 @@
             }, 800);
         }
 
-        window.onload = () => { renderStaticTexts(); renderEras(); renderRules(); renderPlaylist(); };
+        /* ========================================================
+           6. THANH TRA CỨU THUẬT NGỮ (GLOSSARY)
+           ======================================================== */
+        function toggleGlossary() {
+            const panel = document.getElementById('glossary-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+            if (panel.style.display === 'block') {
+                document.getElementById('glossary-search').focus();
+            }
+        }
+
+        function renderGlossary() {
+            const container = document.getElementById('glossary-list-container');
+            const searchText = document.getElementById('glossary-search').value.toLowerCase().trim();
+            container.innerHTML = '';
+            
+            let count = 0;
+
+            appData.glossary.forEach((g, index) => {
+                if (searchText && !g.term.toLowerCase().includes(searchText) && !g.definition.toLowerCase().includes(searchText)) {
+                    return; 
+                }
+                count++;
+                const item = document.createElement('div');
+                item.className = 'glossary-item';
+                
+                const deleteBtn = isAdmin ? `<i class="fas fa-trash" style="color:#ff4444; font-size:0.9rem;" onclick="deleteGlossary(event, ${index})"></i>` : '';
+                
+                item.innerHTML = `
+                    <div class="glossary-term" onclick="toggleGlossaryDef(this)">
+                        <span>${g.term} ${deleteBtn}</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--gold-dark);"></i>
+                    </div>
+                    <div class="glossary-def editable" data-glossary-index="${index}">${g.definition}</div>
+                `;
+                container.appendChild(item);
+            });
+
+            if (count === 0) {
+                container.innerHTML = '<div class="glossary-empty">Không tìm thấy thuật ngữ này.</div>';
+            }
+
+            if (isAdmin) {
+                document.querySelectorAll('.glossary-def.editable').forEach(el => {
+                    el.setAttribute('contenteditable', 'true');
+                    el.addEventListener('blur', (e) => {
+                        const idx = e.target.getAttribute('data-glossary-index');
+                        appData.glossary[idx].definition = e.target.innerHTML;
+                        saveData();
+                    });
+                });
+            }
+        }
+
+        function toggleGlossaryDef(el) {
+            if (event.target.classList.contains('fa-trash')) return;
+            const def = el.nextElementSibling;
+            const icon = el.querySelector('.fa-chevron-down, .fa-chevron-up');
+            if (def.style.display === 'block') {
+                def.style.display = 'none';
+                icon.className = 'fas fa-chevron-down';
+            } else {
+                def.style.display = 'block';
+                icon.className = 'fas fa-chevron-up';
+            }
+        }
+
+        function adminAddGlossary() {
+            const term = document.getElementById('admin-glossary-term').value.trim();
+            const def = document.getElementById('admin-glossary-def').value.trim();
+            if (!term || !def) { alert('Vui lòng nhập đủ tên thuật ngữ và định nghĩa!'); return; }
+            
+            appData.glossary.push({ term: term, definition: def });
+            saveData();
+            
+            document.getElementById('admin-glossary-term').value = '';
+            document.getElementById('admin-glossary-def').value = '';
+            renderGlossary();
+            alert('Đã thêm thuật ngữ!');
+        }
+
+        function deleteGlossary(event, index) {
+            event.stopPropagation();
+            if(confirm('Xóa thuật ngữ này khỏi cẩm nang?')) {
+                appData.glossary.splice(index, 1);
+                saveData();
+                renderGlossary();
+            }
+        }
+
+        // Khởi động
+        window.onload = () => { fetchInitialData(); };
 
     </script>
 </body>
