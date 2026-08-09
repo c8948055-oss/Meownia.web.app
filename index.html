@@ -70,7 +70,7 @@
             content: ""; flex: 1; border-bottom: 1px solid rgba(212, 175, 55, 0.25); margin: 0 20px;
         }
 
-        /* === HERO SECTION === */
+        /* === HERO SECTION SEAMLESS === */
         .hero { 
             position: relative;
             padding: 80px 15px 130px; 
@@ -105,7 +105,7 @@
         .hero-title { font-family: var(--font-heading); font-size: 4.2rem; letter-spacing: 2px; margin-bottom: 12px; line-height: 1.1; user-select: none; cursor: pointer; }
         .hero-desc { font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--text-main); line-height: 1.5; font-weight: 500; }
 
-        /* === NAVIGATION === */
+        /* === NAVIGATION SEAMLESS === */
         .sticky-nav {
             position: sticky; top: 0; background-color: rgba(12, 10, 9, 0.95);
             z-index: 100; display: flex; justify-content: center; gap: 8px;
@@ -197,29 +197,40 @@
         .zoom-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(12, 10, 9, 0.95); z-index: 2000; justify-content: center; align-items: center; cursor: zoom-out; }
         .zoom-overlay img { max-width: 98vw; max-height: 98vh; object-fit: contain; border: 1px solid var(--gold-primary); border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: transform 0.2s; }
 
-        /* === ACCORDION QUY TẮC === */
+        /* === ACCORDION QUY TẮC SIÊU MƯỢT === */
         .accordion-container { margin-top: 50px; }
         .accordion-item { border: 1px solid rgba(212, 175, 55, 0.15); background: var(--bg-card); margin-bottom: 12px; border-radius: 6px; transition: 0.3s; }
         .accordion-header {
-            width: 100%; text-align: left; padding: 18px 22px; background: transparent; border: none;
+            width: 100%; text-align: left; padding: 18px 25px; background: transparent; border: none;
             color: var(--gold-light); font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
             cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; letter-spacing: 1px; text-shadow: none;
         }
         .accordion-header:hover { background: rgba(212, 175, 55, 0.05); }
-        .accordion-header i { transition: transform 0.3s; color: var(--gold-dark); text-shadow: none;}
+        .accordion-header i { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); color: var(--gold-dark); text-shadow: none;}
         .accordion-header.active i { transform: rotate(45deg); color: var(--gold-primary); }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding: 0 22px; }
-        .accordion-content.active { padding: 0 22px 22px; max-height: 600px; }
-        .accordion-content p { color: var(--text-main); font-size: 1.05rem; font-weight: 500; }
+        
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content.active {
+            grid-template-rows: 1fr;
+        }
+        .accordion-inner {
+            overflow: hidden;
+            padding: 0 25px;
+        }
+        .accordion-inner p { color: var(--text-main); font-size: 1.05rem; font-weight: 500; padding-top: 5px; padding-bottom: 20px;}
 
-        /* === THANH TRA CỨU THUẬT NGỮ (BÊN PHẢI CHÍNH GIỮA) === */
+        /* === THANH TRA CỨU THUẬT NGỮ (GLOSSARY) - BÊN PHẢI CHÍNH GIỮA === */
         .glossary-widget {
             position: fixed; right: 25px; top: 50%; transform: translateY(-50%); z-index: 999;
             width: 55px; height: 55px; border-radius: 50%;
             background: rgba(12, 10, 9, 0.95);
             border: 2px solid var(--gold-primary); cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
-            transition: 0.3s; color: var(--gold-primary); font-size: 1.5rem; text-shadow: none;
+            transition: transform 0.3s; color: var(--gold-primary); font-size: 1.5rem; text-shadow: none;
         }
         .glossary-widget:hover { transform: translateY(-50%) scale(1.1); background: rgba(212, 175, 55, 0.1); color: var(--gold-light); }
         
@@ -244,8 +255,8 @@
         .glossary-def { font-size: 0.95rem; color: #D8C3A5; margin-top: 8px; display: none; line-height: 1.5; font-weight: 400;}
         .glossary-empty { padding: 20px; text-align: center; color: var(--text-muted); font-style: italic; }
 
-        /* === ĐĨA NHẠC & WIDGET === */
-        .music-widget { position: fixed; bottom: 25px; left: 25px; z-index: 999; }
+        /* === ĐĨA NHẠC & WIDGET (BÊN PHẢI CUỐI CÙNG CỦA MÀN HÌNH) === */
+        .music-widget { position: fixed; bottom: 25px; right: 25px; z-index: 999; }
         .record-disc {
             width: 55px; height: 55px; border-radius: 50%; 
             background: conic-gradient(from 0deg, #111, #222 45deg, #0a0a0a 90deg, #222 135deg, #111 180deg, #222 225deg, #0a0a0a 270deg, #222 315deg, #111);
@@ -265,7 +276,7 @@
         @keyframes floatUp { 0% { transform: translateY(0) scale(0.6); opacity: 1; } 100% { transform: translateY(-50px) translateX(15px) scale(1.1) rotate(15deg); opacity: 0; } }
 
         .music-panel {
-            display: none; position: fixed; bottom: 90px; left: 25px; width: 300px; max-width: calc(100vw - 40px);
+            display: none; position: fixed; bottom: 90px; right: 25px; width: 300px; max-width: calc(100vw - 40px);
             background: var(--bg-card); border: 1px solid var(--gold-dark);
             box-shadow: 0 15px 40px rgba(0,0,0,0.9); z-index: 998; border-radius: 8px; overflow: hidden;
         }
@@ -316,29 +327,29 @@
             body { font-size: 0.9rem; }
             .hero { padding: 40px 10px 80px; } 
             .fantasy-frame { padding: 30px 15px; }
-            .hero-title { font-size: 2.2rem; margin-bottom: 5px; letter-spacing: 1px; }
+            .hero-title { font-size: 2rem; margin-bottom: 5px; letter-spacing: 1px; }
             .hero-label { margin-bottom: 15px; font-size: 0.75rem; padding: 4px 15px;}
-            .hero-desc { font-size: 0.95rem; line-height: 1.5; }
+            .hero-desc { font-size: 0.9rem; line-height: 1.5; }
             .frame-corner { width: 15px; height: 15px; }
             
             .sticky-nav { padding: 8px 5px; gap: 5px; justify-content: center; flex-wrap: wrap; }
-            .nav-item { font-size: 0.85rem; padding: 6px 10px; white-space: nowrap; }
+            .nav-item { font-size: 0.8rem; padding: 6px 10px; white-space: nowrap; }
             
             .era-grid { grid-template-columns: 1fr; gap: 15px; }
             .era-card { padding: 20px 15px; }
-            .era-name { font-size: 1.3rem; }
-            .era-desc { font-size: 0.95rem; }
-            .era-tag { padding: 4px 14px; font-size: 0.75rem; }
+            .era-name { font-size: 1.2rem; }
+            .era-desc { font-size: 0.9rem; }
+            .era-tag { padding: 4px 14px; font-size: 0.7rem; }
             
             .intro-box { padding: 25px 15px; }
-            .intro-main-title { font-size: 1.8rem; }
+            .intro-main-title { font-size: 1.6rem; }
             .intro-sub-title { font-size: 0.75rem; letter-spacing: 1px;}
             
             .modal-content { width: 95%; margin: 15px auto; }
             .modal-header { padding: 25px 20px 15px; }
             .modal-body { padding: 20px 15px; }
             .modal-footer { padding: 15px 15px 25px; }
-            .modal-title { font-size: 1.6rem; }
+            .modal-title { font-size: 1.5rem; }
             
             /* Giao diện Mobile cho Glossary ra giữa màn hình */
             .glossary-panel {
@@ -347,8 +358,8 @@
             }
             .glossary-widget { right: 15px; width: 45px; height: 45px; font-size: 1.2rem;}
             
-            .music-panel { bottom: 80px; left: 15px; width: 280px; }
-            .music-widget { left: 15px; bottom: 15px; width: 45px; height: 45px;}
+            .music-panel { bottom: 80px; right: 15px; width: 280px; left: auto;}
+            .music-widget { right: 15px; bottom: 15px; width: 45px; height: 45px; left: auto;}
             .record-disc { width: 45px; height: 45px; }
         }
     </style>
@@ -507,7 +518,7 @@
         <div class="glossary-list" id="glossary-list-container"></div>
     </div>
 
-    <!-- MUSIC PLAYER WIDGET (BÊN TRÁI) -->
+    <!-- MUSIC PLAYER WIDGET (BÊN PHẢI) -->
     <div class="music-widget">
         <div class="floating-notes" id="floating-notes"></div>
         <div class="record-disc" id="record-disc" onclick="handleDiscClick()"></div>
@@ -537,9 +548,8 @@
         // Khởi tạo kết nối Supabase (Cloud)
         const supabaseUrl = 'https://xdqanrqpgognavsfkrtt.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcWFucnFwZ29nbmF2c2ZrcnR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzE3NTAsImV4cCI6MjEwMTI0Nzc1MH0.f_EXEkRLrZXTyHTrp5jyRiw0tlvDjkepDcbo6IrO95o';
-        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); // FIX LỖI SẬP WEB Ở ĐÂY
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey); // FIX LỖI SẬP WEB KHÔNG BẤM NÚT ĐƯỢC
 
-        // Dữ liệu mặc định
         const defaultAppContent = {
             texts: {
                 "hero.label": "CẨM NANG DU HÀNH", "hero.welcome": "Chào mừng lữ khách ghé thăm", "hero.title": "MEOWNIA WORLD",
@@ -589,7 +599,7 @@
                     caption: "Bản đồ của kỷ nguyên hoàng kim"
                 },
                 {
-                    name: "KỶ NGUYÊN ĐẠI BIẾN", date: "Khoảng 18.000 TCL – 2.300 TCL", shortDesc: "Thời kỳ đen tối nhất lịch sử, thảm họa toàn cầu phá vỡ các lục địa và nhấn chìm những đế chế huy hoàng.", tags: "Hủy Diệt, Đứt Gãy, Quái Vật Khởi Sinh",
+                    name: "KỶ NGUYÊN ĐẠI BIẾN", date: "Khoảng 18.000 TCL – 2.300 TCL", shortDesc: "Thời kỳ đen tối nhất lịch sử, thảm họa toàn cầu phá vỡ các lục địa và nhấn chìm những đế chế huy hoàng.", tags: "Hủy Diệt, Đứt Gãy, Quái Vật",
                     overview: "Chỉ trong chưa đầy hai vạn năm, nền văn minh từng đạt đến đỉnh cao gần như sụp đổ hoàn toàn. Hàng loạt đế quốc biến mất, vô số tri thức thất truyền và phần lớn lịch sử trước đó chỉ còn tồn tại dưới dạng truyền thuyết hoặc những tàn tích bị chôn vùi.",
                     world: "Bản đồ Meownia biến dạng nghiêm trọng: đại hẻm vực nứt toác, các thành phố chìm xuống đáy biển, khí hậu cực đoan. Mana hỗn loạn sinh ra vô số quái vật và các Vùng Đất Cấm.",
                     features: ["Sự sụp đổ của toàn bộ hệ thống đế quốc và học viện cổ đại.", "Đứt gãy địa chất tạo ra các Hầm Ngục Cổ và Dị Không Gian.", "Sinh tồn trở thành mục tiêu duy nhất của những người sống sót."],
@@ -641,25 +651,24 @@
             }
         });
 
-        // HỆ THỐNG ĐỒNG BỘ CLOUD (SUPABASE)
+        // HỆ THỐNG ĐỒNG BỘ CLOUD (SUPABASE) - Đổi ID thành 999 để độc lập hoàn toàn với LoveMap cũ
         async function fetchInitialData() {
             document.getElementById('sync-status').style.display = 'block';
             document.getElementById('sync-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu Cloud...';
             try {
-                // Đổi ID thành 3 để tạo phân vùng hoàn toàn mới, không đè mất web LoveMap cũ
-                const { data, error } = await supabaseClient.from('lovemap').select('content').eq('id', 3).single();
+                const { data, error } = await supabaseClient.from('lovemap').select('content').eq('id', 999).single();
                 if (data && data.content) {
                     appData = { ...defaultAppContent, ...data.content };
                 } else {
-                    const localData = await localforage.getItem('meownia_final_v13');
+                    const localData = await localforage.getItem('meownia_final_cloud_v3');
                     if (localData) appData = { ...defaultAppContent, ...localData };
                 }
             } catch(e) {
-                const localData = await localforage.getItem('meownia_final_v13');
+                const localData = await localforage.getItem('meownia_final_cloud_v3');
                 if (localData) appData = { ...defaultAppContent, ...localData };
             }
             
-            // Ép an toàn tránh sập
+            // Ép nhận dữ liệu an toàn tránh sập web
             if(!appData.eras) appData.eras = defaultAppContent.eras;
             if(!appData.rules) appData.rules = defaultAppContent.rules;
             if(!appData.texts) appData.texts = defaultAppContent.texts;
@@ -677,11 +686,11 @@
             syncUI.style.display = 'block';
             syncUI.innerHTML = '<i class="fas fa-sync fa-spin"></i> Đang đồng bộ Cloud...';
             
-            await localforage.setItem('meownia_final_v13', appData);
+            await localforage.setItem('meownia_final_cloud_v3', appData);
 
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(async () => {
-                const { error } = await supabaseClient.from('lovemap').upsert({ id: 3, content: appData });
+                const { error } = await supabaseClient.from('lovemap').upsert({ id: 999, content: appData });
                 if(error) {
                     syncUI.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Lỗi Cloud! Đã lưu máy.';
                     syncUI.style.color = "#ff4444";
@@ -768,7 +777,9 @@
                         <i class="fas fa-plus"></i>
                     </button>
                     <div class="accordion-content">
-                        <p style="padding-top: 15px;" class="editable" data-rule-index="${index}" data-rule-field="content">${rule.content}</p>
+                        <div class="accordion-inner">
+                            <p style="padding-top: 5px; padding-bottom: 25px;" class="editable" data-rule-index="${index}" data-rule-field="content">${rule.content}</p>
+                        </div>
                     </div>
                 `;
                 container.appendChild(item);
@@ -876,9 +887,7 @@
         function toggleAccordion(btn, event) {
             if(event.target.isContentEditable) return; 
             btn.classList.toggle('active');
-            const content = btn.nextElementSibling;
-            if (btn.classList.contains('active')) { content.classList.add('active'); btn.querySelector('i').className = "fas fa-times"; } 
-            else { content.classList.remove('active'); btn.querySelector('i').className = "fas fa-plus"; }
+            btn.nextElementSibling.classList.toggle('active');
         }
 
         /* ========================================================
@@ -908,7 +917,7 @@
         });
 
         /* ========================================================
-           5. HỘP NHẠC PHÉP THUẬT (AUTO RANDOM)
+           5. HỘP NHẠC PHÉP THUẬT (AUTO RANDOM KHI BẤM ĐĨA)
            ======================================================== */
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-icon');
